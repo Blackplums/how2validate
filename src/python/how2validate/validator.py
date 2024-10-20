@@ -1,9 +1,11 @@
 import argparse
 import logging
 import re
+from typing import Union
 
-from how2validate.utility.config_utility import get_active_secret_status, get_inactive_secret_status, get_version
-from how2validate.utility.tool_utility import format_string, get_secretprovider, get_secretscope, get_secretservices, redact_secret, update_tool, validate_choice
+from how2validate.utility.config_utility import get_version
+from how2validate.utility.interface.validationResult import ValidationResult
+from how2validate.utility.tool_utility import format_string, get_secretprovider, get_secretscope, get_secretservices, update_tool, validate_choice
 from how2validate.utility.log_utility import setup_logging
 from how2validate.handler.validator_handler import validator_handle_service
 
@@ -65,16 +67,20 @@ def parse_arguments():
 
     # Check if the report argument is provided and validate the email
     if args.report and not validate_email(args.report):
-        parser.error("Invalid email address provided for --report option.")
+        parser.error(f"Invalid email address: {args.report}")
 
     return args
 
-def validate(provider,service, secret, response, report):
+def validate(provider:str, service:str, secret:str, response:bool, report:str, isBrowser:bool = True) -> Union[ValidationResult, str]:
     
     logging.info(f"Started validating secret...")
-    result = validator_handle_service(format_string(service), secret, response, report)
-    logging.info(f"{result}")
-    # return f"{result}"
+    if isBrowser:
+        # Check if the report argument is provided and validate the email
+        if report and not validate_email(report):
+            logging.error(f"Invalid email address: {report}")
+        else:
+            result = validator_handle_service(format_string(provider), format_string(service), secret, response, report, isBrowser)
+            # return f"{result}"
 
 def main(args=None):
     if args is None:
@@ -93,18 +99,23 @@ def main(args=None):
         try:
             get_secretscope()
         except Exception as e:
-            logging.error(f"Error fetching Scoped secret services : {e}")
+            logging.error(f"Error fetching Scoped secret services: {e}")
         return
 
     if not args.provider or not args.service or not args.secret:
         logging.error("Missing required arguments: -Provider, -Service, -Secret")
         logging.error("Use '-h' or '--help' for usage information.")
         return
+    
+    # Check and validate the `--report` argument if required arguments missing 
+    if args.report and (not args.provider or not args.service or not args.secret):
+        logging.error("Missing required arguments: -Provider, -Service, -Secret")
+        logging.error("Use '-h' or '--help' for usage information.")
+        return
 
     try:
         logging.info(f"Initiating validation for service: {args.service} with a provided secret.")
-        result = validate(args.provider, args.service, args.secret, args.response, args.report)
+        result = validate(args.provider, args.service, args.secret, args.response, args.report,False)
         logging.info("Validation completed successfully.")
     except Exception as e:
         logging.error(f"An error occurred during validation: {e}")
-        print(f"Error: {e}")

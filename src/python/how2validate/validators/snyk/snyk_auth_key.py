@@ -4,7 +4,7 @@ import requests
 from how2validate.utility.config_utility import get_active_secret_status, get_inactive_secret_status
 from how2validate.utility.log_utility import get_secret_status_message
 
-def validate_snyk_auth_key(service, secret, response, report):
+def validate_snyk_auth_key(provider, service, secret, response, report, isBrowser):
     """
     Validates the Snyk API key by making a request to the Snyk user API.
     Raises an exception if the validation fails or returns an appropriate message if the token is inactive.

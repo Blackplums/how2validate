@@ -1,3 +1,4 @@
+import logging
 import os
 import configparser
 
@@ -18,7 +19,7 @@ def init_config():
         config.read(config_file_path)
         # Optionally handle any loading errors here
     except FileNotFoundError:
-        print(f"Error: The file '{config_file_path}' was not found.")
+        logging.error(f"Error: The file '{config_file_path}' was not found.")
 
 # Function to get the package name from the DEFAULT section
 def get_package_name():
@@ -45,6 +46,13 @@ def get_inactive_secret_status():
 def get_version():
     if config:
         return config.get('DEFAULT', 'version')
+    else:
+        raise ValueError("Configuration not initialized. Call init_config() first.")
+
+# Function to get the app name from the DEFAULT section
+def get_app_name():
+    if config:
+        return config.get('DEFAULT', 'app_name')
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
 

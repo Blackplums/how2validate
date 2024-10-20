@@ -4,7 +4,7 @@ import requests
 from how2validate.utility.config_utility import get_active_secret_status, get_inactive_secret_status
 from how2validate.utility.log_utility import get_secret_status_message
 
-def validate_npm_access_token(service, secret, response, report):
+def validate_npm_access_token(provider, service, secret, response, report, isBrowser):
     """
     Validates the NPM access token by making a request to the NPM user API.
     Raises an exception if the validation fails or returns an appropriate message if the token is inactive.

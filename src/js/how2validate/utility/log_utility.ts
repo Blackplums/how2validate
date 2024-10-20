@@ -67,6 +67,6 @@ export function getSecretStatusMessage(
   return {
     state: state,
     message: msgData,
-    response: resData, // Ensure it returns the initialized variable
+    response: resData ? resData : `{}`, // Ensure it returns the initialized variable
   }; // Return the formatted status message
 }
