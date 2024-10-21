@@ -6,6 +6,16 @@ import configparser
 config = None
 
 def init_config():
+    """
+    Initializes the configuration by loading the config.ini file.
+
+    This function creates an instance of ConfigParser, determines the path to the
+    config.ini file, and attempts to read it. If the file is not found, an error
+    message is logged.
+
+    Raises:
+        FileNotFoundError: If the config.ini file cannot be found at the specified path.
+    """
     global config
     config = configparser.ConfigParser()
 
@@ -21,36 +31,76 @@ def init_config():
     except FileNotFoundError:
         logging.error(f"Error: The file '{config_file_path}' was not found.")
 
-# Function to get the package name from the DEFAULT section
 def get_package_name():
+    """
+    Retrieves the package name from the DEFAULT section of the configuration.
+
+    Returns:
+        str: The package name defined in the config.ini file.
+
+    Raises:
+        ValueError: If the configuration has not been initialized.
+    """
     if config:
         return config.get('DEFAULT', 'package_name')
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
 
-# Function to get the active secret status from the SECRET section
 def get_active_secret_status():
+    """
+    Retrieves the active secret status from the SECRET section of the configuration.
+
+    Returns:
+        str: The active secret status defined in the config.ini file.
+
+    Raises:
+        ValueError: If the configuration has not been initialized.
+    """
     if config:
         return config.get('SECRET', 'secret_active')
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
 
-# Function to get the inactive secret status from the SECRET section
 def get_inactive_secret_status():
+    """
+    Retrieves the inactive secret status from the SECRET section of the configuration.
+
+    Returns:
+        str: The inactive secret status defined in the config.ini file.
+
+    Raises:
+        ValueError: If the configuration has not been initialized.
+    """
     if config:
         return config.get('SECRET', 'secret_inactive')
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
-    
-# Function to get the version from the DEFAULT section
+
 def get_version():
+    """
+    Retrieves the version from the DEFAULT section of the configuration.
+
+    Returns:
+        str: The version defined in the config.ini file.
+
+    Raises:
+        ValueError: If the configuration has not been initialized.
+    """
     if config:
         return config.get('DEFAULT', 'version')
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
 
-# Function to get the app name from the DEFAULT section
 def get_app_name():
+    """
+    Retrieves the app name from the DEFAULT section of the configuration.
+
+    Returns:
+        str: The app name defined in the config.ini file.
+
+    Raises:
+        ValueError: If the configuration has not been initialized.
+    """
     if config:
         return config.get('DEFAULT', 'app_name')
     else:

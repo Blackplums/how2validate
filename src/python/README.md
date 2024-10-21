@@ -27,20 +27,20 @@ To see all available commands, use:
 ```bash
 how2validate --help
 
-usage: How2Validate Tool
+usage: How2Validate Tool [options]
 
 Validate various types of secrets for different services.
 
 options:
-  -h, --help          show this help message and exit
-  -secretscope        Explore the secret universe. Your next target awaits.
-  -provider PROVIDER  Specify your provider. Unleash your validation arsenal.
-  -service SERVICE    Specify your target service. Validate your secrets with precision.
-  -secret SECRET      Unveil your secrets to verify their authenticity.
-  -r, --response      Monitor the status. View if your secret Active or InActive.
-  -report             Get detailed reports. Receive validated secrets via email [Alpha Feature].
-  -v, --version       Expose the version.
-  --update            Hack the tool to the latest version.
+  -h, --help      show this help message and exit
+  -secretscope    Explore the secret universe. Your next target awaits.
+  -p, --provider  Specify your provider. Unleash your validation arsenal.
+  -s, --service   Specify your target service. Validate your secrets with precision.
+  -sec, --secret  Unveil your secrets to verify their authenticity.
+  -r, --response  Monitor the status. View if your secret is Active or InActive.
+  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].
+  -v, --version   Expose the version.
+  --update        Hack the tool to the latest version.
 
 Ensuring the authenticity of your secrets.
 ```
@@ -77,7 +77,7 @@ validation_result = validate(
     service="NPM Access Token",
     secret="<<SECRET_HERE>>",
     response=False,
-    report=False,
+    report="useremail@domain.com",
 )
 print(validation_result)
 

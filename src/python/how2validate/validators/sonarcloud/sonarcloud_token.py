@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 from how2validate.handler.email_handler import send_email
@@ -54,59 +55,45 @@ def validate_sonarcloud_token(provider: str, service: str, secret: str, response
             
             validation_response.state = active_response.data.validate.state
             validation_response.message = active_response.data.validate.message
-            validation_response.response = active_response.data.validate.response
+            validation_response.response = json.dumps(active_response.to_dict(), indent=4)
 
             return response_validation(active_response, response_flag)
-        else:
+
+    except requests.HTTPError as error:
+
+        if 400 <= error.response.status_code < 500:
             # Handle inactive token or other statuses
             inactive_response = handle_inactive_status(
                 provider,
                 service,
                 response_flag,
-                response_data.json(),
+                error,
                 report,
                 is_browser
             )
 
             validation_response.state = inactive_response.data.validate.state
             validation_response.message = inactive_response.data.validate.message
-            validation_response.response = inactive_response.data.validate.response
+            validation_response.response = json.dumps(inactive_response.to_dict(), indent=4)
 
             return response_validation(inactive_response, response_flag)
+        
+        elif 500 <= error.response.status_code < 600:
+            # Handle inactive token or other statuses
+            error_response = handle_errors(
+                provider,
+                service,
+                response_flag,
+                report,
+                error,
+                is_browser
+            )
 
-    except requests.HTTPError as error:
-        # Handle HTTP errors
-        error_response = handle_errors(
-            provider,
-            service,
-            response_flag,
-            report,
-            error,
-            is_browser
-        )
+            validation_response.state = error_response.data.validate.state
+            validation_response.message = error_response.data.validate.message
+            validation_response.response = json.dumps(error_response.to_dict(), indent=4)
 
-        validation_response.state = error_response.data.validate.state
-        validation_response.message = error_response.data.validate.message
-        validation_response.response = error_response.data.validate.response
-
-        return response_validation(error_response, response_flag)
-
-    except requests.RequestException as error:
-        # Handle general request exceptions
-        inactive_response = handle_inactive_status(
-            provider,
-            service,
-            response_flag,
-            error,
-            report,
-            is_browser
-        )
-
-        validation_response.state = inactive_response.data.validate.state
-        validation_response.message = inactive_response.data.validate.message
-        validation_response.response = inactive_response.data.validate.response
-
-        return response_validation(inactive_response, response_flag)
+            return response_validation(error_response, response_flag)
 
     finally:
         # If a report email is provided, send the validation result via email
@@ -119,8 +106,8 @@ def validate_sonarcloud_token(provider: str, service: str, secret: str, response
                 message=validation_response.message,
                 response=validation_response.response,
             )
-            # try:
-            #     send_email(email_response)
-            #     logging.info('Validation report sent successfully')
-            # except Exception as e:
-            #     logging.error('Error sending validation report', e)
+            try:
+                send_email(email_response)
+                logging.info('Validation report sent successfully')
+            except Exception as e:
+                logging.error('Error sending validation report', e)

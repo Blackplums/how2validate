@@ -9,12 +9,15 @@ from how2validate.utility.tool_utility import format_string, get_secretprovider,
 from how2validate.utility.log_utility import setup_logging
 from how2validate.handler.validator_handler import validator_handle_service
 
-# Call the logging setup function
-setup_logging()
 
 # Custom formatter to remove choices display but keep custom help text
 class CustomHelpFormatter(argparse.RawTextHelpFormatter):
-    """Custom help formatter for aligned options."""
+    """
+    Custom help formatter for the CLI tool to align and format options.
+
+    Methods:
+        _format_action_invocation: Overrides the default action invocation to align options.
+    """
 
     def _format_action_invocation(self, action):
         """Format action invocation with aligned option strings."""
@@ -26,12 +29,26 @@ class CustomHelpFormatter(argparse.RawTextHelpFormatter):
             parts.append(f"<{action.dest.upper()}>")
         return ' '.join(parts)
 
-def validate_email(email):
-    """Validate the provided email format."""
+def validate_email(email: str) -> bool:
+    """
+    Validate the provided email format using a regular expression.
+
+    Args:
+        email (str): The email address to validate.
+
+    Returns:
+        bool: True if the email is valid, otherwise False.
+    """
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(email_regex, email) is not None
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
+    """
+    Parse command-line arguments for the How2Validate CLI tool.
+
+    Returns:
+        argparse.Namespace: Parsed arguments as a namespace object.
+    """
     parser = argparse.ArgumentParser(
         prog="How2Validate Tool",
         description="Validate various types of secrets for different services.",
@@ -40,11 +57,11 @@ def parse_arguments():
         formatter_class=CustomHelpFormatter
     )
 
-    # Retrieve choices from environment variable
+    # Retrieve choices from environment variables or configuration
     provider = get_secretprovider()
     services = get_secretservices()
 
-    # Define arguments
+    # Define the CLI arguments
     parser.add_argument('-secretscope', action='store_true',
                         help='Explore the secret universe. Your next target awaits.')
     parser.add_argument('-p', '--provider', type=lambda s: validate_choice(s, provider), required=False,
@@ -65,24 +82,45 @@ def parse_arguments():
     # Parse the arguments
     args = parser.parse_args()
 
-    # Check if the report argument is provided and validate the email
+    # Validate the email if the report option is provided
     if args.report and not validate_email(args.report):
         parser.error(f"Invalid email address: {args.report}")
 
     return args
 
-def validate(provider:str, service:str, secret:str, response:bool, report:str, isBrowser:bool = True) -> Union[ValidationResult, str]:
-    
+def validate(provider: str, service: str, secret: str, response: bool, report: str, isBrowser: bool = True) -> Union[ValidationResult, str]:
+    """
+    Validate the provided secret using the specified provider and service.
+
+    Args:
+        provider (str): The provider to use for validation.
+        service (str): The service to validate the secret with.
+        secret (str): The secret to be validated.
+        response (bool): Whether to get a response status for the secret.
+        report (str): The report option (email address).
+        isBrowser (bool, optional): Whether the validation is performed in a browser. Defaults to True.
+
+    Returns:
+        Union[ValidationResult, str]: The validation result or error message.
+
+    Raises:
+        ValueError: If the report email is invalid.
+    """
     logging.info(f"Started validating secret...")
-    if isBrowser:
-        # Check if the report argument is provided and validate the email
-        if report and not validate_email(report):
-            logging.error(f"Invalid email address: {report}")
-        else:
-            result = validator_handle_service(format_string(provider), format_string(service), secret, response, report, isBrowser)
-            # return f"{result}"
+    if isBrowser and report and not validate_email(report):
+        logging.error(f"Invalid email address: {report}")
+    else:
+        result = validator_handle_service(format_string(provider), format_string(service), secret, response, report, isBrowser)
+        return result
 
 def main(args=None):
+    """
+    Main function to execute the How2Validate CLI tool logic.
+
+    Args:
+        args (argparse.Namespace, optional): Parsed arguments from the command-line. Defaults to None.
+    """
+    setup_logging()
     if args is None:
         args = parse_arguments()
 
@@ -107,7 +145,6 @@ def main(args=None):
         logging.error("Use '-h' or '--help' for usage information.")
         return
     
-    # Check and validate the `--report` argument if required arguments missing 
     if args.report and (not args.provider or not args.service or not args.secret):
         logging.error("Missing required arguments: -Provider, -Service, -Secret")
         logging.error("Use '-h' or '--help' for usage information.")
@@ -115,7 +152,7 @@ def main(args=None):
 
     try:
         logging.info(f"Initiating validation for service: {args.service} with a provided secret.")
-        result = validate(args.provider, args.service, args.secret, args.response, args.report,False)
+        result = validate(args.provider, args.service, args.secret, args.response, args.report, False)
         logging.info("Validation completed successfully.")
     except Exception as e:
         logging.error(f"An error occurred during validation: {e}")

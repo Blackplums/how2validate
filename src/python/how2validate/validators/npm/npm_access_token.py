@@ -1,24 +1,33 @@
 import json
+import logging
 import requests
+from how2validate.handler.email_handler import send_email
+from how2validate.utility.interface.EmailResponse import EmailResponse
+from how2validate.utility.interface.validationResult import ValidationProcess, ValidationResult
+from how2validate.utility.tool_utility import handle_active_status, handle_inactive_status, handle_errors, response_validation
 
-from how2validate.utility.config_utility import get_active_secret_status, get_inactive_secret_status
-from how2validate.utility.log_utility import get_secret_status_message
-
-def validate_npm_access_token(provider, service, secret, response, report, isBrowser):
+def validate_npm_access_token(provider: str, service: str, secret: str, response_flag: bool, report: str, is_browser: bool = True) -> ValidationResult:
     """
-    Validates the NPM access token by making a request to the NPM user API.
-    Raises an exception if the validation fails or returns an appropriate message if the token is inactive.
+    Validates the NPM access token by making a request to the NPM API.
 
     Parameters:
-    - service (str): The name of the service.
-    - secret (str): The NPM access token (secret) to validate.
-    - response (bool): If True, the function will return the response data in addition to the status message.
-    - report (bool): Unused parameter, assumed for future extension.
+    - provider (str): The provider name (e.g., "NPM").
+    - service (str): The name of the service being validated.
+    - secret (str): The NPM authentication token or secret to validate.
+    - response_flag (bool): Flag to indicate whether detailed response data should be returned.
+    - report (str): An optional email address to which a validation report should be sent.
+    - is_browser (bool): Indicates if the function is called from a browser environment (default is False).
 
     Returns:
-    - A status message indicating whether the secret is active or inactive.
-    - Optionally, the response data if `response` is True.
+    - ValidationResult: A structured response indicating the validation results.
     """
+    # Initialize the response structure as an instance of the ValidationProcess class
+    validation_response = ValidationProcess(
+        state="",
+        message="",
+        response=None,
+        report="email@how2validate.com"
+    )
 
     # NPM API endpoint for validating the token
     url = "https://registry.npmjs.org/-/npm/v1/user"
@@ -30,92 +39,75 @@ def validate_npm_access_token(provider, service, secret, response, report, isBro
     try:
         # Send a GET request to the NPM API with combined headers (nocache + authorization)
         response_data = requests.get(url, headers={**nocache_headers, **headers_map})
-        
         # Raise an HTTPError if the response has an unsuccessful status code (4xx or 5xx)
         response_data.raise_for_status()
-
+        
         # Check if the request was successful (HTTP 200)
         if response_data.status_code == 200:
-            # If `response` is False, return the active status message without response data
-            if not response:
-                return get_secret_status_message(service, get_active_secret_status(), response)
-            else:
-                # Attempt to parse the JSON response and return it
-                try:
-                    json_response = response_data.json()
-                    return get_secret_status_message(service, get_active_secret_status(), response, json.dumps(json_response, indent=4))
-                except json.JSONDecodeError:
-                    # Return an error message if the response isn't valid JSON
-                    return get_secret_status_message(service, get_active_secret_status(), response, "Response is not a valid JSON.")
-        else:
-            # If the response status code is not 200, treat the secret as inactive
-            if not response:
-                return get_secret_status_message(service, get_inactive_secret_status(), response)
-            else:
-                # Return the status message along with the raw text of the response
-                return get_secret_status_message(service, get_inactive_secret_status(), response, response_data.text)
+            # If the token is valid, handle active status
+            active_response = handle_active_status(
+                provider,
+                service,
+                response_data,
+                response_flag,
+                report,
+                is_browser
+            )
 
-    # Exception handling for specific HTTP errors
-    except requests.HTTPError as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text if e.response else "HTTPError response.")
-    
-    # General request exceptions (e.g., network issues)
-    except requests.RequestException as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
+            validation_response.state = active_response.data.validate.state
+            validation_response.message = active_response.data.validate.message
+            validation_response.response = json.dumps(active_response.to_dict(), indent=4)
 
-    # Handle connection errors
-    except requests.ConnectionError as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
+            return response_validation(active_response, response_flag)
 
-    # Handle incorrect URLs
-    except requests.URLRequired as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
+    except requests.HTTPError as error:
+        if 400 <= error.response.status_code < 500:
+            # Handle inactive token or other statuses
+            inactive_response = handle_inactive_status(
+                provider,
+                service,
+                response_flag,
+                error,
+                report,
+                is_browser
+            )
 
-    # Handle excessive redirects
-    except requests.TooManyRedirects as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
+            validation_response.state = inactive_response.data.validate.state
+            validation_response.message = inactive_response.data.validate.message
+            validation_response.response = json.dumps(inactive_response.to_dict(), indent=4)
 
-    # Handle connection timeouts
-    except requests.ConnectTimeout as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
-
-    # Handle read timeouts
-    except requests.ReadTimeout as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
-
-    # Handle request timeouts in general
-    except requests.Timeout as e:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
-
-    # Handle JSON decoding errors
-    except json.JSONDecodeError:
-        if not response:
-            return get_secret_status_message(service, get_inactive_secret_status(), response)
-        else:
-            return get_secret_status_message(service, get_inactive_secret_status(), response, e.response.text)
-
+            return response_validation(inactive_response, response_flag)
         
+        elif 500 <= error.response.status_code < 600:
+            # Handle server error
+            error_response = handle_errors(
+                provider,
+                service,
+                response_flag,
+                report,
+                error,
+                is_browser
+            )
+
+            validation_response.state = error_response.data.validate.state
+            validation_response.message = error_response.data.validate.message
+            validation_response.response = json.dumps(error_response.to_dict(), indent=4)
+
+            return response_validation(error_response, response_flag)
+
+    finally:
+        # If a report email is provided, send the validation result via email
+        if report:
+            email_response = EmailResponse(
+                email=report,
+                provider=provider,
+                service=service,
+                state=validation_response.state,
+                message=validation_response.message,
+                response=validation_response.response,
+            )
+            try:
+                send_email(email_response)
+                logging.info('Validation report sent successfully')
+            except Exception as e:
+                logging.error('Error sending validation report', e)

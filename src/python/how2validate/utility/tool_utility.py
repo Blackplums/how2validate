@@ -6,15 +6,12 @@ import os
 import subprocess
 import sys
 
-import requests
+from requests.exceptions import HTTPError
 from tabulate import tabulate
 
 from how2validate.utility.config_utility import get_active_secret_status, get_inactive_secret_status, get_package_name, get_app_name
-from how2validate.utility.interface.validationResult import ValidationData, ValidationProcess, ValidationResult
-from how2validate.utility.log_utility import get_secret_status_message, setup_logging
-
-# Call the logging setup function
-setup_logging()
+from how2validate.utility.interface.validationResult import ValidationData, ValidationError, ValidationProcess, ValidationResult
+from how2validate.utility.log_utility import get_secret_status_message
 
 # Get the directory of the current file
 current_dir = os.path.dirname(__file__)
@@ -35,17 +32,26 @@ def get_current_timestamp() -> str:
 
 def is_error(error: any) -> bool:
     """
-    Type guard to check if the error is an instance of Exception.
+    Checks whether the provided argument is an instance of an Exception.
 
     Args:
-        error (unknown): The error to check.
+        error (any): The error to check.
 
     Returns:
-        bool: True if the error is an instance of Exception, False otherwise.
+        bool: True if the argument is an instance of Exception, False otherwise.
     """
     return isinstance(error, Exception)
 
 def get_secretprovider(file_path = file_path):
+    """
+    Reads the tokenManager.json file and returns a list of providers for enabled secrets.
+
+    Args:
+        file_path (str): The path to the tokenManager.json file.
+
+    Returns:
+        list: A list of providers that have enabled secrets.
+    """
     with open(file_path, 'r') as f:
         data = json.load(f)
     
@@ -59,6 +65,15 @@ def get_secretprovider(file_path = file_path):
     return enabled_secrets_services
 
 def get_secretservices(file_path = file_path):
+    """
+    Reads the tokenManager.json file and returns a list of enabled secret services.
+
+    Args:
+        file_path (str): The path to the tokenManager.json file.
+
+    Returns:
+        list: A list of display names for enabled secret services.
+    """
     with open(file_path, 'r') as f:
         data = json.load(f)
     
@@ -73,18 +88,16 @@ def get_secretservices(file_path = file_path):
 
 def get_secretscope(file_path = file_path):
     """
-    Reads a JSON file containing provider tokens and logs a table of enabled services.
+    Reads the tokenManager.json file and logs a table of enabled services for each provider.
 
     Args:
-        file_path (str): The path to the JSON file containing provider tokens. 
-                         Defaults to the global variable `file_path`.
+        file_path (str): The path to the tokenManager.json file.
 
     Raises:
-        FileNotFoundError: If the specified file cannot be found or read.
-    
+        FileNotFoundError: If the file is not found or unreadable.
+
     Returns:
-        None: This function logs a formatted table of enabled provider services.
-              If no enabled services are found, it logs a relevant message.
+        None: Logs a table of enabled services for each provider.
     """
     # Open and load the JSON file
     with open(file_path, 'r') as f:
@@ -166,7 +179,12 @@ def redact_secret(secret):
     return secret[:5] + '*' * (len(secret) - 5)
 
 def update_tool():
-    """Update the tool to the latest version."""
+    """
+    Updates the tool to the latest version using pip.
+    
+    Returns:
+        None: Logs success or failure.
+    """
     logging.info("Updating the tool...")
     # Use 'pip3' for Python 3.x and 'pip' for Python 2.x or if Python 3.x is the default interpreter
     pip_command = "pip3" if sys.version_info.major == 3 else "pip"
@@ -206,7 +224,7 @@ def handle_active_status(
     is_browser: bool
 ) -> ValidationResult:
     """
-    Handle the active status of the service and format the response.
+    Handles the case where the service is active, logs the message, and formats the response.
 
     Args:
         provider (str): The provider name.
@@ -244,7 +262,7 @@ def handle_active_status(
     if not is_browser:
         logging.info(
             f"{res.message}" +
-            (f"\nHere is the additional response data:\n{json.loads(res.response)}" if response_flag else "")
+            (f"\nHere is the additional response data:\n{json.dumps(active_response_data.to_dict(), indent=4)}" if response_flag else "")
         )
 
     return active_response_data
@@ -254,7 +272,7 @@ def handle_inactive_status(
     provider: str,
     service: str,
     response_flag: bool,
-    data: any = None,
+    data: HTTPError = None,
     report: str = None,
     is_browser: bool = False
 ) -> ValidationResult:
@@ -273,20 +291,31 @@ def handle_inactive_status(
         ValidationResult: A validation result object indicating the inactive status.
     """
 
+    # Handle case where data is an HTTPError
+    data_message = str(data) if isinstance(data, HTTPError) else data
+    
+    # Get the inactive secret status message
     res = get_secret_status_message(
         service,
         get_inactive_secret_status(),
-        json.dumps(data) if data else "No additional data."
+        json.dumps(data_message) if data_message else "No additional data."
     )
 
+    # Try parsing the response or use the raw response if parsing fails
+    try:
+        response_data = json.loads(res.response) if res.response else "No response"
+    except json.JSONDecodeError:
+        response_data = res.response  # Fallback to raw response in case of error
+
+    # Construct the ValidationResult
     inactive_response_data = ValidationResult(
-        status=data.get('status'),
+        status=data.response.status_code if data else 401, 
         app=appName, 
         data=ValidationData(
             validate=ValidationProcess(
                 state=res.state,
                 message=res.message,
-                response=json.loads(res.response),
+                response=response_data,
                 report=report if report else "email@how2validate.com"
             ),
             provider=provider,
@@ -299,7 +328,8 @@ def handle_inactive_status(
     if not is_browser:
         logging.info(
             f"{res.message}" +
-            (f"\nHere is the additional response data:\n{json.loads(res.response)}" if response_flag else "")
+            (f"\nHere is the additional response data:\n{json.dumps(inactive_response_data.to_dict(), indent=4)}"
+             if response_flag else "")
         )
 
     return inactive_response_data
@@ -309,7 +339,7 @@ def handle_errors(
     service: str,
     response_flag: bool,
     report: str,
-    error: Exception,  # Using Exception to catch all types of errors
+    error: Exception,
     is_browser: bool = False
 ) -> ValidationResult:
     """
@@ -327,28 +357,38 @@ def handle_errors(
         ValidationResult: A validation result object based on the type of error.
     """
 
-    if isinstance(error, requests.HTTPError):  # Check if it's an HTTP error
-        status = error.response.status_code if error.response else 500
-        error_data = error.response.json() if error.response and error.response.content else "Authentication failed."
+    # Handle case where data is an HTTPError
+    data_message = str(error) if isinstance(error, HTTPError) else error
+    
+    # Get the inactive secret status message
+    res = get_secret_status_message(
+        service,
+        get_inactive_secret_status(),
+        json.dumps(data_message) if data_message else "No additional data."
+    )
 
-        res = get_secret_status_message(
-            service,
-            get_inactive_secret_status(),
-            json.dumps(error_data, indent=4)
-        )
+    # Try parsing the response or use the raw response if parsing fails
+    try:
+        response_data = json.loads(res.response) if res.response else "No response"
+    except json.JSONDecodeError:
+        response_data = res.response 
+
 
         err_response_data = ValidationResult(
-            status=status,
-            app=appName,  # Replace with the actual app name variable if defined
+            status=error.response.status_code if error else 500,
+            app=appName, 
             data=ValidationData(
                 validate=ValidationProcess(
                     state=res.state,
                     message=res.message,
-                    response=json.loads(res.response),
+                    response=response_data,
                     report=report if report else "email@how2validate.com"
                 ),
                 provider=provider,
                 services=service,
+            ),
+            error=ValidationError(
+                message=response_data
             ),
             timestamp=get_current_timestamp()
         )
@@ -356,28 +396,11 @@ def handle_errors(
         # Log the result if not in the browser environment
         if not is_browser:
             logging.info(
-                f"{res.message}" +
-                (f"\nHere is the additional response data:\n{json.loads(res.response)}" if response_flag else "")
-            )
+            f"{res.message}" +
+            (f"\nHere is the additional response data:\n{json.dumps(err_response_data.to_dict(), indent=4)}" if response_flag else "")
+        )
 
         return err_response_data
-
-    # Handle unexpected errors
-    return ValidationResult(
-            status=500,
-            app=appName,  # Replace with the actual app name variable if defined
-            data=ValidationData(
-                validate=ValidationProcess(
-                    state=get_inactive_secret_status(),
-                    message="An unexpected error occurred.",
-                    response="{}",
-                    report=report if report else "email@how2validate.com"
-                ),
-                provider=provider,
-                services=service,
-            ),
-            timestamp=get_current_timestamp()
-        )
 
 def response_validation(res_data: ValidationResult, response_flag: bool) -> ValidationResult:
     """
