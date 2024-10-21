@@ -1,4 +1,5 @@
 import argparse
+import json
 import logging
 import re
 from typing import Union
@@ -111,7 +112,7 @@ def validate(provider: str, service: str, secret: str, response: bool, report: s
         logging.error(f"Invalid email address: {report}")
     else:
         result = validator_handle_service(format_string(provider), format_string(service), secret, response, report, isBrowser)
-        return result
+        return json.dumps(result.to_dict(), indent=4)
 
 def main(args=None):
     """
