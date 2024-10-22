@@ -543,7 +543,7 @@ export function handleActiveStatus(
 
   // Log the result if not in the browser environment
   if (!isBrowser) {
-    console.info(`${res.message} ${responseFlag ? res.response : ""}`);
+    console.info(`${res.message}${responseFlag ? `\nHere is the additional response data:\n${JSON.stringify(activeResponseData, null, 4)}` : ""}`);
   }
 
   return activeResponseData;
@@ -567,7 +567,7 @@ export function handleInactiveStatus(
   responseFlag: boolean,
   data?: any,
   report?: string,
-  isBrowser: boolean = false
+  isBrowser: boolean = true
 ): ValidationResult{
   const appName = "How2Validate";
   const timestamp = getCurrentTimestamp();
@@ -595,7 +595,7 @@ export function handleInactiveStatus(
   };
 
   if (!isBrowser) {
-    console.info(`${res.message} ${responseFlag ? res.response : ""}`);
+    console.info(`${res.message}${responseFlag ? `\nHere is the additional response data:\n${JSON.stringify(inactiveResponseData, null, 4)}` : ""}`);
   }
 
   return inactiveResponseData;
@@ -618,7 +618,7 @@ export function handleErrors(
   responseFlag: boolean,
   report: string,
   error: unknown,
-  isBrowser: boolean = false
+  isBrowser: boolean = true
 ): ValidationResult {
   const appName = "How2Validate";
   const timestamp = getCurrentTimestamp();
@@ -648,11 +648,14 @@ export function handleErrors(
         provider: provider,
         services: service
       },
+      error:{
+        message: res.response,
+      },
       timestamp,
     };
 
     if (!isBrowser) {
-      console.info(`${res.message} ${responseFlag ? res.response : ""}`);
+      console.info(`${res.message}${responseFlag ? `\nHere is the additional response data:\n${JSON.stringify(errResponseData, null, 4)}` : ""}`);
     }
 
     return errResponseData;

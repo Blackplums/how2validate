@@ -16,7 +16,7 @@ import { ValidationResult } from "../utility/interface/validationResult.js"; // 
  * @param {string} secret - The secret (e.g., API key, token) to validate.
  * @param {boolean} response - Indicates whether to include response data in the output.
  * @param {string} [report] - Optional email address for sending validation reports.
- * @param {boolean} [isBrowser=false] - Indicates if the validation is occurring in a browser environment.
+ * @param {boolean} [isBrowser=true] - Indicates if the validation is occurring in a browser environment.
  * @returns {Promise<ValidationResult>} A promise that resolves to a validation result object.
  */
 type ValidatorFunction = (
@@ -25,7 +25,7 @@ type ValidatorFunction = (
   secret: string,
   response: boolean,
   report: string,
-  isBrowser?: boolean
+  isBrowser: boolean
 ) => Promise<ValidationResult>;
 
 
@@ -51,7 +51,7 @@ const serviceHandlers: Record<string, ValidatorFunction> = {
  * @param {string} secret - The secret (e.g., API key, token) to validate.
  * @param {boolean} response - A boolean indicating whether to include response data in the output.
  * @param {string} [report] - An optional email address for sending validation reports.
- * @param {boolean} [isBrowser=false] - Indicates if the validation is occurring in a browser environment.
+ * @param {boolean} [isBrowser=true] - Indicates if the validation is occurring in a browser environment.
  * @returns {Promise<ValidationResult | string>} A promise that resolves to the validation result or an error message.
  * 
  * @example
@@ -64,7 +64,7 @@ export async function validatorHandleService(
   secret: string,
   response: boolean,
   report: string,
-  isBrowser: boolean = false
+  isBrowser: boolean = true
 ): Promise<ValidationResult | string> {
   // Retrieve the handler function based on the provided service name
   const handler = serviceHandlers[service];

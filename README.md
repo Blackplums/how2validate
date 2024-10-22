@@ -51,14 +51,14 @@ Join our [GitHub Community Discussion](https://github.com/Blackplums/how2validat
 Stay updated with the latest versions and downloads:
 
 <div align="center">
-  <a href="https://jsr.io/@how2validate/how2validate" target="_blank">
-    <svg viewBox="0 0 13 7" class="inline w-auto relative mr-3" aria-hidden="true" height="56"><path d="M0,2h2v-2h7v1h4v4h-2v2h-7v-1h-4" fill="#083344"></path><g fill="#f7df1e"><path d="M1,3h1v1h1v-3h1v4h-3"></path><path d="M5,1h3v1h-2v1h2v3h-3v-1h2v-1h-2"></path><path d="M9,2h3v2h-1v-1h-1v3h-1"></path></g></svg>
+   <a href="https://jsr.io/@how2validate/how2validate" target="_blank">
+    <img src="https://github.com/jsr-io/jsr/blob/main/frontend/static/logo.png" height="56" alt="jsr.io"  />
   </a>
   <a href="https://pypi.org/project/how2validate/" target="_blank">
    <img src="https://pypi.org/static/images/logo-small.8998e9d1.svg" height="50" alt="pypi.org"  />
   </a>
   <a href="https://github.com/Blackplums/how2validate/pkgs/container/how2validate" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" data-package-type="Container" class="mr-2"><path fill-rule="evenodd" d="M13.152.682a2.25 2.25 0 012.269 0l.007.004 6.957 4.276a2.276 2.276 0 011.126 1.964v7.516c0 .81-.432 1.56-1.133 1.968l-.002.001-11.964 7.037-.004.003a2.276 2.276 0 01-2.284 0l-.026-.015-6.503-4.502a2.268 2.268 0 01-1.096-1.943V9.438c0-.392.1-.77.284-1.1l.003-.006.014-.026a2.28 2.28 0 01.82-.827h.002L13.152.681zm.757 1.295h-.001L2.648 8.616l6.248 4.247a.776.776 0 00.758-.01h.001l11.633-6.804-6.629-4.074a.75.75 0 00-.75.003zM18 9.709l-3.25 1.9v7.548L18 17.245V9.709zm1.5-.878v7.532l2.124-1.25a.777.777 0 00.387-.671V7.363L19.5 8.831zm-9.09 5.316l2.84-1.66v7.552l-3.233 1.902v-7.612c.134-.047.265-.107.391-.18l.002-.002zm-1.893 7.754V14.33a2.277 2.277 0 01-.393-.18l-.023-.014-6.102-4.147v7.003c0 .275.145.528.379.664l.025.014 6.114 4.232z" fill="currentColor"></path></svg>
+    <img src="https://cdn-icons-png.flaticon.com/512/9402/9402282.png" height="60" alt="container image"  />
   </a>
 </div>
 
@@ -123,16 +123,15 @@ docker pull ghcr.io/blackplums/how2validate:main
 ```javascript
 import { validate } from '@how2validate/how2validate';
 
-// Validate secrets programmatically
-const validationResult = validate(
-    provider = "NPM",
-    service = "NPM Access Token",
-    secret = "<<SECRET_HERE>>",
-    response = false,
-    report = false,
-    isBrowser = true
-);
-console.log(validationResult);
+# Validate secrets programmatically
+var validation_result = await validate(
+    provider="NPM",
+    service="NPM Access Token",
+    secret="<<SECRET_HERE>>",
+    response=False,
+    report="useremail@domain.com"
+)
+print(validation_result)
 ```
 
 
@@ -149,7 +148,7 @@ validation_result = validate(
     service="NPM Access Token",
     secret="<<SECRET_HERE>>",
     response=False,
-    report=False,
+    report="useremail@domain.com"
 )
 print(validation_result)
 ```
@@ -165,20 +164,20 @@ To see all available commands, use:
 ```bash
 how2validate --help
 
-usage: How2Validate Tool
+usage: How2Validate Tool [options]
 
 Validate various types of secrets for different services.
 
 options:
-  -h, --help          show this help message and exit
-  -secretscope        Explore the secret universe. Your next target awaits.
-  -provider PROVIDER  Specify your provider. Unleash your validation arsenal.
-  -service SERVICE    Specify your target service. Validate your secrets with precision.
-  -secret SECRET      Unveil your secrets to verify their authenticity.
-  -r, --response      Monitor the status. View if your secret Active or InActive.
-  -report             Get detailed reports. Receive validated secrets via email [Alpha Feature].
-  -v, --version       Expose the version.
-  --update            Hack the tool to the latest version.
+  -h, --help      show this help message and exit
+  -secretscope    Explore the secret universe. Your next target awaits.
+  -p, --provider  Specify your provider. Unleash your validation arsenal.
+  -s, --service   Specify your target service. Validate your secrets with precision.
+  -sec, --secret  Unveil your secrets to verify their authenticity.
+  -r, --response  Monitor the status. View if your secret is Active or InActive.
+  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].
+  -v, --version   Expose the version.
+  --update        Hack the tool to the latest version.
 
 Ensuring the authenticity of your secrets.
 ```
@@ -188,13 +187,21 @@ Ensuring the authenticity of your secrets.
 #### Validate a Secret
 
 ```bash
-how2validate -provider NPM -service "NPM Access Token" -secret "<<SECRET_HERE>>"
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>"
+
+-- OR --
+
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>"
 ```
 
 #### Validate with Response Status
 
 ```bash
-how2validate -provider NPM -service "NPM Access Token" -secret "<<SECRET_HERE>>" -r
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --response
+
+-- OR --
+
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
 ```
 
 
@@ -204,7 +211,7 @@ Detailed documentation of the **How2Validate API** for both JavaScript and Pytho
 
 ### JavaScript API
 
-`validate(provider, service, secret, response, report, isBrowser)`
+`validate(provider, service, secret, response, report)`
 
 Validates a secret against the specified provider and service.
 
@@ -213,8 +220,7 @@ Validates a secret against the specified provider and service.
   - `service` (string): The specific service or token type.
   - `secret` (string): The secret to validate.
   - `response` (boolean): If `true`, returns the full response.
-  - `report` (boolean): If `true`, sends a detailed report via email (Alpha Feature).
-  - `isBrowser` (boolean): Indicates if the validation is performed in a browser environment.
+  - `report` (string): Email Id to send a detailed report (Alpha Feature).
 
 - **Returns:**
   - `validationResult` (object): An object containing the validation status and details.
@@ -224,7 +230,7 @@ Validates a secret against the specified provider and service.
 ```javascript
 import { validate } from '@how2validate/how2validate';
 
-const result = validate("NPM", "NPM Access Token", "<<SECRET>>", false, false, true);
+const result = validate("NPM", "NPM Access Token", "<<SECRET>>", true/false, "useremail@domain.com");
 console.log(result);
 ```
 
@@ -239,7 +245,7 @@ Validates a secret against the specified provider and service.
   - `service` (string): The specific service or token type.
   - `secret` (string): The secret to validate.
   - `response` (boolean): If `true`, returns the full response.
-  - `report` (boolean): If `true`, sends a detailed report via email (Alpha Feature).
+  - `report` (string): Email Id to send a detailed report (Alpha Feature).
 
 - **Returns:**
   - `validation_result` (object): An object containing the validation status and details.
@@ -254,8 +260,8 @@ result = validate(
     provider="NPM",
     service="NPM Access Token",
     secret="<<SECRET>>",
-    response=False,
-    report=False
+    response=True/False,
+    report="useremail@domain.com"
 )
 print(result)
 ```

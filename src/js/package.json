@@ -1,7 +1,7 @@
 {
   "name": "how2validate",
   "appName": "How2Validate",
-  "version": "0.0.1-beta.26",
+  "version": "0.0.1-beta.27",
   "description": "A CLI tool to validate secrets for different services.",
   "main": "dist/how2validate/index.js",
   "type": "module",

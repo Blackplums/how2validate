@@ -119,7 +119,7 @@ export function getService(provider: string): object {
  * @param {string} secret - The secret that needs to be validated.
  * @param {boolean} response - Whether to get a response status for the secret.
  * @param {string} report - Whether to generate a report for the validation.
- * @param {boolean} [isBrowser=false] - Whether the validation is being run in a browser environment.
+ * @param {boolean} [isBrowser=true] - Whether the validation is being run in a browser environment.
  * @returns {Promise<void>} - A promise that resolves when validation is complete.
  * @throws Will throw an error if validation fails.
  */
@@ -129,7 +129,7 @@ export async function validate(
   secret: string,
   response: boolean,
   report: string,
-  isBrowser:boolean = false
+  isBrowser:boolean = true
 ): Promise<ValidationResult | string> {
   const result = await validatorHandleService(
     formatString(provider),
@@ -225,7 +225,8 @@ async function main(): Promise<void> {
       options.service,
       options.secret,
       options.response,
-      options.report
+      options.report,
+      false
     ); // Call validate function
     console.info("Validation completed successfully.");
   } catch (error) {

@@ -77,7 +77,7 @@ validation_result = validate(
     service="NPM Access Token",
     secret="<<SECRET_HERE>>",
     response=False,
-    report="useremail@domain.com",
+    report="useremail@domain.com"
 )
 print(validation_result)
 

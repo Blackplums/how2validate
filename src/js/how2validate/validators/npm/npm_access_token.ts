@@ -39,7 +39,7 @@ import axios from "axios"; // Axios for making API requests
  * @param {string} secret - The NPM authentication token or secret to validate.
  * @param {boolean} responseFlag - A flag to indicate whether detailed response data should be returned.
  * @param {string} [report] - An optional email address to which a validation report should be sent.
- * @param {boolean} [isBrowser=false] - Indicates if the function is called from a browser environment (default is false).
+ * @param {boolean} [isBrowser=true] - Indicates if the function is called from a browser environment (default is false).
  * 
  * @returns {Promise<ValidationResult>} - A promise that resolves to a `ValidationResult` object containing the validation result.
  * 
@@ -55,7 +55,7 @@ export async function validateNpmAccessToken(
   secret: string,
   responseFlag: boolean,
   report: string,
-  isBrowser: boolean = false
+  isBrowser: boolean = true
 ): Promise<ValidationResult> {
   // Initialize the response structure
   const validation_response = {} as SecretStatusMessage;
