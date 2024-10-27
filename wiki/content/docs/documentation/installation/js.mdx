@@ -1,0 +1,56 @@
+---
+title: JavaScript installation
+description: The documentation for installation and usage in JavaScript.
+---
+
+### Detailed JavaScript Installation and Usage
+
+
+#### Package
+
+Get the latest version from [**How2Validate JavaScript Package Registry**](https://jsr.io/@how2validate/how2validate) 
+
+#### Using NPM
+```bash
+npx jsr add @how2validate/how2validate
+```
+
+#### Using pnpm
+```bash
+pnpm dlx jsr add @how2validate/how2validate
+```
+
+#### Using Bun
+```bash
+bunx jsr add @how2validate/how2validate
+```
+
+#### Using Yarn
+```bash
+yarn dlx jsr add @how2validate/how2validate
+```
+
+#### Using Deno
+```bash
+deno add jsr:@how2validate/how2validate
+```
+
+#### Usage
+
+**How2Validate** can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for JavaScript usage.
+
+##### Importing and Using the Validate Function
+
+```javascript
+import { validate } from '@how2validate/how2validate';
+
+# Validate secrets programmatically
+var validation_result = await validate(
+    provider="NPM",
+    service="NPM Access Token",
+    secret="<<SECRET_HERE>>",
+    response=True/False,
+    report="useremail@domain.com"
+)
+print(validation_result)
+```

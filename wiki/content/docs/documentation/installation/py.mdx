@@ -1,0 +1,35 @@
+---
+title: Python  installation
+description: The documentation for installation and usage in Python.
+---
+
+### Detailed Python Installation and Usage
+
+#### Package
+
+Get the latest version from [**How2Validate Python Package Registry**](https://pypi.org/project/how2validate/) 
+
+#### Using pip
+```bash
+pip install how2validate
+```
+
+#### Usage
+
+**How2Validate** can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.
+
+##### Importing and Using the Validate Function
+
+```python
+from how2validate import validate
+
+# Validate secrets programmatically
+validation_result = validate(
+    provider="NPM",
+    service="NPM Access Token",
+    secret="<<SECRET_HERE>>",
+    response=False,
+    report="useremail@domain.com"
+)
+print(validation_result)
+```

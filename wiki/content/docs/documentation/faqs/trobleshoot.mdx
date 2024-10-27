@@ -1,0 +1,49 @@
+---
+title: Troubleshoot FAQ's
+description: The frequently asked troubleshooting queries and their solution.
+---
+
+#### 1. I receive an "error: argument -p --provider: Invalid choice" error. What should I do?
+    - Ensure that you have specified the correct provider name and that it is supported by How2Validate. Check for typos and refer to the Supported Providers section. If the provider is not listed, it might not be supported yet.
+
+#### 2. I receive an "error: argument -s --service: Invalid choice" error. What should I do?
+    - Ensure that you have specified the correct servive name and that it is supported by How2Validate. Check for typos and refer to the Supported section section. If the services is not listed, it might not be supported yet.
+
+#### 3. How do I handle network-related errors during validation?
+    - Network issues can prevent How2Validate from reaching provider endpoints. To resolve:
+
+            - Check your internet connection.
+            - Verify firewall settings to ensure that outbound requests to provider endpoints are allowed.
+            - Retry the validation after ensuring network stability.
+
+#### 4. The validation result always returns Inactive secrets. What could be the issue?
+    - Possible reasons include:
+
+            - Incorrect secret: Double-check the secret value for accuracy.
+            - Expired or revoked secret: Ensure that the secret is still active and has not been revoked from provider.
+            - Provider-specific issues: Verify that the provider's authentication endpoints are operational.
+
+#### 5. I'm unable to install How2Validate using my package manager. What can I do?
+
+    - Verify your package manager version: Ensure you're using a compatible version of npm, pnpm, yarn, etc.
+        - Check your internet connection.
+        - Clear the cache of your package manager and retry the installation.
+        - Review error messages for specific issues and consult the Installation section.
+
+#### 6. How do I update How2Validate to the latest version?
+    - Use the --update flag with the CLI:
+
+        `how2validate --update`
+
+        Alternatively, update via your package manager:
+
+        ```javascript
+        npm:
+        npm update @how2validate/how2validate
+
+        pnpm:
+        pnpm update @how2validate/how2validate
+
+        Yarn:
+        yarn upgrade @how2validate/how2validate
+        ```

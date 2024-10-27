@@ -1,0 +1,13 @@
+---
+title: Security FAQ's
+description: The frequently asked security queries and their solution.
+---
+
+#### 1. How does How2Validate ensure the security of my secrets during validation?
+    - How2Validate communicates directly with official provider endpoints to validate secrets. It does not store or transmit your secrets beyond the validation process, ensuring that your sensitive information remains secure.
+
+#### 2. Can I use How2Validate in a browser environment without compromising security?
+    - Yes, How2Validate supports browser environments. However, it's crucial to handle secrets securely on the client side. Avoid exposing secrets in client-side code and ensure that sensitive data is managed appropriately to prevent unauthorized access.
+
+#### 3. Does How2Validate log or store any of my secret information?
+    - No, How2Validate does not log or store your secret information. All validation processes are handled in-memory and communicated directly with the provider's endpoints without persisting any sensitive data.

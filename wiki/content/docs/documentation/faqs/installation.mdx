@@ -1,0 +1,109 @@
+---
+title: Installation and Usage FAQ's
+description: The frequently asked installation and usage queries and their solution.
+---
+
+#### 1. How do I install How2Validate for JavaScript using npm?
+
+    - You can install How2Validate for JavaScript using npm. Refer [***JavaScript Installation***](../installation/js).
+
+#### 2. How do I validate a secret using the JavaScript package?
+
+    - First, import the validate function and then use it as follows. Refer [***JavaScript Usage***](../installation/js#usage).
+        
+        ```javascript
+        import { validate } from '@how2validate/how2validate';
+
+        # Validate secrets programmatically
+        var validation_result = await validate(
+            provider="NPM",
+            service="NPM Access Token",
+            secret="<<SECRET_HERE>>",
+            response=True/False,
+            report="useremail@domain.com"
+        )
+        console.log(validation_result)
+        ```
+
+#### 3. How can I install How2Validate in a Python environment?
+
+    - Install How2Validate in Python using pip. Refer [***Python Installation***](../installation/py).
+
+#### 4. How can I use How2Validate in a Python project?
+
+    - Import the validate function from the package and use it as shown. Refer [***Python Usage***](../installation/py#usage).
+       
+        ```python
+        from how2validate import validate
+        # Validate a secret programmatically
+        validation_result = validate(
+            provider="GitHub",
+            service="GitHub Token",
+            secret="ghp_16digitGitHubToken",
+            response=False,
+            report=False
+        )
+        print(validation_result)
+        ```
+
+#### 5. Are there installation instructions for package managers other than npm and pip?
+
+    - Yes, How2Validate can be installed using other JavaScript package managers as follows:
+
+        ```javascript
+        pnpm:
+        pnpm dlx jsr add @how2validate/how2validate
+        ```
+
+        ```javascript
+        Bun:
+        bunx jsr add @how2validate/how2validate
+        ```
+
+        ```javascript
+        Yarn:
+        yarn dlx jsr add @how2validate/how2validate
+        ```
+
+        ```javascript
+        Deno:
+        deno add jsr:@how2validate/how2validate
+        ```
+
+#### 6. How do I install How2Validate using Docker?
+
+    - You can use container from [**GitHub Package Registry**](https://github.com/Blackplums/how2validate/pkgs/container/how2validate). Refer [Container Installation](../installation/container).
+
+        ```javascript
+        docker pull ghcr.io/blackplums/how2validate:latest
+        ```
+
+#### 7. How do I use the How2Validate CLI to validate a secret?
+
+    - You can validate a secret using the CLI with the following command. Refer [***Example CLI commands***](../installation/cli#example-command).
+
+        - Validate a secret
+
+            ```bash
+            how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>"
+            -- OR --
+            how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>"
+            ```
+
+        - Validate with response status
+
+            ```bash
+            how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --response
+            -- OR --
+            how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
+            ```
+
+#### 8. How do I generate a detailed report using the CLI?
+
+    - Use the `-R` or `--report` option to receive a detailed report via email (Alpha Feature). Refer [***Reporting Documentation***](../report).
+        
+        ```bash
+        how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --report username@mail.com
+        -- OR --
+        how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -R username@mail.com
+        ```
