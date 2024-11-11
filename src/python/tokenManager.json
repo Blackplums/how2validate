@@ -3,7 +3,7 @@
         {
             "secret_type": "adafruit_io_key",
             "display_name": "Adafruit Io Key",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "Adobe": [
