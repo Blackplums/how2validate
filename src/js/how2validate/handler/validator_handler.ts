@@ -1,7 +1,9 @@
 import { validateAdafruitIOKey } from "../validators/adafruit/adafruit_io_key.js"; // Import the Adafruit token validator
+import { validateAivenAuthToken } from "../validators/aiven/aiven_auth_token.js";
 import { validateNpmAccessToken } from "../validators/npm/npm_access_token.js"; // Import the NPM access token validator
 import { validateSnykAuthKey } from "../validators/snyk/snyk_auth_key.js"; // Import the Snyk authentication key validator
 import { validateSonarcloudToken } from "../validators/sonarcloud/sonarcloud_token.js"; // Import the Sonarcloud token validator
+
 import { ValidationResult } from "../utility/interface/validationResult.js"; // Import the ValidationResult type
 
 /**
@@ -37,6 +39,7 @@ type ValidatorFunction = (
  */
 const serviceHandlers: Record<string, ValidatorFunction> = {
   adafruit_io_key: validateAdafruitIOKey, // Adafruit Io Key validator
+  aiven_auth_token: validateAivenAuthToken, // Aiven Auth token
   npm_access_token: validateNpmAccessToken, // NPM access token validator
   snyk_auth_key: validateSnykAuthKey, // Snyk auth key validator
   sonarcloud_token: validateSonarcloudToken, // Sonarcloud token validator

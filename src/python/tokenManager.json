@@ -42,7 +42,7 @@
         {
             "secret_type": "aiven_auth_token",
             "display_name": "Aiven Auth Token",
-            "is_enabled": false
+            "is_enabled": true
         },
         {
             "secret_type": "aiven_service_password",
