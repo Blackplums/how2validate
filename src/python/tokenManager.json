@@ -90,7 +90,7 @@
         {
             "secret_type": "anthropic_api_key",
             "display_name": "Anthropic Api Key",
-            "is_enabled": false
+            "is_enabled": true
         },
         {
             "secret_type": "anthropic_session_id",

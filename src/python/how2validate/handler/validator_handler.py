@@ -3,6 +3,7 @@ from typing import Union
 # list of Validators imported
 from how2validate.validators.adafruit.adafruit_io_key import validate_adafruit_io_key
 from how2validate.validators.aiven.aiven_auth_token import validate_aiven_auth_token
+from how2validate.validators.anthropic.anthropic_api_key import validate_anthropic_api_key
 from how2validate.validators.npm.npm_access_token import validate_npm_access_token
 from how2validate.validators.snyk.snyk_auth_key import validate_snyk_auth_key
 from how2validate.validators.sonarcloud.sonarcloud_token import validate_sonarcloud_token
@@ -14,6 +15,7 @@ from how2validate.utility.interface.validationResult import ValidationResult
 service_handlers = {
     "adafruit_io_key": validate_adafruit_io_key,
     "aiven_auth_token": validate_aiven_auth_token,
+    "anthropic_api_key": validate_anthropic_api_key,
     "npm_access_token": validate_npm_access_token,
     "snyk_auth_key": validate_snyk_auth_key,
     "sonarcloud_token": validate_sonarcloud_token,
