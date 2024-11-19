@@ -1241,7 +1241,7 @@
         {
             "secret_type": "pagerduty_api_key",
             "display_name": "Pagerduty Api Key",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "Palantir": [

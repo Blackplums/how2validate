@@ -4,6 +4,7 @@ import { validateAnthropicAPIKey } from "../validators/anthropic/anthropic_api_k
 import { validateHFOrgApiKey } from "../validators/hugging_face/hf_org_api_key.js"; // Import the Hugging Face API Key validator
 import { validateHFUserAccessToken } from "../validators/hugging_face/hf_user_access_token.js"; // Import the Hugging Face API Key validator
 import { validateNpmAccessToken } from "../validators/npm/npm_access_token.js"; // Import the NPM access token validator
+import { validatePagerDutyAPIKey } from "../validators/pagerduty/pagerduty_api_key.js";  // Import the PagerDuty validator
 import { validateSnykAuthKey } from "../validators/snyk/snyk_auth_key.js"; // Import the Snyk authentication key validator
 import { validateSonarcloudToken } from "../validators/sonarcloud/sonarcloud_token.js"; // Import the Sonarcloud token validator
 
@@ -44,9 +45,10 @@ const serviceHandlers: Record<string, ValidatorFunction> = {
   adafruit_io_key: validateAdafruitIOKey, // Adafruit Io Key validator
   aiven_auth_token: validateAivenAuthToken, // Aiven Auth token
   anthropic_api_key: validateAnthropicAPIKey, // Anthropic API Key
-  hf_org_api_key: validateHFOrgApiKey,
-  hf_user_access_token: validateHFUserAccessToken,
+  hf_org_api_key: validateHFOrgApiKey, // HuggingFace API Key
+  hf_user_access_token: validateHFUserAccessToken, // HuggingFace API Key
   npm_access_token: validateNpmAccessToken, // NPM access token validator
+  pagerduty_api_key: validatePagerDutyAPIKey, // PagerDuty API key
   snyk_auth_key: validateSnykAuthKey, // Snyk auth key validator
   sonarcloud_token: validateSonarcloudToken, // Sonarcloud token validator
   // Add additional services and their validators here
