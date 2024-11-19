@@ -5,6 +5,7 @@ import { validateHFOrgApiKey } from "../validators/hugging_face/hf_org_api_key.j
 import { validateHFUserAccessToken } from "../validators/hugging_face/hf_user_access_token.js"; // Import the Hugging Face API Key validator
 import { validateNpmAccessToken } from "../validators/npm/npm_access_token.js"; // Import the NPM access token validator
 import { validatePagerDutyAPIKey } from "../validators/pagerduty/pagerduty_api_key.js";  // Import the PagerDuty validator
+import { validateSentryAuthToken } from "../validators/sentry/sentry_auth_token.js"; // Import the Sentry Auth Token validator
 import { validateSnykAuthKey } from "../validators/snyk/snyk_auth_key.js"; // Import the Snyk authentication key validator
 import { validateSonarcloudToken } from "../validators/sonarcloud/sonarcloud_token.js"; // Import the Sonarcloud token validator
 
@@ -49,6 +50,7 @@ const serviceHandlers: Record<string, ValidatorFunction> = {
   hf_user_access_token: validateHFUserAccessToken, // HuggingFace API Key
   npm_access_token: validateNpmAccessToken, // NPM access token validator
   pagerduty_api_key: validatePagerDutyAPIKey, // PagerDuty API key
+  sentry_auth_token: validateSentryAuthToken, // Sentry Auth Token
   snyk_auth_key: validateSnykAuthKey, // Snyk auth key validator
   sonarcloud_token: validateSonarcloudToken, // Sonarcloud token validator
   // Add additional services and their validators here

@@ -1441,7 +1441,7 @@
         {
             "secret_type": "sentry_auth_token",
             "display_name": "Sentry Auth Token",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "Shippo": [
