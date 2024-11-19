@@ -909,12 +909,12 @@
         {
             "secret_type": "hf_org_api_key",
             "display_name": "Hf Org Api Key",
-            "is_enabled": false
+            "is_enabled": true
         },
         {
             "secret_type": "hf_user_access_token",
             "display_name": "Hf User Access Token",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "IBM": [

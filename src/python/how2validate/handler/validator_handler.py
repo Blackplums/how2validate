@@ -4,6 +4,8 @@ from typing import Union
 from how2validate.validators.adafruit.adafruit_io_key import validate_adafruit_io_key
 from how2validate.validators.aiven.aiven_auth_token import validate_aiven_auth_token
 from how2validate.validators.anthropic.anthropic_api_key import validate_anthropic_api_key
+from how2validate.validators.hugging_face.hf_org_api_key import validate_hf_org_api_key
+from how2validate.validators.hugging_face.hf_user_access_token import validate_hf_user_access_token
 from how2validate.validators.npm.npm_access_token import validate_npm_access_token
 from how2validate.validators.snyk.snyk_auth_key import validate_snyk_auth_key
 from how2validate.validators.sonarcloud.sonarcloud_token import validate_sonarcloud_token
@@ -16,6 +18,8 @@ service_handlers = {
     "adafruit_io_key": validate_adafruit_io_key,
     "aiven_auth_token": validate_aiven_auth_token,
     "anthropic_api_key": validate_anthropic_api_key,
+    "hf_org_api_key": validate_hf_org_api_key,
+    "hf_user_access_token": validate_hf_user_access_token,
     "npm_access_token": validate_npm_access_token,
     "snyk_auth_key": validate_snyk_auth_key,
     "sonarcloud_token": validate_sonarcloud_token,
