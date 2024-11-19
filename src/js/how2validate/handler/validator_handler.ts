@@ -1,6 +1,7 @@
 import { validateAdafruitIOKey } from "../validators/adafruit/adafruit_io_key.js"; // Import the Adafruit token validator
 import { validateAivenAuthToken } from "../validators/aiven/aiven_auth_token.js"; // Import the Aiven API key validator
 import { validateAnthropicAPIKey } from "../validators/anthropic/anthropic_api_key.js";  // Import the Anthropic API Key validator
+import { validateGitHubPersonalAccessToken } from "../validators/github/github_personal_access_token.js"; // Import the GitHub Personal Access Token validator
 import { validateHFOrgApiKey } from "../validators/hugging_face/hf_org_api_key.js"; // Import the Hugging Face API Key validator
 import { validateHFUserAccessToken } from "../validators/hugging_face/hf_user_access_token.js"; // Import the Hugging Face API Key validator
 import { validateNpmAccessToken } from "../validators/npm/npm_access_token.js"; // Import the NPM access token validator
@@ -46,6 +47,7 @@ const serviceHandlers: Record<string, ValidatorFunction> = {
   adafruit_io_key: validateAdafruitIOKey, // Adafruit Io Key validator
   aiven_auth_token: validateAivenAuthToken, // Aiven Auth token
   anthropic_api_key: validateAnthropicAPIKey, // Anthropic API Key
+  github_personal_access_token: validateGitHubPersonalAccessToken, // GitHub Personal Access Token
   hf_org_api_key: validateHFOrgApiKey, // HuggingFace API Key
   hf_user_access_token: validateHFUserAccessToken, // HuggingFace API Key
   npm_access_token: validateNpmAccessToken, // NPM access token validator

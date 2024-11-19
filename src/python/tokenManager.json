@@ -704,7 +704,7 @@
         {
             "secret_type": "github_personal_access_token",
             "display_name": "Github Personal Access Token",
-            "is_enabled": false
+            "is_enabled": true
         },
         {
             "secret_type": "github_refresh_token",
