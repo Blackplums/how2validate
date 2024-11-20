@@ -1217,7 +1217,7 @@
         {
             "secret_type": "openai_api_key",
             "display_name": "Openai Api Key",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "Orbit": [
