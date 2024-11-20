@@ -11,11 +11,11 @@ from how2validate.validators.npm.npm_access_token import validate_npm_access_tok
 from how2validate.validators.openai.openai_api_key import validate_openai_api_key
 from how2validate.validators.pagerduty.pagerduty_api_key import validate_pagerduty_api_key
 from how2validate.validators.sentry.sentry_auth_token import validate_sentry_auth_token
+from how2validate.validators.slack.slack_api_token import validate_slack_api_token
 from how2validate.validators.snyk.snyk_auth_key import validate_snyk_auth_key
 from how2validate.validators.sonarcloud.sonarcloud_token import validate_sonarcloud_token
 
 from how2validate.utility.interface.validationResult import ValidationResult
-
 
 
 # Create a dictionary that maps service names to their corresponding validator functions
@@ -30,6 +30,7 @@ service_handlers = {
     "openai_api_key": validate_openai_api_key,
     "pagerduty_api_key": validate_pagerduty_api_key,
     "sentry_auth_token": validate_sentry_auth_token,
+    "slack_api_token": validate_slack_api_token,
     "snyk_auth_key": validate_snyk_auth_key,
     "sonarcloud_token": validate_sonarcloud_token,
     # Add additional service validators as needed

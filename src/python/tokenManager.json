@@ -1521,7 +1521,7 @@
         {
             "secret_type": "slack_api_token",
             "display_name": "Slack Api Token",
-            "is_enabled": false
+            "is_enabled": true
         },
         {
             "secret_type": "slack_incoming_webhook_url",

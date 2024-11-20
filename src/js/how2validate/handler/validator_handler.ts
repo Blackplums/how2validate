@@ -8,6 +8,7 @@ import { validateNpmAccessToken } from "../validators/npm/npm_access_token.js"; 
 import { validateOpenAIApiKey } from "../validators/openai/openai_api_key.js"; // Import the NPM access token validator
 import { validatePagerDutyAPIKey } from "../validators/pagerduty/pagerduty_api_key.js";  // Import the OpenAI API key validator
 import { validateSentryAuthToken } from "../validators/sentry/sentry_auth_token.js"; // Import the Sentry Auth Token validator
+import { validateSlackApiToken } from "../validators/slack/slack_api_token.js"; // Import the Slack API token validator
 import { validateSnykAuthKey } from "../validators/snyk/snyk_auth_key.js"; // Import the Snyk authentication key validator
 import { validateSonarcloudToken } from "../validators/sonarcloud/sonarcloud_token.js"; // Import the Sonarcloud token validator
 
@@ -55,6 +56,7 @@ const serviceHandlers: Record<string, ValidatorFunction> = {
   openai_api_key: validateOpenAIApiKey, // OpenAI API key
   pagerduty_api_key: validatePagerDutyAPIKey, // PagerDuty API key
   sentry_auth_token: validateSentryAuthToken, // Sentry Auth Token
+  slack_api_token: validateSlackApiToken, // Slack API token 
   snyk_auth_key: validateSnykAuthKey, // Snyk auth key validator
   sonarcloud_token: validateSonarcloudToken, // Sonarcloud token validator
   // Add additional services and their validators here
