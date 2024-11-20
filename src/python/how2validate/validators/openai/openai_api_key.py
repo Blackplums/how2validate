@@ -30,7 +30,7 @@ def validate_openai_api_key(provider: str, service: str, secret: str, response_f
     )
 
     # OpenAI API endpoint for getting the organization details
-    url = "https://api.openai.com/v1/organizations"
+    url = "https://api.openai.com/v1/me"
     
     # Headers to ensure no caching and to authorize the request using the provided API key (token)
     nocache_headers = {'Cache-Control': 'no-cache'}

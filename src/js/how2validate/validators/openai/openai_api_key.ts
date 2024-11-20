@@ -55,7 +55,7 @@ export async function validateOpenAIApiKey(
 ): Promise<ValidationResult> {
   const validation_response = {} as SecretStatusMessage;
 
-  const url = "https://api.openai.com/v1/organizations";
+  const url = "https://api.openai.com/v1/me";
   const headers = { Authorization: `Bearer ${secret}` };
 
   try {
