@@ -515,7 +515,7 @@
         {
             "secret_type": "discord_bot_token",
             "display_name": "Discord Bot Token",
-            "is_enabled": false
+            "is_enabled": true
         }
     ],
     "Docker": [

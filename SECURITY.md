@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability within this project, please follow these steps to report it:
 
-1. **Create a New Issue**: Go to the [Issues](../../issues) section of this repository.
+1. **Create a New Issue**: Go to the [Issues](../../../issues/new/choose) section of this repository.
 
 2. **Tag the Issue**: Use the **`security`** tag when creating the issue to highlight that it’s a security-related concern.
 
