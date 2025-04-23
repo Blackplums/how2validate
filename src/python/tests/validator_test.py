@@ -1,0 +1,152 @@
+import pytest
+from how2validate.validator import validate_email, parse_arguments, validate, main
+from how2validate.utility.interface.validationResult import ValidationResult
+
+def test_validate_email_valid():
+    """Test validate_email with a valid email."""
+    assert validate_email("test@example.com") is True
+
+def test_validate_email_invalid():
+    """Test validate_email with an invalid email."""
+    assert validate_email("invalid-email") is False
+
+def test_parse_arguments_valid(mocker):
+    """Test parse_arguments with valid arguments."""
+    mocker.patch('how2validate.validator.get_secretprovider', return_value=["aws", "azure"])
+    mocker.patch('how2validate.validator.get_secretservices', return_value=["s3", "keyvault"])
+    mocker.patch('argparse.ArgumentParser.parse_args', return_value=mocker.MagicMock(
+        provider="aws",
+        service="s3",
+        secret="dummy_secret",
+        response=True,
+        report=None,
+        update=False,
+        secretscope=False
+    ))
+
+    args = parse_arguments()
+    assert args.provider == "aws"
+    assert args.service == "s3"
+    assert args.secret == "dummy_secret"
+
+def test_validate_success(mocker):
+    """Test validate function with valid inputs."""
+    mock_result = mocker.MagicMock()
+    mock_result.to_dict.return_value = {"status": "success"}
+    mocker.patch('how2validate.validator.validator_handle_service', return_value=mock_result)
+
+    result = validate("aws", "s3", "dummy_secret", True, None, False)
+    assert '"status": "success"' in result
+
+def test_validate_invalid_email(mocker):
+    """Test validate function with an invalid email."""
+    mock_result = mocker.MagicMock()
+    mock_result.to_dict.return_value = {"status": "failure"}
+    mocker.patch('how2validate.validator.validator_handle_service', return_value=mock_result)
+
+    result = validate("aws", "s3", "dummy_secret", True, "invalid-email", False)
+    assert '"status": "failure"' in result
+
+def test_main_with_valid_arguments(mocker):
+    """Test the main function with valid arguments."""
+    # Mock the arguments
+    mock_args = mocker.MagicMock(
+        provider="aws",
+        service="s3",
+        secret="dummy_secret",
+        response=True,
+        report=None,
+        update=False,
+        secretscope=False
+    )
+
+    # Mock dependencies
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_validate = mocker.patch('how2validate.validator.validate', return_value='{"status": "success"}')
+
+    # Call the main function
+    main(mock_args)
+
+    # Assertions
+    mock_validate.assert_called_once_with(
+        "aws", "s3", "dummy_secret", True, None, False
+    )
+
+def test_main_missing_arguments(mocker):
+    """Test the main function with missing required arguments."""
+    # Mock the arguments with missing provider, service, and secret
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=True,
+        report=None,
+        update=False,
+        secretscope=False
+    )
+
+    # Mock dependencies
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_logging_error = mocker.patch('how2validate.validator.logging.error')
+
+    # Call the main function
+    main(mock_args)
+
+    # Assertions
+    mock_logging_error.assert_any_call("Missing required arguments: -Provider, -Service, -Secret")
+    mock_logging_error.assert_any_call("Use '-h' or '--help' for usage information.")
+
+
+def test_main_with_update(mocker):
+    """Test the main function with the update flag."""
+    # Mock the arguments with the update flag
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=False,
+        report=None,
+        update=True,
+        secretscope=False
+    )
+
+    # Mock dependencies
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_update_tool = mocker.patch('how2validate.validator.update_tool')
+    mock_logging_info = mocker.patch('how2validate.validator.logging.info')
+
+    # Call the main function
+    main(mock_args)
+
+    # Assertions
+    mock_update_tool.assert_called_once()
+    mock_logging_info.assert_any_call("Initiating tool update...")
+    mock_logging_info.assert_any_call("Tool updated successfully.")
+
+
+def test_main_with_secretscope(mocker):
+    """Test the main function with the secretscope flag."""
+    # Mock the arguments with the secretscope flag
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=False,
+        report=None,
+        update=False,
+        secretscope=True
+    )
+
+    # Mock dependencies
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_get_secretscope = mocker.patch('how2validate.validator.get_secretscope')
+
+    # Call the main function
+    main(mock_args)
+
+    # Assertions
+    mock_get_secretscope.assert_called_once()
