@@ -8,7 +8,6 @@ from how2validate.validator import main
 from how2validate.utility.tool_utility import get_current_timestamp, get_secretservices, get_secretprovider, validate_choice
 from how2validate.validators.openai.openai_api_key import validate_openai_api_key
 
-
 #Mock the current timestamp
 current_timestamp = get_current_timestamp()
 
