@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import re
+import keyring
 from typing import Union
 
 from how2validate.utility.config_utility import get_version
@@ -43,6 +44,51 @@ def validate_email(email: str) -> bool:
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(email_regex, email) is not None
 
+def get_stored_token(service_name: str = "how2validate_cli") -> str:
+    """
+    Retrieve the stored API token from the system's keyring.
+
+    Parameters:
+    - service_name (str): The identifier under which the token is stored in the keyring.
+                          Defaults to "how2validate_cli".
+
+    Returns:
+    - str: The stored API token, or None if no token is found.
+
+    This function uses the system's secure keyring backend (e.g., macOS Keychain, Windows Credential Vault,
+    or Secret Service on Linux) to fetch the previously stored token, allowing for seamless use across CLI sessions.
+    """
+    return keyring.get_password(service_name, "api_token")
+
+
+def save_token(token: str, service_name: str = "how2validate_cli"):
+    """
+    Securely save the API token in the system's keyring.
+
+    Parameters:
+    - token (str): The API token to store securely.
+    - service_name (str): The keyring namespace under which the token will be stored.
+                          Defaults to "how2validate_cli".
+
+    This enables the CLI tool to reuse the token without asking the user to re-enter it each time.
+    The token is stored securely using the OS-level credentials store.
+    """
+    keyring.set_password(service_name, "api_token", token)
+
+
+def delete_token(service_name: str = "how2validate_cli"):
+    """
+    Delete the stored API token from the system's keyring.
+
+    Parameters:
+    - service_name (str): The keyring namespace to delete the token from.
+                          Defaults to "how2validate_cli".
+
+    This is useful when the token is expired, revoked, or the user explicitly wants to de-authenticate.
+    It ensures the token is no longer accessible by the CLI tool.
+    """
+    keyring.delete_password(service_name, "api_token")
+
 def parse_arguments() -> argparse.Namespace:
     """
     Parse command-line arguments for the How2Validate CLI tool.
@@ -75,6 +121,8 @@ def parse_arguments() -> argparse.Namespace:
                         help='Monitor the status. View if your secret is Active or InActive.')
     parser.add_argument('-R', '--report', type=str, required=False,
                         help='Get detailed reports. Receive validated secrets via email [Alpha Feature].')
+    parser.add_argument('-token', type=str, required=False,
+                        help='Secure your token in the vault, fetch it on demand, or shred it when done.')
     parser.add_argument('-v', '--version', action='version', version=f'How2Validate Tool version {get_version()}',
                         help='Expose the version.')
     parser.add_argument('--update', action='store_true',
@@ -139,6 +187,37 @@ def main(args=None):
             get_secretscope()
         except Exception as e:
             logging.error(f"Error fetching Scoped secret services: {e}")
+        return
+    
+    if args.token is not None:
+        if args.token.lower() == "delete":
+            try:
+                delete_token()
+                logging.info("API Token deleted successfully.")
+            except keyring.errors.PasswordDeleteError:
+                logging.error("No API Token found to delete.")
+            return
+        elif args.token.lower() == "list":
+            token = get_stored_token()
+            if token:
+                logging.info(f"Stored API Token: {token}")
+            else:
+                logging.error("No API Token found. Use '-token' option to store a new token.")
+            return
+        elif (
+            not args.token
+            or not isinstance(args.token, str)
+            or not args.token.startswith("h2v-")
+            or len(args.token) != 52 
+        ):
+            logging.error("Invalid API Token. Token must be a non-empty string starting with 'h2v-'.\nSee https://how2validate.vercel.app/apitoken for details.")
+            return
+        try:
+            delete_token()
+        except keyring.errors.PasswordDeleteError:
+            pass
+        save_token(args.token)
+        logging.info("Token stored/updated successfully.")
         return
 
     if not args.provider or not args.service or not args.secret:

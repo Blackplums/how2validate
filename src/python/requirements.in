@@ -13,3 +13,4 @@ wheel
 pymongo
 python-dotenv
 tabulate
+keyring
