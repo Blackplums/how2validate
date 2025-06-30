@@ -1,0 +1,57 @@
+---
+title: Python API Implementation
+description: This guide covers the installation and usage of package in Python.
+keywords: [ "packages", "python", "api-reference"]
+---
+
+## Python API
+
+<Step>
+  <StepItem title="Install How2Validate dependency">
+    Get the latest version from [How2Validate Python Package Registry](https://pypi.org/project/how2validate/)
+     
+    ```tsx 
+    pip install how2validate
+    ````
+
+  </StepItem>
+
+  <StepItem title="Create Function">
+    Create a function to validate secrets using below Syntax
+
+    ```tsx
+    validate(provider, service, secret, response, report)
+    ```
+
+    Validates a secret against the specified provider and service.
+
+    **Parameters:**
+    - `provider (string)`: The name of the provider (e.g., "NPM", "GitHub").
+    - `service (string)`: The specific service or token type.
+    - `secret (string)`: The secret to validate.
+    - `response (boolean)`: If `true`, returns the full response.
+    - `report (string)`: Email Id to send a detailed report (Alpha Feature).
+
+    **Returns:**
+    - `validation_result (object)`: An object containing the validation status and details.
+
+  </StepItem>
+
+  <StepItem title="Sample Function">
+    Function implementation of validation:
+
+    ```python {11} showLineNumbers
+    from how2validate import validate
+ 
+    result = validate(
+        provider="NPM",
+        service="NPM Access Token",
+        secret="<<SECRET>>",
+        response=True/False,
+        report="useremail@domain.com"
+    )
+    print(result)
+    ```
+    
+  </StepItem>
+</Step>

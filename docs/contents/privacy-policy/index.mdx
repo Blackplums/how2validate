@@ -1,0 +1,53 @@
+---
+title: Privacy policy
+description: Last Updated - May 01, 2025
+keywords: ["privacy-policy", "privacy"]
+---
+
+At How2Validate, we are committed to protecting your privacy. This Privacy Policy explains how we handle your data when you use our open-source CLI tool.
+
+### Data Collection
+
+We do not collect or store any secrets or local file data from your system. However, if you choose to use features such as email reporting or API token generation, we request GitHub authentication and collect the following information:
+
+    - GitHub username (read-only)
+    - GitHub email (read-only)
+    - GitHub avatar URL (read-only)
+
+This information is optional and collected only with your explicit action (e.g., logging in for using reporting features).
+
+### Data Usage
+
+The collected GitHub information is used for: - Creating and managing API tokens - Sending email-based validation reports - Monitoring and improving service reliability
+
+We do not share any personally identifiable information (PII) with third-party services.
+
+### Data Storage
+
+All user-related data is stored securely in MongoDB and includes:
+
+    - GitHub username, email, avatar
+    - Email addresses used for reporting
+    - API token subscription metadata
+
+This data is:
+
+    - Encrypted
+    - Access-restricted
+    - Automatically deleted after 90 days of inactivity
+
+### Data Sharing
+
+We do not share your personal data with any third parties. However, the CLI communicates with third-party API providers (e.g., GitHub, AWS, etc.) solely to validate the secrets you input. These interactions are user-initiated and legally compliant.
+
+### User Control
+
+You have full control over whether or not to provide GitHub login or email information. If you choose not to use features like reporting or API token generation, you can use the CLI without sharing any identifiable data.
+
+### Children’s Privacy
+
+Our CLI is not intended for individuals under the age of 13 or 16, depending on jurisdiction. If you are a minor, please use the tool under supervision or with parental consent.
+
+### Contact
+
+For privacy-related questions or requests, please open a thread in our [GitHub Discussions Forum](https://github.com/Blackplums/how2validate/discussions/categories/q-a).

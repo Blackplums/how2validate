@@ -1,98 +1,74 @@
+import type { Metadata } from "next"
 import { Inter as FontSans } from "next/font/google"
 import localFont from "next/font/local"
+import { GoogleTagManager } from "@next/third-parties/google"
+
+import { Settings } from "@/lib/meta"
+import { Footer } from "@/components/navigation/footer"
+import { Navbar } from "@/components/navigation/navbar"
+import { Providers } from "@/components/providers"
 
 import "@/styles/globals.css"
-import { siteConfig } from "@/config/site"
-import { absoluteUrl, cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
-import { Analytics } from "@/components/analytics"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-// Font files can be colocated inside of `pages`
 const fontHeading = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  src: "./assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
 })
 
-interface RootLayoutProps {
-  children: React.ReactNode
-}
+const baseUrl = Settings.metadataBase
 
-export const metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  abstract: siteConfig.description,
-  applicationName: siteConfig.name,
-  authors:[{ name: "BlackPlum Team", url: "https://github.com/Blackplums" }],
-  creator: "BlackPlum Team",
-  keywords: [
-   "secret validation",
-    "secret CLI tool",
-    "how to validate",
-    "security",
-    "passwords",
-    "API keys",
-    "tokens"
-  ],
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+export const metadata: Metadata = {
+  title: Settings.title,
+  metadataBase: new URL(baseUrl),
+  description: Settings.description,
+  keywords: Settings.keywords,
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [{
-      url: "https://repository-images.githubusercontent.com/852339948/f8b583f1-d0aa-4d1e-a672-d3c7699d1c0e",
-    }],
+    type: Settings.openGraph.type,
+    url: baseUrl,
+    title: Settings.openGraph.title,
+    description: Settings.openGraph.description,
+    siteName: Settings.openGraph.siteName,
+    images: Settings.openGraph.images.map((image) => ({
+      ...image,
+      url: `${baseUrl}${image.url}`,
+    })),
   },
   twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [`${siteConfig.url}/og.png`],
-    site: "@site", 
-    creator: "@creator", 
+    card: Settings.twitter.card,
+    title: Settings.twitter.title,
+    description: Settings.twitter.description,
+    site: Settings.twitter.site,
+    images: Settings.twitter.images.map((image) => ({
+      ...image,
+      url: `${baseUrl}${image.url}`,
+    })),
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+  alternates: {
+    canonical: baseUrl,
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 }
 
-
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      {Settings.gtmconnected && <GoogleTagManager gtmId={Settings.gtm} />}
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontHeading.variable
-        )}
+        className={`${fontSans.variable} ${fontHeading.variable} font-regular`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Analytics />
-          <Toaster />
-          <TailwindIndicator />
-        </ThemeProvider>
+        <Providers>
+          <Navbar />
+          <main className="h-auto px-5 sm:px-8">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

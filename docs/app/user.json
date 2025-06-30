@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "12345678",
+    "github_email": "user1@example.com",
+    "avatar_url": "https://avatars.githubusercontent.com/u/12345678",
+    "github_username": "devuser1",
+    "last_logged_in": "2025-05-18T14:00:00Z",
+    "created_at": "2025-01-01T10:00:00Z",
+    "expires_at": "2026-01-01T00:00:00Z",
+    "isActive": true,
+    "subscription": {
+      "plan": "pro",
+      "api_threshold": 5,
+      "email_per_day_threshold": 200,
+      "is_banned": false,
+      "expires_at": "2025-12-31T23:59:59Z"
+    },
+    "usage": {
+      "active_api_count": 3,
+      "email_reported_today": 4,
+      "total_email_reported": 42
+    }
+  },
+  {
+    "_id": "87654321",
+    "github_email": "user2@example.com",
+    "avatar_url": "https://avatars.githubusercontent.com/u/87654321",
+    "github_username": "devuser2",
+    "last_logged_in": "2025-05-18T10:00:00Z",
+    "created_at": "2024-06-01T09:00:00Z",
+    "expires_at": "2026-06-01T00:00:00Z",
+    "isActive": true,
+    "subscription": {
+      "plan": "free",
+      "api_threshold": 1000,
+      "email_per_day_threshold": 10,
+      "is_banned": false,
+      "expires_at": "2025-07-01T00:00:00Z"
+    },
+    "usage": {
+      "active_api_count": 1,
+      "email_reported_today": 0,
+      "total_email_reported": 5
+    }
+  }
+]
