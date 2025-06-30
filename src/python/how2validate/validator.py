@@ -89,6 +89,22 @@ def delete_token(service_name: str = "how2validate_cli"):
     """
     keyring.delete_password(service_name, "api_token")
 
+def is_token_stored(service_name: str = "how2validate_cli", prefix: str = "h2v-") -> bool:
+    """
+    Check whether a valid stored token exists in the system's keyring.
+
+    Parameters:
+    - service_name (str): The identifier under which the token is stored. Defaults to "how2validate_cli".
+    - prefix (str): Optional prefix the token must start with. Defaults to "h2v-".
+
+    Returns:
+    - bool: True if a token exists and is valid, otherwise False.
+    """
+    token = get_stored_token(service_name)
+    if token and isinstance(token, str) and token.startswith(prefix):
+        return True
+    return False
+
 def parse_arguments() -> argparse.Namespace:
     """
     Parse command-line arguments for the How2Validate CLI tool.
@@ -119,10 +135,10 @@ def parse_arguments() -> argparse.Namespace:
                         help='Unveil your secrets to verify their authenticity.')
     parser.add_argument('-r', '--response', action='store_true',
                         help='Monitor the status. View if your secret is Active or InActive.')
-    parser.add_argument('-R', '--report', type=str, required=False,
+    parser.add_argument('-R', '--report', action='store_true', default=False,
                         help='Get detailed reports. Receive validated secrets via email [Alpha Feature].')
     parser.add_argument('-token', type=str, required=False,
-                        help='Secure your token in the vault, fetch it on demand, or shred it when done.')
+                        help='Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: "delete", "list")')
     parser.add_argument('-v', '--version', action='version', version=f'How2Validate Tool version {get_version()}',
                         help='Expose the version.')
     parser.add_argument('--update', action='store_true',
@@ -132,12 +148,12 @@ def parse_arguments() -> argparse.Namespace:
     args = parser.parse_args()
 
     # Validate the email if the report option is provided
-    if args.report and not validate_email(args.report):
-        parser.error(f"Invalid email address: {args.report}")
+    if args.report and not is_token_stored():
+        parser.error(f"No API Token found. Use '-token' option to store one.")
 
     return args
 
-def validate(provider: str, service: str, secret: str, response: bool, report: str, isBrowser: bool = True) -> Union[ValidationResult, str]:
+def validate(provider: str, service: str, secret: str, response: bool, report: bool = False, isBrowser: bool = True) -> Union[ValidationResult, str]:
     """
     Validate the provided secret using the specified provider and service.
 
@@ -146,7 +162,7 @@ def validate(provider: str, service: str, secret: str, response: bool, report: s
         service (str): The service to validate the secret with.
         secret (str): The secret to be validated.
         response (bool): Whether to get a response status for the secret.
-        report (str): The report option (email address).
+        report (bool): The report option , Use after storing valida token. Defaults to False.
         isBrowser (bool, optional): Whether the validation is performed in a browser. Defaults to True.
 
     Returns:
@@ -156,8 +172,8 @@ def validate(provider: str, service: str, secret: str, response: bool, report: s
         ValueError: If the report email is invalid.
     """
     logging.info(f"Started validating secret...")
-    if isBrowser and report and not validate_email(report):
-        logging.error(f"Invalid email address: {report}")
+    if isBrowser and report and not is_token_stored():
+        logging.error(f"No valid token found. Please store one using `-token` flag.")
     else:
         result = validator_handle_service(format_string(provider), format_string(service), secret, response, report, isBrowser)
         return json.dumps(result.to_dict(), indent=4)
@@ -202,7 +218,7 @@ def main(args=None):
             if token:
                 logging.info(f"Stored API Token: {token}")
             else:
-                logging.error("No API Token found. Use '-token' option to store a new token.")
+                logging.error("No API Token found. Use '-token' option to store one.")
             return
         elif (
             not args.token
