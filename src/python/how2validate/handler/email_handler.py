@@ -2,63 +2,168 @@ import logging
 import os
 import json
 import requests
+import base64
 
 # Load environment variables
 from dotenv import load_dotenv
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import hashes
 
 from how2validate.utility.interface import EmailResponse
-from how2validate.utility.tool_utility import get_username_from_email
+from how2validate.utility.config_utility import get_report_urls
+from how2validate.utility.token_utility import get_stored_token
+
 load_dotenv()
 
 def send_email(email_response: EmailResponse) -> None:
     """
-    Sends an email using the ZeptoMail API. The email includes the results of a secret validation,
-    passed as an EmailResponse object. The email is customized with the recipient's name, email,
-    and merge information (like provider, state, service, and response) from the validation results.
-
-    Parameters:
-    - email_response (EmailResponse): An object containing details of the secret validation results (email, provider, state, service, and response).
-
-    Returns:
-    - None: Logs an error message if the email cannot be sent due to a failure in the email service.
+    Enhanced: Validates stored token, checks threshold/validity, fetches public key, encrypts email data,
+    and sends the encrypted report to the configured API endpoint.
     """
-    url = "https://api.zeptomail.in/v1.1/email/template"
+    urls = get_report_urls()
+    VALIDATE_URL = urls.get("validate_url", "http://localhost:3000/api/validate")
+    PUBLIC_KEY_URL = urls.get("public_key_url", "http://localhost:3000/api/public-key")
+    REPORT_URL = urls.get("report_url", "http://localhost:3000/api/report")
+    
+    token = get_stored_token()
+    if not token:
+        logging.error("No API token stored. Please store a valid token before sending email reports.")
+        return
 
-    # Construct the payload for the email
-    payload = {
-        "mail_template_key": os.getenv("TEMPLATE_KEY"),
-        "from": {
-            "address": os.getenv("FROM_EMAIL"),
-            "name": os.getenv("FROM_NAME"),
-        },
-        "to": [
-            {
-                "email_address": {
-                    "address": email_response.email,
-                    "name": get_username_from_email(email_response.email),
-                },
-            },
-        ],
-        "merge_info": {
-            "secret_provider": email_response.provider, # Secret provider (e.g., AWS, GCP)
-            "secret_state": email_response.state, # State of the secret (e.g., active, inactive)
-            "secret_service": email_response.service, # Name of the service (e.g., S3, EC2)
-            "secret_report": email_response.response # Validation result (e.g., "Validation passed")
-        },
-        "subject": "How2Validate Secret Validation Report",
-    }
-
-    headers = {
-        'accept': "application/json",
-        'content-type': "application/json",
-        'authorization': f"{os.getenv('ZEPTOMAIL_TOKEN')}",
-    }
-
+    # 1. Validate the token
     try:
-        # Send the POST request to the ZeptoMail API
-        response = requests.post(url, data=json.dumps(payload), headers=headers)
-        return response
+        validate_resp = requests.get(
+            VALIDATE_URL,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=10
+        )
+        if validate_resp.status_code != 200:
+            # Try extracting the error message from the response
+            try:
+                error_msg = validate_resp.json().get("error", validate_resp.text)
+            except ValueError:
+                # If response is not JSON
+                error_msg = validate_resp.text
+            logging.error(f"Token validation failed: {error_msg}")
+            return
+        validation_data = validate_resp.json()
+
+        if not validation_data.get("isTokenUnderDailyReportThreshold", False):
+            logging.warning("Token has exceeded daily usage limits.")
+        
+        if validate_resp.status_code == 200 and validation_data.get("isTokenUnderDailyReportThreshold", True):
+            logging.info("Token Validated successfully...")
 
     except Exception as e:
-        # Log any errors that occur during the email-sending process
-        logging.error(f'Error sending report email:', e)
+        logging.error(f"Error validating token: {e}")
+        return
+
+    # 2. Get the public key
+    try:
+        pubkey_resp = requests.get(
+            PUBLIC_KEY_URL,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=10
+        )
+        if pubkey_resp.status_code != 200:
+            # Try extracting the error message from the response
+            try:
+                error_msg = pubkey_resp.json().get("error", pubkey_resp.text)
+            except ValueError:
+                # If response is not JSON
+                error_msg = pubkey_resp.text
+            logging.error(f"Failed to fetch public key:: {error_msg}")
+            return
+        
+        public_key_pem = pubkey_resp.json().get("key")
+        if not public_key_pem:
+            logging.error("No public key found in response.")
+            return
+        public_key = serialization.load_pem_public_key(public_key_pem.encode())
+        
+        if pubkey_resp.status_code == 200 and public_key:
+            logging.info("Retrived Encryption key successfully...")
+
+    except Exception as e:
+        logging.error(f"Error fetching public key: {e}")
+        return
+
+    # 3. Encrypt the email response data
+    try:
+        email_data = {
+            "email": email_response.email,
+            "provider": email_response.provider,
+            "state": email_response.state,
+            "service": email_response.service,
+            "response": email_response.response,
+        }
+        encrypted_b64 = hybrid_encrypt(public_key,email_data)
+        if encrypted_b64:
+            logging.info("Reporting data encrypted.")
+    except Exception as e:
+        logging.error(f"Error encrypting Reporting data: {e}")
+        return
+
+    # 4. Send the encrypted report
+    try:
+        report_payload = {
+            "encrypted_data": encrypted_b64,
+            "email": email_response.email
+        }
+        report_headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
+        report_resp = requests.post(
+            REPORT_URL,
+            data=json.dumps(report_payload),
+            headers=report_headers,
+            timeout=10
+        )
+        if report_resp.status_code != 200:
+            logging.error(f"Failed to send encrypted report: {report_resp.text}")
+        else:
+            logging.info("Encrypted report sent successfully.")
+        return report_resp
+    except Exception as e:
+        logging.error(f"Error sending encrypted report: {e}")
+        return
+    
+def hybrid_encrypt(public_key, payload: dict):
+    # Encode JSON using UTF-8 with ensure_ascii=False for full Unicode support
+    data_bytes = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+
+    aes_key = os.urandom(32)  # AES-256 key
+    iv = os.urandom(16)       # AES-CBC IV
+
+    # PKCS#7 padding (manual for CBC)
+    pad_len = 16 - (len(data_bytes) % 16)
+    padded_data = data_bytes + bytes([pad_len] * pad_len)
+
+    cipher = Cipher(algorithms.AES(aes_key), modes.CBC(iv))
+    encryptor = cipher.encryptor()
+    encrypted_data = encryptor.update(padded_data) + encryptor.finalize()
+
+    encrypted_key = public_key.encrypt(
+        aes_key,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+
+    payload_obj = {
+        "key": base64.b64encode(encrypted_key).decode("utf-8"),
+        "iv": base64.b64encode(iv).decode("utf-8"),
+        "data": base64.b64encode(encrypted_data).decode("utf-8")
+    }
+
+    # Final base64 encoding of the full object
+    encrypted_payload = base64.b64encode(
+        json.dumps(payload_obj, ensure_ascii=False).encode("utf-8")
+    ).decode("utf-8")
+
+    return { "reporting_data": encrypted_payload }

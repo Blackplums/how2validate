@@ -106,5 +106,14 @@ def get_app_name():
     else:
         raise ValueError("Configuration not initialized. Call init_config() first.")
 
+def get_report_urls():
+    """
+    Reads the [REPORT] section from config.ini and returns a dict of URLs.
+    """
+    if config:
+        return dict(config['REPORT'])
+    else:
+        raise ValueError("Report Url's not initialized. Call init_config() first.")
+
 # Initialization block to load the config when the module is imported or run
 init_config()
