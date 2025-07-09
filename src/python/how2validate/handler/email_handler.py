@@ -7,9 +7,9 @@ import base64
 # Load environment variables
 from dotenv import load_dotenv
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.asymmetric import padding as asymmetric_padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives import hashes, padding
 
 from how2validate.utility.interface import EmailResponse
 from how2validate.utility.config_utility import get_report_urls
@@ -74,7 +74,7 @@ def send_email(email_response: EmailResponse) -> None:
             except ValueError:
                 # If response is not JSON
                 error_msg = pubkey_resp.text
-            logging.error(f"Failed to fetch public key:: {error_msg}")
+            logging.error(f"Failed to fetch public key: {error_msg}")
             return
         
         public_key_pem = pubkey_resp.json().get("key")
@@ -84,7 +84,7 @@ def send_email(email_response: EmailResponse) -> None:
         public_key = serialization.load_pem_public_key(public_key_pem.encode())
         
         if pubkey_resp.status_code == 200 and public_key:
-            logging.info("Retrived Encryption key successfully...")
+            logging.info("Retrieved Encryption key successfully...")
 
     except Exception as e:
         logging.error(f"Error fetching public key: {e}")
@@ -92,14 +92,21 @@ def send_email(email_response: EmailResponse) -> None:
 
     # 3. Encrypt the email response data
     try:
+        response = email_response.response
+        if isinstance(response, str):
+            try:
+                response = json.loads(response)
+            except Exception:
+                pass
+
         email_data = {
-            "email": email_response.email,
             "provider": email_response.provider,
             "state": email_response.state,
             "service": email_response.service,
-            "response": email_response.response,
+            "response": response,
         }
-        encrypted_b64 = hybrid_encrypt(public_key,email_data)
+
+        encrypted_b64 = hybrid_encrypt(public_key, email_data)
         if encrypted_b64:
             logging.info("Reporting data encrypted.")
     except Exception as e:
@@ -118,9 +125,9 @@ def send_email(email_response: EmailResponse) -> None:
         }
         report_resp = requests.post(
             REPORT_URL,
-            data=json.dumps(report_payload),
+            json=report_payload,
             headers=report_headers,
-            timeout=10
+            timeout=30
         )
         if report_resp.status_code != 200:
             logging.error(f"Failed to send encrypted report: {report_resp.text}")
@@ -132,15 +139,15 @@ def send_email(email_response: EmailResponse) -> None:
         return
     
 def hybrid_encrypt(public_key, payload: dict):
-    # Encode JSON using UTF-8 with ensure_ascii=False for full Unicode support
-    data_bytes = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    # Encode JSON using UTF-8
+    data_bytes = json.dumps(payload, ensure_ascii=True).encode("utf-8")
 
     aes_key = os.urandom(32)  # AES-256 key
     iv = os.urandom(16)       # AES-CBC IV
 
-    # PKCS#7 padding (manual for CBC)
-    pad_len = 16 - (len(data_bytes) % 16)
-    padded_data = data_bytes + bytes([pad_len] * pad_len)
+    # Apply PKCS#7 padding using cryptography's padding module
+    padder = padding.PKCS7(128).padder()
+    padded_data = padder.update(data_bytes) + padder.finalize()
 
     cipher = Cipher(algorithms.AES(aes_key), modes.CBC(iv))
     encryptor = cipher.encryptor()
@@ -148,8 +155,8 @@ def hybrid_encrypt(public_key, payload: dict):
 
     encrypted_key = public_key.encrypt(
         aes_key,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+        asymmetric_padding.OAEP(
+            mgf=asymmetric_padding.MGF1(algorithm=hashes.SHA256()),
             algorithm=hashes.SHA256(),
             label=None
         )
@@ -161,9 +168,4 @@ def hybrid_encrypt(public_key, payload: dict):
         "data": base64.b64encode(encrypted_data).decode("utf-8")
     }
 
-    # Final base64 encoding of the full object
-    encrypted_payload = base64.b64encode(
-        json.dumps(payload_obj, ensure_ascii=False).encode("utf-8")
-    ).decode("utf-8")
-
-    return { "reporting_data": encrypted_payload }
+    return payload_obj
