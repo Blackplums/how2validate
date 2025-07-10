@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { Token } from "@/types/pa-token"
 import {
   incrementTokenUsage,
+  isTokenUnderDailyReportThreshold,
   updateTokenLastUsedAt,
   validateUserToken,
 } from "@/lib/api-utils"
@@ -12,17 +12,17 @@ export async function GET(req: NextRequest) {
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json(
-      { status: 401, error: "Missing or invalid Authorization header" },
+      {
+        status: 401,
+        error: "Missing or invalid Authorization header",
+      },
       { status: 401 }
     )
   }
 
   const token = authHeader.replace("Bearer ", "").trim()
   if (!token) {
-    return NextResponse.json(
-      { status: 400, error: "Token is required" },
-      { status: 400 }
-    )
+    return NextResponse.json({ error: "Token is required" }, { status: 400 })
   }
   // Validate the token
   const validationRes = await validateUserToken(token)
@@ -40,10 +40,19 @@ export async function GET(req: NextRequest) {
 
   if (!validationRes.token) {
     return NextResponse.json(
-      { status: 400, error: "Token not found in validation result." },
+      {
+        status: 400,
+        error: "Token not found in records.",
+      },
       { status: 400 }
     )
   }
+
+  // Check reporting threshold for this token
+  const underThreshold = await isTokenUnderDailyReportThreshold(
+    validationRes.userId,
+    validationRes.token.token_hash
+  )
 
   // Increment usage counts
   if (validationRes.token?.token_hash) {
@@ -57,17 +66,10 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  // Remove sensitive fields from the token object
-  // This is to ensure we don't expose sensitive information in the response
-  const safeTokenObj = validationRes.token as Token
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { token_hash, previous_hash, ...safeToken } = safeTokenObj
-
   return NextResponse.json({
     status: 200,
     userId: validationRes.userId,
     tokenId: validationRes.tokenId,
-    user: validationRes.user,
-    token: safeToken,
+    isTokenUnderDailyReportThreshold: underThreshold,
   })
 }

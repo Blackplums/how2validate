@@ -13,7 +13,10 @@ export async function GET(req: Request) {
   const userId = searchParams.get("userId")
 
   if (!userId) {
-    return NextResponse.json({ error: "Missing userId" }, { status: 400 })
+    return NextResponse.json(
+      { status: 400, error: "Missing userId" },
+      { status: 400 }
+    )
   }
 
   const tokens = await TokenStoreModel.find({ user_id: userId })

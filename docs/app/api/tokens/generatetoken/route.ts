@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 
-import { generateToken, incrementUserActiveApiCount } from "@/lib/api-utils"
+import { generateToken } from "@/lib/api-utils"
 
 import { authOptions } from "../../auth/authOptions"
 
@@ -14,9 +14,5 @@ export async function POST() {
 
   const result = await generateToken()
 
-  if (result?.token && result?.tokenHash) {
-    // Increment user's active_api_count here, where you have the user ID
-    await incrementUserActiveApiCount(session.user.id)
-  }
   return NextResponse.json(result)
 }

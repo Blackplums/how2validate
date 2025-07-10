@@ -7,12 +7,18 @@ import dbConnect from "@/lib/mongodb"
 export async function GET(req: NextRequest) {
   const userId = req.nextUrl.searchParams.get("userId")
   if (!userId)
-    return NextResponse.json({ error: "Missing userId" }, { status: 400 })
+    return NextResponse.json(
+      { status: 400, error: "Missing userId" },
+      { status: 400 }
+    )
 
   await dbConnect()
   const user = await User.findOne({ id: userId })
   if (!user)
-    return NextResponse.json({ error: "User not found" }, { status: 404 })
+    return NextResponse.json(
+      { status: 404, error: "User not found" },
+      { status: 404 }
+    )
 
   // Fetch tokens and sum usage_count
   const tokenStore = await TokenStore.findOne({ user_id: userId })
