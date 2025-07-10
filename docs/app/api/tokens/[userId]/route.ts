@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from "next/server"
 import TokenStore from "@/models/TokenStore"
 
 import { Token } from "@/types/pa-token"
-import { decrementUserActiveApiCount } from "@/lib/api-utils"
+import {
+  decrementUserActiveApiCount,
+  incrementUserActiveApiCount,
+} from "@/lib/api-utils"
 import dbConnect from "@/lib/mongodb"
 
-// CREATE or UPDATE a token for a user
+// CREATE a new token for a user (increments active count)
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ userId: string }> }
@@ -15,7 +18,7 @@ export async function POST(
 
   if (!userId || !token || !token.token_hash) {
     return NextResponse.json(
-      { error: "Missing userId or token_hash" },
+      { status: 400, error: "Missing userId or token_hash" },
       { status: 400 }
     )
   }
@@ -43,7 +46,49 @@ export async function POST(
       { $push: { tokens: token } },
       { upsert: true, new: true }
     )
+    await incrementUserActiveApiCount(userId)
     return NextResponse.json(result)
+  }
+
+  return NextResponse.json(updated)
+}
+
+// UPDATE an existing token for a user (does NOT increment active count)
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ userId: string }> }
+) {
+  const { userId } = await context.params
+  const token: Token = await req.json()
+
+  if (!userId || !token || !token.token_hash) {
+    return NextResponse.json(
+      { status: 400, error: "Missing userId or token_hash" },
+      { status: 400 }
+    )
+  }
+
+  await dbConnect()
+
+  // Update existing token in the array (by previous_hash or token_hash)
+  const updated = await TokenStore.findOneAndUpdate(
+    {
+      user_id: userId,
+      "tokens.token_hash": token.previous_hash || token.token_hash,
+    },
+    {
+      $set: {
+        "tokens.$": token,
+      },
+    },
+    { new: true }
+  )
+
+  if (!updated) {
+    return NextResponse.json(
+      { status: 404, error: "Token not found for update." },
+      { status: 404 }
+    )
   }
 
   return NextResponse.json(updated)
@@ -70,7 +115,7 @@ export async function DELETE(
 
   if (!userId || !token_hash) {
     return NextResponse.json(
-      { error: "Missing userId or token_hash" },
+      { status: 400, error: "Missing userId or token_hash" },
       { status: 400 }
     )
   }

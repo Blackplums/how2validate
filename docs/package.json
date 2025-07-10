@@ -54,12 +54,12 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "remark-stringify": "^11.0.0",
+    "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.4",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0",
-    "vyrn": "^3.0.8"
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

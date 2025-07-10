@@ -12,14 +12,17 @@ export async function GET(req: NextRequest) {
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json(
-      { error: "Missing or invalid Authorization header" },
+      { status: 401, error: "Missing or invalid Authorization header" },
       { status: 401 }
     )
   }
 
   const token = authHeader.replace("Bearer ", "").trim()
   if (!token) {
-    return NextResponse.json({ error: "Token is required" }, { status: 400 })
+    return NextResponse.json(
+      { status: 400, error: "Token is required" },
+      { status: 400 }
+    )
   }
 
   // Use your utility to validate the token
@@ -28,6 +31,7 @@ export async function GET(req: NextRequest) {
   if (!validationRes) {
     return NextResponse.json(
       {
+        status: 403,
         error:
           "Invalid API Token. See https://how2validate.vercel.app/apitoken for details.",
       },
@@ -37,7 +41,7 @@ export async function GET(req: NextRequest) {
 
   if (!publicKey) {
     return NextResponse.json(
-      { error: "Public key not configured" },
+      { status: 500, error: "Public key not configured" },
       { status: 500 }
     )
   }
@@ -55,7 +59,7 @@ export async function GET(req: NextRequest) {
   }
 
   return NextResponse.json({
-    status: true,
+    status: 200,
     key: publicKey,
   })
 }

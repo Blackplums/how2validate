@@ -4,7 +4,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { signIn, useSession } from "next-auth/react"
 import { FaGithub } from "react-icons/fa"
 import { TbEdit, TbRefresh, TbTrash } from "react-icons/tb"
-import { useToast } from "vyrn"
+import { toast } from "sonner"
 
 import { Token } from "@/types/pa-token"
 import { cn } from "@/lib/utils"
@@ -45,8 +45,6 @@ export default function TokenManager() {
     maxTokens: 0,
     plan: "Pro-Free",
   })
-
-  const toast = useToast()
 
   // Fetch both user info and tokens, and set dataLoaded only when both are done
   useEffect(() => {
@@ -114,9 +112,9 @@ export default function TokenManager() {
   }
 
   const handleCreateTokenClick = async () => {
-    const allowed = await fetch(`/api/check-threshold?userId=${userId}`).then(
-      (res) => res.json()
-    )
+    const allowed = await fetch(
+      `/api/check-api-threshold?userId=${userId}`
+    ).then((res) => res.json())
     if (!allowed) {
       toast.error(
         "You can't create a new token. Delete an existing one or update its name/email to continue.",
@@ -231,7 +229,7 @@ export default function TokenManager() {
     setTokens(updatedTokens)
 
     // 3. Persist the update to the server
-    await mutateToken(userId, newToken, "POST").then(() => {
+    await mutateToken(userId, newToken, "PUT").then(() => {
       toast.success("Token regenerated successfully")
     })
 
@@ -248,7 +246,7 @@ export default function TokenManager() {
   const mutateToken = async (
     userId: string,
     token: Token,
-    mode: "POST" | "DELETE" = "POST"
+    mode: "POST" | "PUT" | "DELETE" = "POST"
   ) => {
     const res = await fetch(`/api/tokens/${userId}`, {
       method: mode,
