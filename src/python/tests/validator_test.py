@@ -7,14 +7,6 @@ from how2validate.utility.tool_utility import get_secretprovider, get_secretserv
 #Mock the current timestamp
 current_timestamp = get_current_timestamp()
 
-def test_validate_email_valid():
-    """Test validate_email with a valid email."""
-    assert validate_email("test@example.com") is True
-
-def test_validate_email_invalid():
-    """Test validate_email with an invalid email."""
-    assert validate_email("invalid-email") is False
-
 def test_parse_arguments_valid(mocker):
     """Test parse_arguments with valid arguments."""
     mocker.patch('how2validate.validator.get_secretprovider', return_value=["aws", "azure"])
@@ -43,15 +35,6 @@ def test_validate_success(mocker):
     result = validate("aws", "s3", "dummy_secret", True, None, False)
     assert '"status": "success"' in result
 
-def test_validate_invalid_email(mocker):
-    """Test validate function with an invalid email."""
-    mock_result = mocker.MagicMock()
-    mock_result.to_dict.return_value = {"status": "failure"}
-    mocker.patch('how2validate.validator.validator_handle_service', return_value=mock_result)
-
-    result = validate("aws", "s3", "dummy_secret", True, "invalid-email", False)
-    assert '"status": "failure"' in result
-
 def test_main_with_valid_arguments(mocker):
     """Test the main function with valid arguments."""
     # Mock the arguments
@@ -60,9 +43,10 @@ def test_main_with_valid_arguments(mocker):
         service="s3",
         secret="dummy_secret",
         response=True,
-        report=None,
+        report=False,
         update=False,
-        secretscope=False
+        secretscope=False,
+        token=None 
     )
 
     # Mock dependencies
@@ -75,7 +59,7 @@ def test_main_with_valid_arguments(mocker):
 
     # Assertions
     mock_validate.assert_called_once_with(
-        "aws", "s3", "dummy_secret", True, None, False
+        "aws", "s3", "dummy_secret", True, False, False
     )
 
 def test_main_missing_arguments(mocker):
@@ -88,7 +72,8 @@ def test_main_missing_arguments(mocker):
         response=True,
         report=None,
         update=False,
-        secretscope=False
+        secretscope=False,
+        token=None  # Add token argument
     )
 
     # Mock dependencies
@@ -102,6 +87,72 @@ def test_main_missing_arguments(mocker):
     # Assertions
     mock_logging_error.assert_any_call("Missing required arguments: -Provider, -Service, -Secret")
     mock_logging_error.assert_any_call("Use '-h' or '--help' for usage information.")
+
+def test_main_with_token_delete(mocker):
+    """Test the main function with the token delete argument."""
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=False,
+        report=None,
+        update=False,
+        secretscope=False,
+        token="delete"
+    )
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_delete_token = mocker.patch('how2validate.validator.delete_token')
+    mock_logging_info = mocker.patch('how2validate.validator.logging.info')
+
+    main(mock_args)
+    mock_delete_token.assert_called_once()
+    mock_logging_info.assert_any_call("API Token deleted successfully.")
+
+def test_main_with_invalid_token(mocker):
+    """Test the main function with an invalid token argument."""
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=False,
+        report=None,
+        update=False,
+        secretscope=False,
+        token="invalid_token"
+    )
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_logging_error = mocker.patch('how2validate.validator.logging.error')
+
+    main(mock_args)
+    mock_logging_error.assert_any_call(
+        "Invalid API Token. Token must be a non-empty string starting with 'h2v-'.\nSee https://how2validate.vercel.app/apitoken for details."
+    )
+
+def test_main_with_valid_token(mocker):
+    """Test the main function with a valid token argument."""
+    valid_token = "h2v-" + "x" * 48  # Example valid token
+    mock_args = mocker.MagicMock(
+        provider=None,
+        service=None,
+        secret=None,
+        response=False,
+        report=None,
+        update=False,
+        secretscope=False,
+        token=valid_token
+    )
+    mocker.patch('how2validate.validator.parse_arguments', return_value=mock_args)
+    mocker.patch('how2validate.validator.setup_logging')
+    mock_delete_token = mocker.patch('how2validate.validator.delete_token')
+    mock_save_token = mocker.patch('how2validate.validator.save_token')
+    mock_logging_info = mocker.patch('how2validate.validator.logging.info')
+
+    main(mock_args)
+    mock_delete_token.assert_called_once()
+    mock_save_token.assert_called_once_with(valid_token)
+    mock_logging_info.assert_any_call("Token stored/updated successfully.")
 
 
 def test_main_with_update(mocker):
