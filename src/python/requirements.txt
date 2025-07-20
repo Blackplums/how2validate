@@ -4,7 +4,7 @@
 #
 #    pip-compile ./requirements.in
 #
-certifi==2025.7.9
+certifi==2025.7.14
     # via requests
 cffi==1.17.1
     # via cryptography
@@ -38,7 +38,7 @@ more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via twine

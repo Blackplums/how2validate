@@ -20,7 +20,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='how2validate',
     version=version,
-    description='A cli and package for validating secrets.',
+    description='A CLI tool to validate secrets for different services.',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Blackplums/how2validate",

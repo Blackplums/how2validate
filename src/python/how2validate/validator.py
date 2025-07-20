@@ -76,7 +76,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('-r', '--response', action='store_true',
                         help='Monitor the status. View if your secret is Active or InActive.')
     parser.add_argument('-R', '--report', action='store_true', default=False,
-                        help='Get detailed reports. Receive validated secrets via email [Alpha Feature].')
+                        help='Get detailed reports. Receive validated secrets via email.')
     parser.add_argument('-token', type=str, required=False,
                         help='Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: "delete", "list")')
     parser.add_argument('-v', '--version', action='version', version=f'How2Validate Tool version {get_version()}',

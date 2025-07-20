@@ -4,29 +4,41 @@ import json
 import requests
 import base64
 
-# Load environment variables
+# Load environment variables from .env file (for secrets, API keys, etc.)
 from dotenv import load_dotenv
+
+# Cryptography modules for encryption
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding as asymmetric_padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import hashes, padding
 
+# Internal utility imports
 from how2validate.utility.interface import EmailResponse
 from how2validate.utility.config_utility import get_report_urls
 from how2validate.utility.token_utility import get_stored_token
 
+# Load any environment variables from .env
 load_dotenv()
 
 def send_email(email_response: EmailResponse) -> None:
     """
-    Enhanced: Validates stored token, checks threshold/validity, fetches public key, encrypts email data,
-    and sends the encrypted report to the configured API endpoint.
+    Handles encrypted transmission of validation results via email report endpoint.
+
+    Steps:
+    1. Validate API token using /api/validate
+    2. Fetch RSA public key from /api/public-key
+    3. Encrypt response using hybrid encryption (AES + RSA)
+    4. POST encrypted payload to /api/report
+
+    Args:
+        email_response (EmailResponse): A data class containing report-related metadata and data.
     """
     urls = get_report_urls()
     VALIDATE_URL = urls.get("validate_url", "http://localhost:3000/api/validate")
     PUBLIC_KEY_URL = urls.get("public_key_url", "http://localhost:3000/api/public-key")
     REPORT_URL = urls.get("report_url", "http://localhost:3000/api/report")
-    
+
     token = get_stored_token()
     if not token:
         logging.error("No API token stored. Please store a valid token before sending email reports.")
@@ -40,14 +52,13 @@ def send_email(email_response: EmailResponse) -> None:
             timeout=10
         )
         if validate_resp.status_code != 200:
-            # Try extracting the error message from the response
             try:
                 error_msg = validate_resp.json().get("error", validate_resp.text)
             except ValueError:
-                # If response is not JSON
                 error_msg = validate_resp.text
             logging.error(f"Token validation failed: {error_msg}")
             return
+
         validation_data = validate_resp.json()
 
         if not validation_data.get("isTokenUnderDailyReportThreshold", False):
@@ -68,15 +79,13 @@ def send_email(email_response: EmailResponse) -> None:
             timeout=10
         )
         if pubkey_resp.status_code != 200:
-            # Try extracting the error message from the response
             try:
                 error_msg = pubkey_resp.json().get("error", pubkey_resp.text)
             except ValueError:
-                # If response is not JSON
                 error_msg = pubkey_resp.text
             logging.error(f"Failed to fetch public key: {error_msg}")
             return
-        
+
         public_key_pem = pubkey_resp.json().get("key")
         if not public_key_pem:
             logging.error("No public key found in response.")
@@ -90,14 +99,14 @@ def send_email(email_response: EmailResponse) -> None:
         logging.error(f"Error fetching public key: {e}")
         return
 
-    # 3. Encrypt the email response data
+    # 3. Encrypt the email response data using hybrid (AES + RSA) encryption
     try:
         response = email_response.response
         if isinstance(response, str):
             try:
                 response = json.loads(response)
             except Exception:
-                pass
+                pass  # Use string as-is if not a valid JSON string
 
         email_data = {
             "provider": email_response.provider,
@@ -137,15 +146,30 @@ def send_email(email_response: EmailResponse) -> None:
     except Exception as e:
         logging.error(f"Error sending encrypted report: {e}")
         return
-    
+
 def hybrid_encrypt(public_key, payload: dict):
-    # Encode JSON using UTF-8
+    """
+    Encrypts a payload using AES for data and RSA for key.
+
+    Steps:
+    - Generate AES key and IV.
+    - Encrypt payload with AES (CBC mode).
+    - Encrypt AES key using RSA public key.
+    - Base64 encode the result for transport.
+
+    Args:
+        public_key: RSA public key object.
+        payload (dict): The JSON-serializable payload to encrypt.
+
+    Returns:
+        dict: Base64-encoded encrypted key, iv, and data.
+    """
     data_bytes = json.dumps(payload, ensure_ascii=True).encode("utf-8")
 
     aes_key = os.urandom(32)  # AES-256 key
     iv = os.urandom(16)       # AES-CBC IV
 
-    # Apply PKCS#7 padding using cryptography's padding module
+    # Apply PKCS#7 padding
     padder = padding.PKCS7(128).padder()
     padded_data = padder.update(data_bytes) + padder.finalize()
 
