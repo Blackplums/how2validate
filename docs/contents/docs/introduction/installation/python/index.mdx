@@ -18,6 +18,23 @@ pip install how2validate
 
 How2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.
 
+### Validate a secret
+
+```bash
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>"
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>"
+```
+
+### Validate with response status
+
+```bash
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --response
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
+```
+
+
 ### Importing and Using the Validate Function
 
 ```jsx

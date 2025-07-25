@@ -1,83 +1,41 @@
 ---
-title: JavaScript API Implementation
-description: This guide covers the installation and usage of package in JavaScript.
-keywords: ["installation", "github", "node", "guide", "javascript", "documents", "packages", "guide", "how2validate", "documents", "python", "docker", "commandlineinterface", "cli" ]
+title: Generating an API Token
+description: This guide walks you through the process of generating a secure API token for secret validation and email reporting.
+keywords: ["installation", "github", "node", "guide", "javascript", "documents", "packages", "guide", "how2validate", "documents", "python", "docker", "commandlineinterface", "cli", "api_token" ]
 ---
 
-## JavaScript API
+## Generating an API Token
 
 <Step>
-  <StepItem title="Install How2Validate dependency">
-    Get the latest version from [How2Validate JavaScript Package Registry](https://jsr.io/@how2validate/how2validate)
-
-    <Tabs defaultValue="npm" className="pt-5 pb-1">
-        <TabsList className="">
-            <TabsTrigger value="npm">npm</TabsTrigger>
-            <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-            <TabsTrigger value="bun">Bun</TabsTrigger>
-            <TabsTrigger value="yarn">Yarn</TabsTrigger>
-            <TabsTrigger value="deno">Deno</TabsTrigger>
-        </TabsList>
-        <TabsContent value="npm">
-        ```tsx 
-        npx jsr add @how2validate/how2validate
-        ````
-        </TabsContent>
-        <TabsContent value="pnpm">
-        ```tsx 
-        pnpm dlx jsr add @how2validate/how2validate
-        ```
-        </TabsContent>
-        <TabsContent value="bun">
-        ```tsx 
-        bunx jsr add @how2validate/how2validate
-        ````
-        </TabsContent>
-        <TabsContent value="yarn">
-        ```tsx 
-        yarn dlx jsr add @how2validate/how2validate
-        ```
-        </TabsContent>
-        <TabsContent value="deno">
-        ```tsx 
-        deno add jsr:@how2validate/how2validate
-        ````
-        </TabsContent>
-    </Tabs>
-
+  <StepItem title="Navigate to APIToken Dashboard">
+    Go to [How2Validate APIToken Dashboard](https://how2validate.vercel.app/apitoken)
+    ![Banner](/images/apitoken/apitoken-1.png "APIToken Dashboard Login")
 
   </StepItem>
 
-  <StepItem title="Create Function">
-    Create a function to validate secrets using below Syntax
+  <StepItem title="Sign-In via GitHub:">
+    Use your GitHub account to securely authenticate.
+    ![Banner](/images/apitoken/apitoken-2.png "APIToken GitHub Login")
+  </StepItem>
 
-    ```tsx
-    validate(provider, service, secret, response, report)
-    ```
+  <StepItem title="Dashboard:">
+    ![Banner](/images/apitoken/apitoken-3.png "How2Validate APIToken Dashboard")
+  </StepItem>
 
-    Validates a secret against the specified provider and service.
+  <StepItem title="Create a New Token:">
+    - Click "Create New Token"
+    ![Banner](/images/apitoken/apitoken-5.png "How2Validate Create APIToken")
 
-    **Parameters:**
-    - `provider (string)`: The name of the provider (e.g., "NPM", "GitHub").
-    - `service (string)`: The specific service or token type.
-    - `secret (string)`: The secret to validate.
-    - `response (boolean)`: If `true`, returns the full response.
-    - `report (string)`: Email Id to send a detailed report (Alpha Feature).
-
-    **Returns:**
-    - `validation_result (object)`: An object containing the validation status and details.
+    - Fill in:
+      - A unique **email address** where reports will be sent.
+      - A **token name** (for your reference, like personal-use, team-A-token, etc.)
+    ![Banner](/images/apitoken/apitoken-6.png "How2Validate APIToken details")
 
   </StepItem>
 
-  <StepItem title="Sample Function">
-    Function implementation of validation:
-
-    ```tsx {11} showLineNumbers
-    import { validate } from '@how2validate/how2validate';
- 
-    const result = await validate("NPM", "NPM Access Token", "<<SECRET>>", true/false, "useremail@domain.com");
-    console.log(result);
-    ```
-
+  <StepItem title="Copy Your Token:">
+    - Once created, the token will be shown only once.
+    - Copy and store it securely – you won’t be able to see it again.
+    ![Banner](/images/apitoken/apitoken-7.png "How2Validate APIToken view")
   </StepItem>
 </Step>

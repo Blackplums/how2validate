@@ -1,5 +1,9 @@
 import type { Metadata } from "next"
-import { Inter as FontSans } from "next/font/google"
+import {
+  Inter as FontSans,
+  League_Spartan as LeagueSpartan,
+  Nunito_Sans as Nunito,
+} from "next/font/google"
 import localFont from "next/font/local"
 import { GoogleTagManager } from "@next/third-parties/google"
 
@@ -13,6 +17,16 @@ import "@/styles/globals.css"
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+})
+
+const nunitoSans = Nunito({
+  subsets: ["latin"],
+  variable: "--font-regular",
+})
+
+const leagueSpartan = LeagueSpartan({
+  subsets: ["latin"],
+  variable: "--font-normal",
 })
 
 const fontHeading = localFont({
@@ -62,7 +76,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       {Settings.gtmconnected && <GoogleTagManager gtmId={Settings.gtm} />}
       <body
-        className={`${fontSans.variable} ${fontHeading.variable} font-regular`}
+        className={`${fontSans.variable} ${fontHeading.variable} ${nunitoSans.variable} ${leagueSpartan.variable} font-regular`}
       >
         <Providers>
           <Navbar />

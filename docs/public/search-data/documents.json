@@ -129,13 +129,13 @@
   },
   {
     "slug": "/email/api_token",
-    "title": "JavaScript API Implementation",
-    "description": "This guide covers the installation and usage of package in JavaScript.",
-    "content": "## JavaScript API\n",
+    "title": "Generating an API Token",
+    "description": "This guide walks you through the process of generating a secure API token for secret validation and email reporting.",
+    "content": "## Generating an API Token\n",
     "_searchMeta": {
-      "cleanContent": "javascript api",
+      "cleanContent": "generating an api token",
       "headings": [
-        "JavaScript API"
+        "Generating an API Token"
       ],
       "keywords": [
         "installation",
@@ -150,19 +150,20 @@
         "docker",
         "commandlineinterface",
         "cli",
-        "JavaScript API"
+        "api_token",
+        "Generating an API Token"
       ]
     }
   },
   {
     "slug": "/email/configuration",
-    "title": "Python API Implementation",
-    "description": "This guide covers the installation and usage of package in Python.",
-    "content": "## Python API\n",
+    "title": "Configure Token in CLI",
+    "description": "This guide walks you through the process of configuring in the CLI tool for secret validation and email reporting.",
+    "content": "## Configure Token in CLI\n\nNow that you have your token, configure it locally\n",
     "_searchMeta": {
-      "cleanContent": "python api",
+      "cleanContent": "configure token in cli now that you have your token configure it locally",
       "headings": [
-        "Python API"
+        "Configure Token in CLI"
       ],
       "keywords": [
         "installation",
@@ -176,7 +177,7 @@
         "docker",
         "commandlineinterface",
         "cli",
-        "Python API"
+        "Configure Token in CLI"
       ]
     }
   },
@@ -364,7 +365,7 @@
     "slug": "/introduction/cli",
     "title": "Command line interface (CLI)",
     "description": "This section provides an overview on how to use Command line interface (CLI).",
-    "content": "## Detailed CLI Help\n\nThe How2Validate tool provides multiple command-line options for validating secrets with precision.\n\n```bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.\n```\n\n## Example Command\n\n### Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n### Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n",
+    "content": "## Detailed CLI Help\n\nThe How2Validate tool provides multiple command-line options for validating secrets with precision.\n\n```bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email.\n  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: \"delete\", \"list\")\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.\n```\n\n## Example Command\n\n### Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n### Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n",
     "_searchMeta": {
       "cleanContent": "detailed cli help the how2validate tool provides multiple command-line options for validating secrets with precision example command validate a secret validate with response status",
       "headings": [
@@ -382,7 +383,7 @@
         "cli",
         "Detailed CLI Help",
         "Example Command",
-        "bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.",
+        "bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email.\n  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: \"delete\", \"list\")\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.",
         "## Example Command\n\n### Validate a secret",
         "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"",
         "### Validate with response status",
@@ -506,9 +507,9 @@
     "slug": "/introduction/installation/python",
     "title": "Python installation",
     "description": "This guide covers the installation and usage of package in Python.",
-    "content": "## Package\n\nGet the latest version from [How2Validate Python Package Registry](https://pypi.org/project/how2validate/)\n\n### Using pip\n\n```bash\npip install how2validate\n```\n\n## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Importing and Using the Validate Function\n\n```jsx\nfrom how2validate import validate\n \n# Validate secrets programmatically\nvalidation_result = validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)\n```\n",
+    "content": "## Package\n\nGet the latest version from [How2Validate Python Package Registry](https://pypi.org/project/how2validate/)\n\n### Using pip\n\n```bash\npip install how2validate\n```\n\n## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n### Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n\n### Importing and Using the Validate Function\n\n```jsx\nfrom how2validate import validate\n \n# Validate secrets programmatically\nvalidation_result = validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)\n```\n",
     "_searchMeta": {
-      "cleanContent": "package get the latest version from how2validate python package registry using pip usage how2validate can be used both programmatically and via the command-line interface cli below are detailed instructions for python usage importing and using the validate function",
+      "cleanContent": "package get the latest version from how2validate python package registry using pip usage how2validate can be used both programmatically and via the command-line interface cli below are detailed instructions for python usage validate a secret validate with response status importing and using the validate function",
       "headings": [
         "Package",
         "Usage"
@@ -524,7 +525,11 @@
         "Package",
         "Usage",
         "bash\npip install how2validate",
-        "## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Importing and Using the Validate Function",
+        "## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Validate a secret",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"",
+        "### Validate with response status",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r",
+        "### Importing and Using the Validate Function",
         "jsx\nfrom how2validate import validate\n \n# Validate secrets programmatically\nvalidation_result = validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)"
       ]
     }
