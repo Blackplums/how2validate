@@ -38,7 +38,8 @@ options:
   -s, --service   Specify your target service. Validate your secrets with precision.
   -sec, --secret  Unveil your secrets to verify their authenticity.
   -r, --response  Monitor the status. View if your secret is Active or InActive.
-  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].
+  -R, --report    Get detailed reports. Receive validated secrets via email.
+  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: "delete", "list")
   -v, --version   Expose the version.
   --update        Hack the tool to the latest version.
 
@@ -53,6 +54,26 @@ Ensuring the authenticity of your secrets.
 
 ```py
 pip install how2validate
+```
+
+### Example Command:
+
+#### Validate a secret
+
+```py
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>"
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>"
+
+```
+
+#### Validate with response status
+
+```py
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --response
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
+
 ```
 
 ### Import the package and use the validate function:
