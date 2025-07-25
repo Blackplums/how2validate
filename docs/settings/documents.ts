@@ -72,24 +72,24 @@ export const Documents: Paths[] = [
       },
     ],
   },
-  // {
-  //   spacer: true,
-  // },
-  // {
-  //   heading: "Email Reports",
-  //   title: "Email Reports",
-  //   href: "/email",
-  //   items: [
-  //     {
-  //       title: "API Token",
-  //       href: "/api_token",
-  //     },
-  //     {
-  //       title: "Configuration",
-  //       href: "/configuration",
-  //     },
-  //   ],
-  // },
+  {
+    spacer: true,
+  },
+  {
+    heading: "Email Reports",
+    title: "Email Reports",
+    href: "/email",
+    items: [
+      {
+        title: "API Token",
+        href: "/api_token",
+      },
+      {
+        title: "Configuration",
+        href: "/configuration",
+      },
+    ],
+  },
   {
     spacer: true,
   },
