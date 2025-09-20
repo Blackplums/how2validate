@@ -41,13 +41,18 @@ export default function Home() {
           >
             FAQ&apos;s
           </Link>
-          {/* Uncomment if needed */}
-          {/* <Link href={`/blog`} className={buttonVariants({ className: "px-6", size: "lg" })}>
+          <Link
+            href={`/blog`}
+            className={buttonVariants({ className: "px-6", size: "lg" })}
+          >
             Blog
-          </Link> */}
-          {/* <Link href={`/apitoken`} className={buttonVariants({ className: "px-6", size: "lg" })}>
+          </Link>
+          <Link
+            href={`/apitoken`}
+            className={buttonVariants({ className: "px-6", size: "lg" })}
+          >
             API Token
-          </Link> */}
+          </Link>
           <Link
             href={Settings.githuburl}
             target="_blank"

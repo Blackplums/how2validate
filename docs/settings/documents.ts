@@ -107,6 +107,10 @@ export const Documents: Paths[] = [
         href: "/installation",
       },
       {
+        title: "API-Token",
+        href: "/api",
+      },
+      {
         title: "Security",
         href: "/security",
       },

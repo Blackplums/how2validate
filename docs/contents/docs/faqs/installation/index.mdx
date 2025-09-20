@@ -3,27 +3,7 @@ title: Installation and Usage FAQ's
 description: The frequently asked installation and usage queries and their solution.
 keywords: ["installation", "github", "node", "guide", "documents", "packages", "python", "docker", "commandlineinterface", "cli" ]
 ---
-{/* 
-#### 1. How do I install How2Validate for JavaScript using npm?
-You can install How2Validate for JavaScript using npm. Refer [***JavaScript Installation***]().
 
-#### 2. How do I validate a secret using the JavaScript package?
-First, import the validate function and then use it as follows. Refer [***JavaScript Usage***]().
-        
-```javascript
-import { validate } from '@how2validate/how2validate';
-
-# Validate secrets programmatically
-var validation_result = await validate(
-    provider="NPM",
-    service="NPM Access Token",
-    secret="<<SECRET_HERE>>",
-    response=True/False,
-    report="useremail@domain.com"
-)
-console.log(validation_result)
-```
-*/}
 #### 1. How can I install How2Validate in a Python environment?
 Install How2Validate in Python using pip. Refer [***Python Installation***](../../docs/introduction/installation/python).
 
@@ -42,45 +22,6 @@ validation_result = validate(
 )
 print(validation_result)
 ```
-{/* 
-#### 5. Are there installation instructions for package managers other than npm and pip?
-Yes, How2Validate can be installed using other JavaScript package managers as follows:
-
-    <Tabs defaultValue="npm" className="pt-5 pb-1">
-    <TabsList className="">
-        <TabsTrigger value="npm">npm</TabsTrigger>
-        <TabsTrigger value="pnpm">pnpm</TabsTrigger>
-        <TabsTrigger value="bun">Bun</TabsTrigger>
-        <TabsTrigger value="yarn">Yarn</TabsTrigger>
-        <TabsTrigger value="deno">Deno</TabsTrigger>
-    </TabsList>
-    <TabsContent value="npm">
-    ```tsx 
-    npx jsr add @how2validate/how2validate
-    ````
-    </TabsContent>
-    <TabsContent value="pnpm">
-    ```tsx 
-    pnpm dlx jsr add @how2validate/how2validate
-    ```
-    </TabsContent>
-    <TabsContent value="bun">
-    ```tsx 
-    bunx jsr add @how2validate/how2validate
-    ````
-    </TabsContent>
-    <TabsContent value="yarn">
-    ```tsx 
-    yarn dlx jsr add @how2validate/how2validate
-    ```
-    </TabsContent>
-    <TabsContent value="deno">
-    ```tsx 
-    deno add jsr:@how2validate/how2validate
-    ````
-    </TabsContent>
-    </Tabs>
-*/}
 
 #### 3. How do I install How2Validate using Docker?
 You can use container from [**GitHub Package Registry**](https://github.com/Blackplums/how2validate/pkgs/container/how2validate). Refer [Container Installation](../../docs/introduction/installation/container).
