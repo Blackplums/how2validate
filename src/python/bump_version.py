@@ -192,6 +192,7 @@ def main():
     try:
         new_version = bump_version(normalized_version, bump_type)
         print(f"🔁 {bump_type.capitalize()} bump: {new_version}")
+        print(f"NewVersion: {new_version}")
         save_config(config, new_version)
         print("✅ Config.ini updated.")
     except Exception as e:
