@@ -4,11 +4,11 @@
 #
 #    pip-compile ./requirements.in
 #
-certifi==2025.7.9
+certifi==2025.8.3
     # via requests
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
-coverage[toml]==7.9.2
+coverage[toml]==7.10.6
     # via pytest-cov
 idna==3.10
     # via requests
@@ -22,16 +22,16 @@ pluggy==1.6.0
     #   pytest-cov
 pygments==2.19.2
     # via pytest
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r ./requirements.in
     #   pytest-cov
     #   pytest-mock
-pytest-cov==6.2.1
+pytest-cov==7.0.0
     # via -r ./requirements.in
-pytest-mock==3.14.1
+pytest-mock==3.15.1
     # via -r ./requirements.in
-requests==2.32.4
+requests==2.32.5
     # via
     #   -r ./requirements.in
     #   requests-mock

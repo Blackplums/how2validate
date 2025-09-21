@@ -4,17 +4,17 @@
 #
 #    pip-compile ./requirements.in
 #
-certifi==2025.7.14
+certifi==2025.8.3
     # via requests
-cffi==1.17.1
+cffi==2.0.0
     # via cryptography
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
-cryptography==45.0.5
+cryptography==46.0.1
     # via pyopenssl
-dnspython==2.7.0
+dnspython==2.8.0
     # via pymongo
-docutils==0.21.2
+docutils==0.22.2
     # via readme-renderer
 id==1.5.0
     # via twine
@@ -24,17 +24,17 @@ jaraco-classes==3.4.0
     # via keyring
 jaraco-context==6.0.1
     # via keyring
-jaraco-functools==4.2.1
+jaraco-functools==4.3.0
     # via keyring
 keyring==25.6.0
     # via
     #   -r ./requirements.in
     #   twine
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
     # via rich
 mdurl==0.1.2
     # via markdown-it-py
-more-itertools==10.7.0
+more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
@@ -42,21 +42,21 @@ nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via twine
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pygments==2.19.2
     # via
     #   readme-renderer
     #   rich
-pymongo==4.13.2
+pymongo==4.15.1
     # via -r ./requirements.in
-pyopenssl==25.1.0
+pyopenssl==25.3.0
     # via -r ./requirements.in
 python-dotenv==1.1.1
     # via -r ./requirements.in
 readme-renderer==44.0
     # via twine
-requests==2.32.4
+requests==2.32.5
     # via
     #   -r ./requirements.in
     #   id
@@ -66,13 +66,15 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==14.0.0
+rich==14.1.0
     # via twine
+semver==3.0.4
+    # via -r ./requirements.in
 tabulate==0.9.0
     # via -r ./requirements.in
-twine==6.1.0
+twine==6.2.0
     # via -r ./requirements.in
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via pyopenssl
 urllib3==2.5.0
     # via
