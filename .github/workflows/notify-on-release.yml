@@ -3,9 +3,8 @@ name: 'Notify on New Release'
 # This workflow runs when a new release is 'published'.
 # It will not run on drafts or pre-releases unless they are marked as 'latest'.
 on:
-  workflow_dispatch:
   release:
-    types: [published]
+    types: [published, released]
 
 # Sets the permissions for the GITHUB_TOKEN to allow creating discussions.
 permissions:
@@ -16,21 +15,52 @@ jobs:
     name: 'Create Discussion Post'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Create Discussion Post for Release'
-        env:
-          # The GITHUB_TOKEN is automatically provided by GitHub Actions.
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install GitHub CLI manually
         run: |
-          gh discussion create \
-            --repo ${{ github.repository }} \
-            --category "release-announcements" \
-            --title "New Release: ${{ github.event.release.name }}" \
-            --body "A new version, **${{ github.event.release.tag_name }}**, has just been released!
+          # Download the latest version of the gh CLI for Linux
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh -y
+          # Verify the installation
+          gh --version
+      - name: Create a new release announcement discussion
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TITLE: "New Release: ${{ github.event.release.name }}"
+          BODY: "A new version, **${{ github.event.release.tag_name }}**, has just been released!\n\n### Release Notes\n${{ github.event.release.body }}\n\n---\n\nYou can view the full release details and download assets here:\n**${{ github.event.release.html_url }}**"
+        run: |
+          # 1. Get the category ID for "Release Announcements"
+          CATEGORY_ID=$(gh api graphql -f query='
+            query($repo: String!, $owner: String!) {
+              repository(owner: $owner, name: $repo) {
+                discussionCategories(first: 10) {
+                  nodes {
+                    id
+                    name
+                  }
+                }
+              }
+            }' -f repo="${{ github.event.repository.name }}" -f owner="${{ github.event.repository.owner.login }}" | jq -r '.data.repository.discussionCategories.nodes[] | select(.name == "Release Announcements") | .id')
 
-            ### Release Notes
-            ${{ github.event.release.body }}
+          if [ -z "$CATEGORY_ID" ]; then
+            echo "Error: Discussion category 'Release Announcements' not found."
+            exit 1
+          fi
 
-            ---
-
-            You can view the full release details and download assets here:
-            **${{ github.event.release.html_url }}**"
+          # 2. Use the category ID to create the discussion
+          gh api graphql -f query='
+            mutation($repoId: ID!, $categoryId: ID!, $title: String!, $body: String!) {
+              createDiscussion(input: {
+                repositoryId: $repoId,
+                categoryId: $categoryId,
+                title: $title,
+                body: $body
+              }) {
+                discussion {
+                  url
+                }
+              }
+            }' -f repoId=$(gh repo view ${{ github.repository }} --json id -q '.id') -f categoryId="$CATEGORY_ID" -f title="$TITLE" -f body="$BODY"
