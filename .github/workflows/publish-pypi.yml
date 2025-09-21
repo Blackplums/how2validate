@@ -1,6 +1,7 @@
 name: Publish to PyPI
 
-workflow_call:
+on:
+  workflow_call:
     inputs:
       version:
         description: "Release version"

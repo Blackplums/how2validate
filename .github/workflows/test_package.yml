@@ -12,9 +12,5 @@ on:
 
 jobs:
   Test-Package:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test packages
-        id: test
-        uses: ./.github/templates/test-package.yml
+    uses: ./.github/workflows/test-package.yml
       

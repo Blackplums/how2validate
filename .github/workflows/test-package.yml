@@ -1,7 +1,7 @@
-name: Test Python Package
+name: Test Python Package Workflow
 
-
-workflow_call:
+on:
+  workflow_call:
     inputs:
       test-command:
         description: "Command to run tests"

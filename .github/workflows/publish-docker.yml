@@ -1,6 +1,7 @@
 name: Publish Docker Image
 
-workflow_call:
+on:
+  workflow_call:
     inputs:
       registry:
         description: 'Container registry (eg. ghcr.io)'
@@ -31,12 +32,6 @@ workflow_call:
         type: string
         default: 'true'
     
-    secrets:
-      github_token:
-        description: 'GitHub token to authenticate to registry'
-        required: true
-        type: string
-
     outputs:
       digest:
         description: 'Image digest produced by docker/build-push-action'
@@ -61,7 +56,7 @@ jobs:
         with:
           registry: ${{ inputs.registry }}
           username: ${{ github.actor }}
-          password: ${{ inputs.github_token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
