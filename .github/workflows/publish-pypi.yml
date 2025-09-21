@@ -3,8 +3,8 @@ name: Publish to PyPI
 on:
   workflow_call:
     inputs:
-      version:
-        description: "Release version"
+      bump-type:
+        description: "Version bump type: patch, minor, major, beta"
         required: true
         type: string
     
@@ -19,16 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: Pypi-Release
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Update Install dependencies
+        id: bump
+        uses: ./.github/workflows/bump-version.yml
         with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        uses: ./.github/actions/install-deps
+          bump-type: ${{ inputs.bump-type || 'patch' }}
 
       - name: Build package distributions
         working-directory: ./src/python
@@ -37,7 +32,7 @@ jobs:
       - name: Upload distribution artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-v${{ inputs.version }}
+          name: python-v${{ steps.bump.outputs.new-version }} 
           path: ./src/python/dist/
 
       - name: Publish to PyPI

@@ -49,7 +49,7 @@ jobs:
     secrets:
       pip_token: ${{ secrets.PYPI_API_TOKEN }}
     with:
-      version: ${{ needs.bump.outputs.new-version }}
+      bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
 
   publish-docker:
     needs: bump
