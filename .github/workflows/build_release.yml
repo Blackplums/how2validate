@@ -15,66 +15,53 @@ on:
           - major
           - beta
 
-  # Scheduled trigger: every week at Sunday 00:00 UTC
+  # Scheduled trigger: every Sunday 00:00 UTC
   schedule:
-    - cron: '0 0 * * 0'  # weekly, Sunday 00:00 UTC
+    - cron: '0 0 * * 0'
 
   # Trigger on changes to src/python or src/docker
   push:
     branches:
-      - main  # or your default branch
+      - main
     paths:
       - 'src/python/**'
       - 'src/docker/**'
 
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+  discussions: write
+
 jobs:
-  Build-and-Release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-      packages: write
-      discussions: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+  test:
+    uses: ./.github/templates/test-package.yml
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
+  bump:
+    needs: test
+    uses: ./.github/templates/bump-version.yml
+    with:
+      bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
 
-      - name: Install dependencies
-        uses: ./.github/actions/install-deps
+  publish-pypi:
+    needs: [bump, test]
+    uses: ./.github/templates/publish-pypi.yml
+    with:
+      version: ${{ needs.bump.outputs.new-version }}
 
-      - name: Test packages
-        id: test
-        uses: ./.github/actions/test-package
+  publish-docker:
+    needs: bump
+    uses: ./.github/templates/publish-docker.yml
+    with:
+      registry: ghcr.io
+      image_name: ${{ github.repository}}
+      context: ./src/docker
+      dockerfile: ./src/docker/Dockerfile
+      push: true
+      github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bump version
-        id: bump
-        uses: ./.github/actions/bump-version
-        if: ${{ success() && steps.test.outcome == 'success' }}
-        with:
-          bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
-
-      - name: Publish to PyPI
-        id: publish_pypi
-        uses: ./.github/actions/publish-pypi
-        if: ${{ success() && steps.bump.outcome == 'success' }}
-        with:
-          version: ${{ steps.bump.outputs.new-version }}
-
-      - name: Publish Docker
-        id: publish_docker
-        uses: ./.github/actions/publish-docker
-        if: ${{ success() && steps.bump.outcome == 'success' }}
-        with:
-          version: ${{ steps.bump.outputs.new-version }}
-
-      - name: Tag & Release
-        id: release
-        uses: ./.github/actions/release-tag
-        if: ${{ success() && steps.publish_pypi.outcome == 'success' && steps.publish_docker.outcome == 'success' }}
-        with:
-          version: ${{ steps.bump.outputs.new-version }}
+  release:
+    needs: [publish-pypi, publish-docker, bump]
+    uses: ./.github/templates/release-tag.yml
+    with:
+      version: ${{ needs.bump.outputs.new-version }}

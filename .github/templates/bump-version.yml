@@ -1,0 +1,49 @@
+name: Bump Version
+
+on:
+  workflow_call:
+    inputs:
+      bump-type:
+        description: "Version bump type: patch, minor, major, beta"
+        required: true
+        type: string
+    outputs:
+      new-version:
+        description: "The new version bumped from Config.ini"
+        value: ${{ jobs.bump.outputs.new-version }}
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    outputs:
+      new-version: ${{ steps.bump.outputs.new-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-deps
+
+      - name: Run bump_version.py
+        id: bump
+        working-directory: ./src/python
+        run: |
+          # Run the version bump script with the specified bump type
+          OUTPUT=$(python bump_version.py "${{ inputs.bump-type }}")
+
+          # Print all output for logging
+          echo "$OUTPUT"
+
+          # Extract the new version from the 'NewVersion:' line
+          NEW_VERSION=$(echo "$OUTPUT" | grep "NewVersion:" | awk '{print $2}')
+
+          # Set output for workflow
+          echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+          # Optional log for clarity
+          echo "::notice::Bumped version: $NEW_VERSION"
