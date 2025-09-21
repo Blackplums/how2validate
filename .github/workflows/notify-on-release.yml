@@ -33,7 +33,7 @@ jobs:
           TITLE: "New Release: ${{ github.event.release.name }}"
           BODY: "A new version, **${{ github.event.release.tag_name }}**, has just been released!\n\n### Release Notes\n${{ github.event.release.body }}\n\n---\n\nYou can view the full release details and download assets here:\n**${{ github.event.release.html_url }}**"
         run: |
-          # 1. Get the category ID for "release-announcements"
+          # 1. Get the category ID for "Release Announcements"
           CATEGORY_ID=$(gh api graphql -f query='
             query($repo: String!, $owner: String!) {
               repository(owner: $owner, name: $repo) {
@@ -44,10 +44,10 @@ jobs:
                   }
                 }
               }
-            }' -f repo="${{ github.event.repository.name }}" -f owner="${{ github.event.repository.owner.login }}" | jq -r '.data.repository.discussionCategories.nodes[] | select(.name == "release-announcements") | .id')
+            }' -f repo="${{ github.event.repository.name }}" -f owner="${{ github.event.repository.owner.login }}" | jq -r '.data.repository.discussionCategories.nodes[] | select(.name == "Release Announcements") | .id')
 
           if [ -z "$CATEGORY_ID" ]; then
-            echo "Error: Discussion category 'release-announcements' not found."
+            echo "Error: Discussion category 'Release Announcements' not found."
             exit 1
           fi
 
