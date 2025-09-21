@@ -15,66 +15,87 @@ on:
           - major
           - beta
 
-  # Scheduled trigger: every week at Sunday 00:00 UTC
+  # Scheduled trigger: every Sunday 00:00 UTC
   schedule:
-    - cron: '0 0 * * 0'  # weekly, Sunday 00:00 UTC
+    - cron: '0 0 * * 0'
 
   # Trigger on changes to src/python or src/docker
   push:
     branches:
-      - main  # or your default branch
+      - main
     paths:
       - 'src/python/**'
       - 'src/docker/**'
 
+permissions:
+  contents: write
+  id-token: write
+  packages: write
+  discussions: write
+  attestations: write
+
 jobs:
-  Build-and-Release:
+  Test:
+    uses: ./.github/workflows/test-package.yml
+
+  Bump-Version:
+    needs: Test
+    uses: ./.github/workflows/bump-version.yml
+    with:
+      bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
+
+  Publish:
+    needs: [Bump-Version, Test]
+    uses: ./.github/workflows/publish-pypi.yml
+    secrets:
+      pip_token: ${{ secrets.PYPI_API_TOKEN }}
+    with:
+      bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
+
+  Publish-Docker:
+    needs: Bump-Version
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
-      packages: write
-      discussions: write
+    outputs:
+      digest: ${{ steps.push.outputs.digest }}
+      tags: ${{ steps.meta.outputs.tags }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
         with:
-          python-version: "3.12"
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        uses: ./.github/actions/install-deps
-
-      - name: Test packages
-        id: test
-        uses: ./.github/actions/test-package
-
-      - name: Bump version
-        id: bump
-        uses: ./.github/actions/bump-version
-        if: ${{ success() && steps.test.outcome == 'success' }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
+          images: ghcr.io/${{ github.repository }}
 
-      - name: Publish to PyPI
-        id: publish_pypi
-        uses: ./.github/actions/publish-pypi
-        if: ${{ success() && steps.bump.outcome == 'success' }}
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v6
         with:
-          version: ${{ steps.bump.outputs.new-version }}
+          context: .
+          file: ./src/docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Publish Docker
-        id: publish_docker
-        uses: ./.github/actions/publish-docker
-        if: ${{ success() && steps.bump.outcome == 'success' }}
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
         with:
-          version: ${{ steps.bump.outputs.new-version }}
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Tag & Release
-        id: release
-        uses: ./.github/actions/release-tag
-        if: ${{ success() && steps.publish_pypi.outcome == 'success' && steps.publish_docker.outcome == 'success' }}
-        with:
-          version: ${{ steps.bump.outputs.new-version }}
+  Release-Tag:
+    needs: [Publish, Publish-Docker, Bump-Version]
+    uses: ./.github/workflows/release-tag.yml
+    with:
+      version: ${{ needs.Bump-Version.outputs.new-version }}

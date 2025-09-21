@@ -1,0 +1,64 @@
+name: Publish to PyPI
+
+on:
+  workflow_call:
+    inputs:
+      bump-type:
+        description: "Version bump type: patch, minor, major, beta"
+        required: true
+        type: string
+    
+    secrets:
+      pip_token:
+        description: "Pip api tokens"
+        required: true
+
+
+jobs:
+  Publish:
+    runs-on: ubuntu-latest
+    environment: Pypi-Release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-deps
+
+      - name: Run bump_version.py
+        id: bump
+        working-directory: ./src/python
+        run: |
+          # Run the version bump script with the specified bump type
+          OUTPUT=$(python bump_version.py "${{ inputs.bump-type }}")
+
+          # Print all output for logging
+          echo "$OUTPUT"
+
+          # Extract the new version from the 'NewVersion:' line
+          NEW_VERSION=$(echo "$OUTPUT" | grep "NewVersion:" | awk '{print $2}')
+
+          # Set output for workflow
+          echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+          # Optional log for clarity
+          echo "::notice::Bumped version: $NEW_VERSION"
+
+      - name: Build package distributions
+        working-directory: ./src/python
+        run: python setup.py sdist bdist_wheel
+
+      - name: Upload distribution artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-v${{ steps.bump.outputs.new-version }} 
+          path: ./src/python/dist/
+
+      - name: Publish to PyPI
+        working-directory: ./src/python
+        run: python -m twine upload dist/* -u  __token__ -p ${{ secrets.pip_token }}

@@ -3,6 +3,7 @@ name: 'Notify on New Release'
 # This workflow runs when a new release is 'published'.
 # It will not run on drafts or pre-releases unless they are marked as 'latest'.
 on:
+  workflow_dispatch:
   release:
     types: [published]
 

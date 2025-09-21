@@ -1,0 +1,49 @@
+name: Test Python Package Workflow
+
+on:
+  workflow_call:
+    inputs:
+      test-command:
+        description: "Command to run tests"
+        required: false
+        default: "pytest"
+        type: string
+    outputs:
+      tests-passed:
+        description: "true when tests passed"
+        value: ${{ jobs.test.outputs.tests-passed }}
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    outputs:
+      tests-passed: ${{ steps.run_tests.outputs.tests_passed }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-deps
+
+      - name: Run tests
+        id: run_tests
+        working-directory: ./src/python/tests
+        shell: bash
+        run: |
+          set -e
+          echo "Running tests with: ${{ inputs.test-command }}"
+          if bash -lc "${{ inputs.test-command }}"; then
+            echo "Tests passed!"
+            echo "tests_passed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::Tests failed!"
+            echo "tests_passed=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi

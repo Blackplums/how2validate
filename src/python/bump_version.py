@@ -34,7 +34,7 @@ import requests
 import sys
 
 # Constants
-CONFIG_FILE = "Config.ini"
+CONFIG_FILE = "config.ini"
 PACKAGE_NAME = "how2validate"  # Change this if your PyPI package name differs
 
 def load_config():
