@@ -1,0 +1,25 @@
+name: "Create Release"
+description: "Tag current version and publish GitHub Release"
+
+inputs:
+  version:
+    description: "Release version"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Git tag
+      shell: bash
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git tag v${{ inputs.version }}
+        git push origin v${{ inputs.version }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ inputs.version }}
+        name: Release v${{ inputs.version }}
+        body: "Automated release for version ${{ inputs.version }}"
