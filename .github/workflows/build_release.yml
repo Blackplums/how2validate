@@ -1,0 +1,80 @@
+name: Release Package
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        description: "Semver bump type [patch|minor|major|beta]"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - beta
+
+  # Scheduled trigger: every week at Sunday 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 0'  # weekly, Sunday 00:00 UTC
+
+  # Trigger on changes to src/python or src/docker
+  push:
+    branches:
+      - main  # or your default branch
+    paths:
+      - 'src/python/**'
+      - 'src/docker/**'
+
+jobs:
+  Build-and-Release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      packages: write
+      discussions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-deps
+
+      - name: Test packages
+        id: test
+        uses: ./.github/actions/test-package
+
+      - name: Bump version
+        id: bump
+        uses: ./.github/actions/bump-version
+        if: ${{ success() && steps.test.outcome == 'success' }}
+        with:
+          bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
+
+      - name: Publish to PyPI
+        id: publish_pypi
+        uses: ./.github/actions/publish-pypi
+        if: ${{ success() && steps.bump.outcome == 'success' }}
+        with:
+          version: ${{ steps.bump.outputs.new-version }}
+
+      - name: Publish Docker
+        id: publish_docker
+        uses: ./.github/actions/publish-docker
+        if: ${{ success() && steps.bump.outcome == 'success' }}
+        with:
+          version: ${{ steps.bump.outputs.new-version }}
+
+      - name: Tag & Release
+        id: release
+        uses: ./.github/actions/release-tag
+        if: ${{ success() && steps.publish_pypi.outcome == 'success' && steps.publish_docker.outcome == 'success' }}
+        with:
+          version: ${{ steps.bump.outputs.new-version }}
