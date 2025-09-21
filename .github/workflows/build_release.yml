@@ -35,25 +35,25 @@ permissions:
   attestations: write
 
 jobs:
-  test:
+  Test:
     uses: ./.github/workflows/test-package.yml
 
-  bump:
-    needs: test
+  Bump-Version:
+    needs: Test
     uses: ./.github/workflows/bump-version.yml
     with:
       bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
 
-  publish-pypi:
-    needs: [bump, test]
+  Publish:
+    needs: [Bump-Version, Test]
     uses: ./.github/workflows/publish-pypi.yml
     secrets:
       pip_token: ${{ secrets.PYPI_API_TOKEN }}
     with:
       bump-type: ${{ github.event.inputs.bump-type || 'patch' }}
 
-  publish-docker:
-    needs: bump
+  Publish-Docker:
+    needs: Bump-Version
     runs-on: ubuntu-latest
     outputs:
       digest: ${{ steps.push.outputs.digest }}
@@ -94,8 +94,8 @@ jobs:
           push-to-registry: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  release:
-    needs: [publish-pypi, publish-docker, bump]
+  Release-Tag:
+    needs: [Publish, Publish-Docker, Bump-Version]
     uses: ./.github/workflows/release-tag.yml
     with:
-      version: ${{ needs.bump.outputs.new-version }}
+      version: ${{ needs.Bump-Version.outputs.new-version }}

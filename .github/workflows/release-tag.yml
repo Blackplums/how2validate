@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  release:
+  Release-Tag:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,5 +32,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ inputs.version }}
-          name: Release v${{ inputs.version }}
+          name: v${{ inputs.version }}
           body: "Automated release for version ${{ inputs.version }}"

@@ -10,10 +10,10 @@ on:
     outputs:
       new-version:
         description: "The new version bumped from Config.ini"
-        value: ${{ jobs.bump.outputs.new-version }}
+        value: ${{ jobs.BumpVersion.outputs.new-version }}
 
 jobs:
-  bump:
+  BumpVersion:
     runs-on: ubuntu-latest
     outputs:
       new-version: ${{ steps.bump.outputs.new-version }}

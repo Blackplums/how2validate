@@ -14,7 +14,7 @@ on:
         value: ${{ jobs.test.outputs.tests-passed }}
 
 jobs:
-  test:
+  Test:
     runs-on: ubuntu-latest
 
     outputs:
