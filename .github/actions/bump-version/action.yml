@@ -16,10 +16,11 @@ runs:
   steps:
     - name: Run bump_version.py
       id: bump
+      working-directory: ./src/python
       shell: bash
       run: |
         # Run the version bump script with the specified bump type
-        OUTPUT=$(python src/python/bump_version.py ${{ inputs.bump-type }})
+        OUTPUT=$(python bump_version.py ${{ inputs.bump-type }})
 
         # Print all output for logging
         echo "$OUTPUT"
