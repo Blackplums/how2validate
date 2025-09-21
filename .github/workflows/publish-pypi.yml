@@ -7,6 +7,12 @@ on:
         description: "Release version"
         required: true
         type: string
+    
+    secrets:
+      pip_token:
+        description: "Pip api tokens"
+        required: true
+
 
 jobs:
   publish:
@@ -36,4 +42,4 @@ jobs:
 
       - name: Publish to PyPI
         working-directory: ./src/python
-        run: python -m twine upload dist/* -u  __token__ -p ${{ secrets.PYPI_API_TOKEN }}
+        run: python -m twine upload dist/* -u  __token__ -p ${{ secrets.pip_token }}

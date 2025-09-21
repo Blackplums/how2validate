@@ -46,13 +46,16 @@ jobs:
   publish-pypi:
     needs: [bump, test]
     uses: ./.github/workflows/publish-pypi.yml
+    secrets:
+      pip_token: ${{ secrets.PYPI_API_TOKEN }}
     with:
       version: ${{ needs.bump.outputs.new-version }}
 
   publish-docker:
     needs: bump
     uses: ./.github/workflows/publish-docker.yml
-    secrets: inherit
+    secrets: 
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       registry: ghcr.io
       image_name: ${{ github.repository }}
