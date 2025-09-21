@@ -1,7 +1,6 @@
 name: Publish Docker Image
 
-on:
-  workflow_call:
+workflow_call:
     inputs:
       registry:
         description: 'Container registry (eg. ghcr.io)'

@@ -1,7 +1,6 @@
 name: Create Release
 
-on:
-  workflow_call:
+workflow_call:
     inputs:
       version:
         description: "Release version"
