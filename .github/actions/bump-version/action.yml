@@ -19,7 +19,6 @@ runs:
       working-directory: ./src/python
       shell: bash
       run: |
-        pwd
         # Run the version bump script with the specified bump type
         OUTPUT=$(python bump_version.py ${{ inputs.bump-type }})
 
