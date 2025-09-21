@@ -19,11 +19,35 @@ jobs:
     runs-on: ubuntu-latest
     environment: Pypi-Release
     steps:
-      - name: Update Install dependencies
-        id: bump
-        uses: ./.github/workflows/bump-version.yml
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
         with:
-          bump-type: ${{ inputs.bump-type || 'patch' }}
+          python-version: "3.12"
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-deps
+
+      - name: Run bump_version.py
+        id: bump
+        working-directory: ./src/python
+        run: |
+          # Run the version bump script with the specified bump type
+          OUTPUT=$(python bump_version.py "${{ inputs.bump-type }}")
+
+          # Print all output for logging
+          echo "$OUTPUT"
+
+          # Extract the new version from the 'NewVersion:' line
+          NEW_VERSION=$(echo "$OUTPUT" | grep "NewVersion:" | awk '{print $2}')
+
+          # Set output for workflow
+          echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+          # Optional log for clarity
+          echo "::notice::Bumped version: $NEW_VERSION"
 
       - name: Build package distributions
         working-directory: ./src/python
