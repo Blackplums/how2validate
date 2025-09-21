@@ -1,0 +1,47 @@
+---
+title: How to generate API-Token
+description: Published on - May 28, 2025
+keywords: ["blog", "guide", "python", "api-token", "api"]
+---
+
+## Configure Token in CLI
+
+Now that you have your token, configure it locally
+
+<Step>
+  <StepItem title="Install How2Validate dependency">
+    Get the latest version from [How2Validate Python Package Registry](https://pypi.org/project/how2validate/)
+     
+    ```tsx 
+    pip install how2validate
+    ````
+  </StepItem>
+
+  <StepItem title="Store via Command-Line">
+    ```tsx
+    how2validate -token YOUR_GENERATED_TOKEN
+    ```
+    This securely stores the token in your system’s keyring (e.g., macOS Keychain, Windows Vault, Linux SecretService).
+    ![Banner](/images/apitoken/config/apitoken-config-1.png "Store APIToken in CLI")
+
+  </StepItem>
+
+<StepItem title="List Stored Token">
+  ```tsx how2validate -token list ```
+  ![Banner](/images/apitoken/config/apitoken-config-2.png "List stored APIToken
+  in CLI")
+</StepItem>
+
+<StepItem title="Update Stored Token">
+  ```tsx how2validate -token YOUR_NEWLY_GENERATED_TOKEN ```
+  ![Banner](/images/apitoken/config/apitoken-config-1.png "Update APIToken in
+  CLI")
+</StepItem>
+
+  <StepItem title="Delete Stored Token">
+    ```tsx
+    how2validate -token delete 
+    ```
+    ![Banner](/images/apitoken/config/apitoken-config-3.png "Delete stored APIToken in CLI")
+  </StepItem>
+</Step>

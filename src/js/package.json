@@ -1,0 +1,81 @@
+{
+  "name": "how2validate",
+  "appName": "How2Validate",
+  "version": "0.0.1-beta.28",
+  "description": "A CLI tool to validate secrets for different services.",
+  "main": "dist/how2validate/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm link && npx tsc && npx cpx './config.json' dist/ && npx cpx './tokenManager.json' dist/",
+    "start": "node dist/how2validate/index.js",
+    "publishnpm": "npm publish",
+    "publishjsr": "npx jsr publish --allow-dirty",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blackplums/how2validate.git"
+  },
+  "keywords": [
+    "secrets",
+    "how2validate",
+    "secret-validation",
+    "secrets-management"
+  ],
+  "author": "Vigneshkna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blackplums/how2validate/issues"
+  },
+  "homepage": "https://github.com/Blackplums/how2validate#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "jsr": "^0.13.2",
+    "loglevel": "^1.9.2",
+    "zeptomail": "^6.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/ini": "^4.1.1",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.5.5",
+    "@types/validator": "^13.12.2",
+    "@vitest/expect": "^2.1.2",
+    "cpx": "^1.2.1",
+    "jest": "^29.7.0",
+    "node-polyfill-webpack-plugin": "^4.0.0",
+    "semantic-release": "^24.1.1",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "validator": "^13.12.0",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.1.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "overrides": {
+    "micromatch": "^4.0.8",
+    "braces": "^3.0.2"
+  },
+  "files": [
+    "how2validate/*",
+    "./config.json",
+    "./tokenManager.json"
+  ]
+}

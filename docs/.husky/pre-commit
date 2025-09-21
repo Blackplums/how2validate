@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./.husky/post-process-generate-mdx.sh || exit 1
+./.husky/post-process.sh || exit 1

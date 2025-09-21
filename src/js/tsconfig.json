@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2021", // Specifies the JavaScript version to compile to. ES6 (also known as ES2015) is a widely supported version.
+    "module": "ESNext", // Defines the module system to use. CommonJS is the standard for Node.js modules.
+    "outDir": "./dist", // The output directory where compiled JavaScript files will be placed.
+    "rootDir": "./", // The root directory of your TypeScript source files; all files under this directory will be included in the compilation.
+    "strict": true, // Enables all strict type-checking options for more rigorous checks.
+    "esModuleInterop": true, // Allows default imports from modules with no default export. Enables interoperability between CommonJS and ES modules.
+    "skipLibCheck": true, // Skips type checking of declaration files (e.g., `.d.ts` files), speeding up the compilation process.
+    "forceConsistentCasingInFileNames": true, // Ensures that file name casing is consistent across the project to prevent errors on case-sensitive file systems.
+    "moduleResolution": "node",
+    "types": ["vitest"],
+    "baseUrl": "./",
+    "paths": {
+      "@how2validate/*": ["./how2validate/*"],  // Example path alias
+      "@tests/*": ["./tests/*"]
+    }
+  },
+  "include": [
+    "how2validate/**/*",
+    "tests/**/*.test.ts",
+    "./config.json",
+    "./tokenManager.json" // Include the tokenManager.json file from source
+  ] 
+}

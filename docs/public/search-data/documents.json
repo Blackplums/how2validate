@@ -1,0 +1,596 @@
+[
+  {
+    "slug": "/api",
+    "title": "API Reference",
+    "description": "This section provides an overview of how to create a API.",
+    "content": "",
+    "_searchMeta": {
+      "cleanContent": "",
+      "headings": [],
+      "keywords": [
+        "api",
+        "documents",
+        "api-reference"
+      ]
+    }
+  },
+  {
+    "slug": "/api/requests",
+    "title": "API Requests",
+    "description": "This section provides an overview of how to create and implement a API.",
+    "content": "",
+    "_searchMeta": {
+      "cleanContent": "",
+      "headings": [],
+      "keywords": [
+        "api",
+        "guide",
+        "api-reference",
+        "request",
+        "js",
+        "python"
+      ]
+    }
+  },
+  {
+    "slug": "/api/requests/js",
+    "title": "JavaScript API Implementation",
+    "description": "This guide covers the installation and usage of package in JavaScript.",
+    "content": "## JavaScript API\n",
+    "_searchMeta": {
+      "cleanContent": "javascript api",
+      "headings": [
+        "JavaScript API"
+      ],
+      "keywords": [
+        "node",
+        "javascript",
+        "documents",
+        "api reference",
+        "JavaScript API"
+      ]
+    }
+  },
+  {
+    "slug": "/api/requests/python",
+    "title": "Python API Implementation",
+    "description": "This guide covers the installation and usage of package in Python.",
+    "content": "## Python API\n",
+    "_searchMeta": {
+      "cleanContent": "python api",
+      "headings": [
+        "Python API"
+      ],
+      "keywords": [
+        "packages",
+        "python",
+        "api-reference",
+        "Python API"
+      ]
+    }
+  },
+  {
+    "slug": "/api/response",
+    "title": "API Response",
+    "description": "This section provides an overview of How2Validate respose for validating secrets.",
+    "content": "",
+    "_searchMeta": {
+      "cleanContent": "",
+      "headings": [],
+      "keywords": [
+        "api",
+        "api-reference",
+        "response",
+        "python",
+        "js"
+      ]
+    }
+  },
+  {
+    "slug": "/api/response/schema",
+    "title": "API Schema",
+    "description": "This guide covers the How2Validate API response Schema.",
+    "content": "## Schema\n\n```json\n{\n  \"status\": 200,4xx,5xx,\n  \"app\": \"How2Validate\",\n  \"data\": {\n    \"validate\": {\n      \"state\": \"Active/InActive\",\n      \"message\": \"The provided secret 'npm_access_token' is currently inactive and not operational.\",\n      \"response\": {},\n      \"report\": \"email@how2validate.com\"\n    },\n    \"provider\": \"npm\",\n    \"services\": \"npm_access_token\"\n  },\n  \"error\": {\n    \"message\": \"Invalid token provided for 'npm_access_token'.\"\n  },\n  \"timestamp\": \"2024-10-21T08:59:53.986903+00:00\"\n}\n```\n\n### Fields Explanation\n\n* `status (int)`: The HTTP status code of the validation result. It indicates whether the validation was successful or if there was an error.\n  * 200: Success.\n  * 4xx: Client-side error (e.g., invalid token, missing parameter).\n  * 5xx: Server-side error (e.g., external provider API is down).\n\n* `app (str)`: The name of the application performing the validation. `\"How2Validate\"`\n\n* `data (object)`: Contains detailed information about the validation process if the validation was successful.\n  * `validate (object)`: Holds information about the validation process, such as the state of the secret or token and any related message or response data.\n    * `state (str)`: The state of the validation process. Possible values are:\n      * **Active**: The secret is valid and operational.\n      * **InActive**: The secret is invalid or expired.\n\n    * `message (str)`: A message providing more details about the validation process. ***For example: \"The provided secret 'npm\\_access\\_token' is currently active and operational.\"***\n\n    * `response (Any)`: The response data obtained from the validation, often returned from the provider's API. It could be a JSON object or a string representation of the response.\n\n    * `report (str)`: An optional email address where a report or additional details about the validation can be sent (e.g., \"email@how2validate.com\").\n\n  * `provider (str)`: The name of the provider being validated (e.g., \"npm\").\n\n  * `services (str)`: The service or token that was validated (e.g., \"npm\\_access\\_token\").\n\n* `error (object)`: Contains error information if the validation failed.\n\n  * `message (str)`: A human-readable error message explaining why the validation failed.\n\n* `timestamp (str)`: The timestamp when the validation occurred, in ISO 8601 format.\n\n## Sample response\n\nSample response for Status Code:\n",
+    "_searchMeta": {
+      "cleanContent": "schema fields explanation status int : the http status code of the validation result it indicates whether the validation was successful or if there was an error 200: success 4xx: client-side error e g invalid token missing parameter 5xx: server-side error e g external provider api is down app str : the name of the application performing the validation how2validate data object : contains detailed information about the validation process if the validation was successful validate object : holds information about the validation process such as the state of the secret or token and any related message or response data state str : the state of the validation process possible values are: active: the secret is valid and operational inactive: the secret is invalid or expired message str : a message providing more details about the validation process for example: the provided secret npm access token is currently active and operational response any : the response data obtained from the validation often returned from the provider s api it could be a json object or a string representation of the response report str : an optional email address where a report or additional details about the validation can be sent e g email how2validate com provider str : the name of the provider being validated e g npm services str : the service or token that was validated e g npm access token error object : contains error information if the validation failed message str : a human-readable error message explaining why the validation failed timestamp str : the timestamp when the validation occurred in iso 8601 format sample response sample response for status code:",
+      "headings": [
+        "Schema",
+        "Sample response"
+      ],
+      "keywords": [
+        "node",
+        "javascript",
+        "packages",
+        "python",
+        "docker",
+        "schema",
+        "Schema",
+        "Sample response",
+        "Active",
+        "InActive",
+        "For example: \"The provided secret 'npm\\_access\\_token' is currently active and operational.\"",
+        "json\n{\n  \"status\": 200,4xx,5xx,\n  \"app\": \"How2Validate\",\n  \"data\": {\n    \"validate\": {\n      \"state\": \"Active/InActive\",\n      \"message\": \"The provided secret 'npm_access_token' is currently inactive and not operational.\",\n      \"response\": {},\n      \"report\": \"email@how2validate.com\"\n    },\n    \"provider\": \"npm\",\n    \"services\": \"npm_access_token\"\n  },\n  \"error\": {\n    \"message\": \"Invalid token provided for 'npm_access_token'.\"\n  },\n  \"timestamp\": \"2024-10-21T08:59:53.986903+00:00\"\n}",
+        "### Fields Explanation\n\n*",
+        ": The HTTP status code of the validation result. It indicates whether the validation was successful or if there was an error.\n  * 200: Success.\n  * 4xx: Client-side error (e.g., invalid token, missing parameter).\n  * 5xx: Server-side error (e.g., external provider API is down).\n\n*",
+        ": The name of the application performing the validation.",
+        "*",
+        ": Contains detailed information about the validation process if the validation was successful.\n  *",
+        ": Holds information about the validation process, such as the state of the secret or token and any related message or response data.\n    *",
+        ": The state of the validation process. Possible values are:\n      * **Active**: The secret is valid and operational.\n      * **InActive**: The secret is invalid or expired.\n\n    *",
+        ": A message providing more details about the validation process. ***For example: \"The provided secret 'npm\\_access\\_token' is currently active and operational.\"***\n\n    *",
+        ": The response data obtained from the validation, often returned from the provider's API. It could be a JSON object or a string representation of the response.\n\n    *",
+        ": An optional email address where a report or additional details about the validation can be sent (e.g., \"email@how2validate.com\").\n\n  *",
+        ": The name of the provider being validated (e.g., \"npm\").\n\n  *",
+        ": The service or token that was validated (e.g., \"npm\\_access\\_token\").\n\n*",
+        ": Contains error information if the validation failed.\n\n  *",
+        ": A human-readable error message explaining why the validation failed.\n\n*"
+      ]
+    }
+  },
+  {
+    "slug": "/email/api_token",
+    "title": "Generating an API Token",
+    "description": "This guide walks you through the process of generating a secure API token for secret validation and email reporting.",
+    "content": "## Generating an API Token\n",
+    "_searchMeta": {
+      "cleanContent": "generating an api token",
+      "headings": [
+        "Generating an API Token"
+      ],
+      "keywords": [
+        "installation",
+        "github",
+        "node",
+        "guide",
+        "javascript",
+        "documents",
+        "packages",
+        "how2validate",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "api_token",
+        "Generating an API Token"
+      ]
+    }
+  },
+  {
+    "slug": "/email/configuration",
+    "title": "Configure Token in CLI",
+    "description": "This guide walks you through the process of configuring in the CLI tool for secret validation and email reporting.",
+    "content": "## Configure Token in CLI\n\nNow that you have your token, configure it locally\n",
+    "_searchMeta": {
+      "cleanContent": "configure token in cli now that you have your token configure it locally",
+      "headings": [
+        "Configure Token in CLI"
+      ],
+      "keywords": [
+        "installation",
+        "github",
+        "node",
+        "guide",
+        "documents",
+        "packages",
+        "how2validate",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "Configure Token in CLI"
+      ]
+    }
+  },
+  {
+    "slug": "/email",
+    "title": "Email Reporting",
+    "description": "This section provides an overview of how to create a API.",
+    "content": "",
+    "_searchMeta": {
+      "cleanContent": "",
+      "headings": [],
+      "keywords": [
+        "api",
+        "guide",
+        "how2validate",
+        "documents",
+        "api-reference"
+      ]
+    }
+  },
+  {
+    "slug": "/faqs/api",
+    "title": "API Token FAQ's",
+    "description": "This guide covers the api token related understanding, usages and limitations.",
+    "content": "#### 1. What is an API token in how2validate?\n\nAn API token is a secure, unique key issued after logging in with GitHub. It allows you to use the CLI for secret validation and to receive reports without exposing your GitHub credentials.\n\n#### 2. Why do I need an email when generating a token?\n\nThe email is used only for sending validation reports linked to that token. Each token can have its own email for personalized reporting.\n\n#### 3. Can I generate multiple tokens?\n\nYes. You can generate multiple tokens with different emails and names. Each token is independent. Currently, we’ve restricted the limit to 5 tokens per user and 10 reporting per token.\n\n#### 4. How do I securely store my token?\n\nUse the CLI’s built-in storage command:\n\n```tsx\nhow2validate -token YOUR_GENERATED_TOKEN\n```\n\nThis securely stores the token in your system’s keyring (e.g., macOS Keychain, Windows Vault, Linux SecretService).\n\n#### 5. Can I view my stored token again?\n\nNo. Tokens are one-time viewable only during creation. If you lose it, re-generate a new one from [APIToken Dashboard](https://how2validate.vercel.app/apitoken)\n\n#### 6. How can I update or delete my stored token in CLI?\n\n* Update Stored Token\n  ```tsx\n  how2validate -token YOUR_NEWLY_GENERATED_TOKEN\n  ```\n* Delete Stored Token\n  ```tsx\n  how2validate -token YOUR_NEWLY_GENERATED_TOKEN\n  ```\n\n#### 7. What happens if my token expires or becomes invalid?\n\nIf a token is expired, revoked, or invalid, CLI will show:\n\n```tsx\nInvalid/Expired API Token. See https://how2validate.vercel.app/apitoken for details.\n```\n\nYou’ll need to create a new token or re-generate a new one.\n\n#### 8. Is my token shared with any third-party services?\n\nNo. Tokens are used only between your CLI and how2validate API for validation and reporting. They are not shared with external services.\n\n#### 9. Can I use the same token on multiple devices?\n\nYes. You can use the same token on different devices.\n\n#### 10. What’s the daily usage/report threshold?\n\nEach token comes with a rate limit and reporting threshold. If exceeded, the CLI will warn:\n\n```tsx\nToken has exceeded daily usage limits.\n```\n\nYou’ll need to wait until the next day or use a different token.\n\n#### 11. Can I revoke a token I no longer need?\n\nYes. Go to [APIToken](https://how2validate.vercel.app/apitoken), log in, and revoke/delete the token to immediately block its use.\n\n#### 12. What happens if I lose my token?\n\nSince tokens are not retrievable, you must create a new one. Update your CLI with the new token.\n\n#### 13. Can someone misuse my token if they get it?\n\nYes. Treat your token like a password. Anyone with access to it can make API requests on your behalf. Always store it securely.\n",
+    "_searchMeta": {
+      "cleanContent": "what is an api token in how2validate an api token is a secure unique key issued after logging in with github it allows you to use the cli for secret validation and to receive reports without exposing your github credentials why do i need an email when generating a token the email is used only for sending validation reports linked to that token each token can have its own email for personalized reporting can i generate multiple tokens yes you can generate multiple tokens with different emails and names each token is independent currently we ve restricted the limit to 5 tokens per user and 10 reporting per token how do i securely store my token use the cli s built-in storage command: this securely stores the token in your system s keyring e g macos keychain windows vault linux secretservice can i view my stored token again no tokens are one-time viewable only during creation if you lose it re-generate a new one from apitoken dashboard how can i update or delete my stored token in cli update stored token delete stored token what happens if my token expires or becomes invalid if a token is expired revoked or invalid cli will show: you ll need to create a new token or re-generate a new one is my token shared with any third-party services no tokens are used only between your cli and how2validate api for validation and reporting they are not shared with external services can i use the same token on multiple devices yes you can use the same token on different devices what s the daily usage report threshold each token comes with a rate limit and reporting threshold if exceeded the cli will warn: you ll need to wait until the next day or use a different token can i revoke a token i no longer need yes go to apitoken log in and revoke delete the token to immediately block its use what happens if i lose my token since tokens are not retrievable you must create a new one update your cli with the new token can someone misuse my token if they get it yes treat your token like a password anyone with access to it can make api requests on your behalf always store it securely",
+      "headings": [],
+      "keywords": [
+        "installation",
+        "guide",
+        "javascript",
+        "documents",
+        "packages",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "tsx\nhow2validate -token YOUR_GENERATED_TOKEN",
+        "This securely stores the token in your system’s keyring (e.g., macOS Keychain, Windows Vault, Linux SecretService).\n\n#### 5. Can I view my stored token again?\n\nNo. Tokens are one-time viewable only during creation. If you lose it, re-generate a new one from [APIToken Dashboard](https://how2validate.vercel.app/apitoken)\n\n#### 6. How can I update or delete my stored token in CLI?\n\n* Update Stored Token",
+        "tsx\n  how2validate -token YOUR_NEWLY_GENERATED_TOKEN",
+        "* Delete Stored Token",
+        "#### 7. What happens if my token expires or becomes invalid?\n\nIf a token is expired, revoked, or invalid, CLI will show:",
+        "tsx\nInvalid/Expired API Token. See https://how2validate.vercel.app/apitoken for details.",
+        "You’ll need to create a new token or re-generate a new one.\n\n#### 8. Is my token shared with any third-party services?\n\nNo. Tokens are used only between your CLI and how2validate API for validation and reporting. They are not shared with external services.\n\n#### 9. Can I use the same token on multiple devices?\n\nYes. You can use the same token on different devices.\n\n#### 10. What’s the daily usage/report threshold?\n\nEach token comes with a rate limit and reporting threshold. If exceeded, the CLI will warn:",
+        "tsx\nToken has exceeded daily usage limits."
+      ]
+    }
+  },
+  {
+    "slug": "/faqs/general",
+    "title": "General FAQ's",
+    "description": "This guide covers the installation and usage of package in JavaScript.",
+    "content": "#### 1. What is How2Validate?\n\nHow2Validate is a security-focused tool designed to validate sensitive secrets such as API keys, tokens, and passwords by querying official secret provider endpoints. It ensures the authenticity and validity of these secrets in real-time, helping to prevent security vulnerabilities in applications and environments.\n\n#### 2. Which programming languages and environments does How2Validate support?\n\nHow2Validate supports multiple environments, Please refer [Package Registry Documentation](../../docs/introduction/installation)\n\n#### 3. Which secret providers are currently supported by How2Validate?\n\nAs of now, How2Validate supports multiple providers:\n\nUse command to check all scoped secrets supported\n\n`how2validate -secretscope`\n\nSupport for additional providers is actively being developed.\n\n#### 4. Is How2Validate open-source?\n\nYes, How2Validate is open-source and available under the [**MIT License**](https://github.com/Blackplums/how2validate/tree/develop/package?tab=MIT-1-ov-file). Contributions from the community are welcome!\n",
+    "_searchMeta": {
+      "cleanContent": "what is how2validate how2validate is a security-focused tool designed to validate sensitive secrets such as api keys tokens and passwords by querying official secret provider endpoints it ensures the authenticity and validity of these secrets in real-time helping to prevent security vulnerabilities in applications and environments which programming languages and environments does how2validate support how2validate supports multiple environments please refer package registry documentation which secret providers are currently supported by how2validate as of now how2validate supports multiple providers: use command to check all scoped secrets supported how2validate -secretscope support for additional providers is actively being developed is how2validate open-source yes how2validate is open-source and available under the mit license contributions from the community are welcome",
+      "headings": [],
+      "keywords": [
+        "installation",
+        "guide",
+        "javascript",
+        "documents",
+        "packages",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "MIT License",
+        "how2validate -secretscope"
+      ]
+    }
+  },
+  {
+    "slug": "/faqs",
+    "title": "FAQ's",
+    "description": "The frequently asked queries and solution.",
+    "content": "## Explore our FAQ's\n",
+    "_searchMeta": {
+      "cleanContent": "explore our faq s",
+      "headings": [
+        "Explore our FAQ's"
+      ],
+      "keywords": [
+        "faq",
+        "guide",
+        "how2validate",
+        "documents",
+        "api-reference",
+        "Explore our FAQ's"
+      ]
+    }
+  },
+  {
+    "slug": "/faqs/installation",
+    "title": "Installation and Usage FAQ's",
+    "description": "The frequently asked installation and usage queries and their solution.",
+    "content": "#### 1. How can I install How2Validate in a Python environment?\n\nInstall How2Validate in Python using pip. Refer [***Python Installation***](../../docs/introduction/installation/python).\n\n#### 2. How can I use How2Validate in a Python project?\n\nImport the validate function from the package and use it as shown. Refer [***Python Usage***](../../docs/introduction/installation/python#usage).\n\n```python\nfrom how2validate import validate\n# Validate a secret programmatically\nvalidation_result = validate(\n    provider=\"GitHub\",\n    service=\"GitHub Token\",\n    secret=\"ghp_16digitGitHubToken\",\n    response=False,\n    report=False\n)\nprint(validation_result)\n```\n\n#### 3. How do I install How2Validate using Docker?\n\nYou can use container from [**GitHub Package Registry**](https://github.com/Blackplums/how2validate/pkgs/container/how2validate). Refer [Container Installation](../../docs/introduction/installation/container).\n\n```tsx\ndocker pull ghcr.io/blackplums/how2validate:latest\n```\n\n#### 4. How do I use the How2Validate CLI to validate a secret?\n\nYou can validate a secret using the CLI with the following command. Refer [***Example CLI commands***](../../docs/introduction/cli#example-command).\n\n* Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n* Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n\n#### 5. How do I generate a detailed report using the CLI?\n\nUse the `-R` or `--report` option to receive a detailed report via email (Alpha Feature). Refer [***Reporting Documentation***](../../docs/email).\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --report username@mail.com\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -R username@mail.com\n```\n",
+    "_searchMeta": {
+      "cleanContent": "how can i install how2validate in a python environment install how2validate in python using pip refer python installation how can i use how2validate in a python project import the validate function from the package and use it as shown refer python usage how do i install how2validate using docker you can use container from github package registry refer container installation how do i use the how2validate cli to validate a secret you can validate a secret using the cli with the following command refer example cli commands validate a secret validate with response status how do i generate a detailed report using the cli use the -r or --report option to receive a detailed report via email alpha feature refer reporting documentation",
+      "headings": [],
+      "keywords": [
+        "installation",
+        "github",
+        "node",
+        "guide",
+        "documents",
+        "packages",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "Python Installation",
+        "Python Usage",
+        "GitHub Package Registry",
+        "Example CLI commands",
+        "Reporting Documentation",
+        "python\nfrom how2validate import validate\n# Validate a secret programmatically\nvalidation_result = validate(\n    provider=\"GitHub\",\n    service=\"GitHub Token\",\n    secret=\"ghp_16digitGitHubToken\",\n    response=False,\n    report=False\n)\nprint(validation_result)",
+        "#### 3. How do I install How2Validate using Docker?\n\nYou can use container from [**GitHub Package Registry**](https://github.com/Blackplums/how2validate/pkgs/container/how2validate). Refer [Container Installation](../../docs/introduction/installation/container).",
+        "tsx\ndocker pull ghcr.io/blackplums/how2validate:latest",
+        "#### 4. How do I use the How2Validate CLI to validate a secret?\n\nYou can validate a secret using the CLI with the following command. Refer [***Example CLI commands***](../../docs/introduction/cli#example-command).\n\n* Validate a secret",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"",
+        "* Validate with response status",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r",
+        "#### 5. How do I generate a detailed report using the CLI?\n\nUse the",
+        "or",
+        "option to receive a detailed report via email (Alpha Feature). Refer [***Reporting Documentation***](../../docs/email).",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --report username@mail.com\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -R username@mail.com"
+      ]
+    }
+  },
+  {
+    "slug": "/faqs/security",
+    "title": "Security FAQ's",
+    "description": "The frequently asked security queries and their solution.",
+    "content": "#### 1. How does How2Validate ensure the security of my secrets during validation?\n\nHow2Validate communicates directly with official provider endpoints to validate secrets. It does not store or transmit your secrets beyond the validation process, ensuring that your sensitive information remains secure.\n\n#### 2. Can I use How2Validate in a browser environment without compromising security?\n\nYes, How2Validate supports browser environments. However, it's crucial to handle secrets securely on the client side. Avoid exposing secrets in client-side code and ensure that sensitive data is managed appropriately to prevent unauthorized access.\n\n#### 3. Does How2Validate log or store any of my secret information?\n\nNo, How2Validate does not log or store your secret information. All validation processes are handled in-memory and communicated directly with the provider's endpoints without persisting any sensitive data.\n",
+    "_searchMeta": {
+      "cleanContent": "how does how2validate ensure the security of my secrets during validation how2validate communicates directly with official provider endpoints to validate secrets it does not store or transmit your secrets beyond the validation process ensuring that your sensitive information remains secure can i use how2validate in a browser environment without compromising security yes how2validate supports browser environments however it s crucial to handle secrets securely on the client side avoid exposing secrets in client-side code and ensure that sensitive data is managed appropriately to prevent unauthorized access does how2validate log or store any of my secret information no how2validate does not log or store your secret information all validation processes are handled in-memory and communicated directly with the provider s endpoints without persisting any sensitive data",
+      "headings": [],
+      "keywords": [
+        "security",
+        "faq",
+        "secret"
+      ]
+    }
+  },
+  {
+    "slug": "/faqs/troubleshoot",
+    "title": "Troubleshoot FAQ's",
+    "description": "The frequently asked troubleshooting queries and their solution.",
+    "content": "#### 1. I receive an \"error: argument -p --provider: Invalid choice\" error. What should I do?\n\nEnsure that you have specified the correct provider name and that it is supported by How2Validate. Check for typos and refer to the Supported Providers section. If the provider is not listed, it might not be supported yet.\n\n#### 2. I receive an \"error: argument -s --service: Invalid choice\" error. What should I do?\n\nEnsure that you have specified the correct servive name and that it is supported by How2Validate. Check for typos and refer to the Supported section section. If the services is not listed, it might not be supported yet.\n\n#### 3. How do I handle network-related errors during validation?\n\nNetwork issues can prevent How2Validate from reaching provider endpoints. To resolve:\n\n* Check your internet connection.\n* Verify firewall settings to ensure that outbound requests to provider endpoints are allowed.\n* Retry the validation after ensuring network stability.\n\n#### 4. The validation result always returns Inactive secrets. What could be the issue?\n\nPossible reasons include:\n\n* Incorrect secret: Double-check the secret value for accuracy.\n* Expired or revoked secret: Ensure that the secret is still active and has not been revoked from provider.\n* Provider-specific issues: Verify that the provider's authentication endpoints are operational.\n\n#### 5. I'm unable to install How2Validate using my package manager. What can I do?\n\nVerify your package manager version: Ensure you're using a compatible version of npm, pnpm, yarn, etc.\n\n* Check your internet connection.\n* Clear the cache of your package manager and retry the installation.\n* Review error messages for specific issues and consult the Installation section.\n\n#### 6. How do I update How2Validate to the latest version?\n\nUse the --update flag with the CLI:\n\n`how2validate --update`\n\n{/* \n  Alternatively, update via your package manager:\n\n  <Tabs defaultValue=\"npm\" className=\"pt-5 pb-1\">\n    <TabsList className=\"\">\n        <TabsTrigger value=\"npm\">npm</TabsTrigger>\n        <TabsTrigger value=\"pnpm\">pnpm</TabsTrigger>\n        <TabsTrigger value=\"yarn\">Yarn</TabsTrigger>\n    </TabsList>\n    <TabsContent value=\"npm\">\n    ```tsx \n    npm update @how2validate/how2validate\n    ````\n    </TabsContent>\n    <TabsContent value=\"pnpm\">\n    ```tsx \n    pnpm update @how2validate/how2validate\n    ```\n    </TabsContent>\n    <TabsContent value=\"yarn\">\n    ```tsx \n    yarn upgrade @how2validate/how2validate\n    ```\n    </TabsContent>\n    </Tabs>\n  */}\n",
+    "_searchMeta": {
+      "cleanContent": "i receive an error: argument -p --provider: invalid choice error what should i do ensure that you have specified the correct provider name and that it is supported by how2validate check for typos and refer to the supported providers section if the provider is not listed it might not be supported yet i receive an error: argument -s --service: invalid choice error what should i do ensure that you have specified the correct servive name and that it is supported by how2validate check for typos and refer to the supported section section if the services is not listed it might not be supported yet how do i handle network-related errors during validation network issues can prevent how2validate from reaching provider endpoints to resolve: check your internet connection verify firewall settings to ensure that outbound requests to provider endpoints are allowed retry the validation after ensuring network stability the validation result always returns inactive secrets what could be the issue possible reasons include: incorrect secret: double-check the secret value for accuracy expired or revoked secret: ensure that the secret is still active and has not been revoked from provider provider-specific issues: verify that the provider s authentication endpoints are operational i m unable to install how2validate using my package manager what can i do verify your package manager version: ensure you re using a compatible version of npm pnpm yarn etc check your internet connection clear the cache of your package manager and retry the installation review error messages for specific issues and consult the installation section how do i update how2validate to the latest version use the --update flag with the cli: how2validate --update alternatively update via your package manager: tabs defaultvalue npm classname pt-5 pb-1 tabslist classname tabstrigger value npm npm tabstrigger tabstrigger value pnpm pnpm tabstrigger tabstrigger value yarn yarn tabstrigger tabslist tabscontent value npm tabscontent tabscontent value pnpm tabscontent tabscontent value yarn tabscontent tabs",
+      "headings": [],
+      "keywords": [
+        "troubleshooting",
+        "faq",
+        "error",
+        "how2validate --update",
+        "tsx \n    npm update @how2validate/how2validate",
+        "</TabsContent>\n    <TabsContent value=\"pnpm\">",
+        "tsx \n    pnpm update @how2validate/how2validate",
+        "</TabsContent>\n    <TabsContent value=\"yarn\">",
+        "tsx \n    yarn upgrade @how2validate/how2validate"
+      ]
+    }
+  },
+  {
+    "slug": "/",
+    "title": "Introduction",
+    "description": "This section provides an overview of how to get started with the Documents, How2Validate Starter Kit.",
+    "content": "![Banner](/images/banner.png \"Documents\")\n\n## Overview\n\n**How2Validate** is a versatile security tool designed to streamline the process of validating sensitive secrets across various platforms and services.\n\nWhether you're a developer, security professional, or DevOps engineer, How2Validate empowers you to ensure the authenticity and security of your API keys, tokens, and other critical information.\n\nBy leveraging the power of Python, and Docker, How2Validate offers a flexible and efficient solution for validating secrets against official provider endpoints. Its user-friendly command-line interface (CLI) makes it easy validating secrets, allowing you to quickly and accurately verify the integrity of your sensitive data.\n\n## Why How2Validate ?\n\nIn today's digital landscape, the exposure of sensitive information such as API keys, passwords, and tokens can lead to significant security breaches.\n\nThese vulnerabilities often arise from\n\n* **Leaked API Keys** – Unintentional exposure through public repositories or logs\n* **Invalid Credentials** – Using outdated or incorrect credentials that can compromise systems\n* **Misconfigured Secrets** –  Improperly managed secrets leading to unauthorized access\n\nHow2Validate addresses these concerns by providing a robust solution to verify the authenticity and validity of your secrets directly with official providers.\n\nThis proactive approach helps in\n\n* **Mitigating Risks** - Prevent unauthorized access by ensuring only active secrets are used\n* **Enhancing Security Posture** – Strengthen your application's security by regularly validating secrets\n* **Misconfigured Secrets** –  Improperly managed secrets leading to unauthorized access\n\n## Features\n\nHow2Validate offers a range of features designed to enhance the security and efficiency of secret management\n\nStart with the [Installation Guide](/docs/basic-setup/installation).\n\n## Community Support\n\nGot questions? Reach out via:\n\n* [GitHub](https://github.com/Blackplums/how2validate)\n* [GitHub Discussions](https://github.com/Blackplums/how2validate/discussions/categories/release-announcements)\n* [GitHub Issues](https://github.com/Blackplums/how2validate/issues)\n",
+    "_searchMeta": {
+      "cleanContent": "banner overview how2validate is a versatile security tool designed to streamline the process of validating sensitive secrets across various platforms and services whether you re a developer security professional or devops engineer how2validate empowers you to ensure the authenticity and security of your api keys tokens and other critical information by leveraging the power of python and docker how2validate offers a flexible and efficient solution for validating secrets against official provider endpoints its user-friendly command-line interface cli makes it easy validating secrets allowing you to quickly and accurately verify the integrity of your sensitive data why how2validate in today s digital landscape the exposure of sensitive information such as api keys passwords and tokens can lead to significant security breaches these vulnerabilities often arise from leaked api keys unintentional exposure through public repositories or logs invalid credentials using outdated or incorrect credentials that can compromise systems misconfigured secrets improperly managed secrets leading to unauthorized access how2validate addresses these concerns by providing a robust solution to verify the authenticity and validity of your secrets directly with official providers this proactive approach helps in mitigating risks - prevent unauthorized access by ensuring only active secrets are used enhancing security posture strengthen your application s security by regularly validating secrets misconfigured secrets improperly managed secrets leading to unauthorized access features how2validate offers a range of features designed to enhance the security and efficiency of secret management start with the installation guide community support got questions reach out via: github github discussions github issues",
+      "headings": [
+        "Overview",
+        "Why How2Validate ?",
+        "Features",
+        "Community Support"
+      ],
+      "keywords": [
+        "introduction",
+        "guide",
+        "how2validate",
+        "documents",
+        "get-started",
+        "Overview",
+        "Why How2Validate ?",
+        "Features",
+        "Community Support",
+        "How2Validate",
+        "Leaked API Keys",
+        "Invalid Credentials",
+        "Misconfigured Secrets",
+        "Mitigating Risks",
+        "Enhancing Security Posture"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/cli",
+    "title": "Command line interface (CLI)",
+    "description": "This section provides an overview on how to use Command line interface (CLI).",
+    "content": "## Detailed CLI Help\n\nThe How2Validate tool provides multiple command-line options for validating secrets with precision.\n\n```bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email.\n  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: \"delete\", \"list\")\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.\n```\n\n## Example Command\n\n### Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n### Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n",
+    "_searchMeta": {
+      "cleanContent": "detailed cli help the how2validate tool provides multiple command-line options for validating secrets with precision example command validate a secret validate with response status",
+      "headings": [
+        "Detailed CLI Help",
+        "Example Command"
+      ],
+      "keywords": [
+        "packages",
+        "guide",
+        "how2validate",
+        "documents",
+        "python",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "Detailed CLI Help",
+        "Example Command",
+        "bash\nhow2validate --help\n\nusage: How2Validate Tool [options]\n\nValidate various types of secrets for different services.\n\noptions:\n  -h, --help      show this help message and exit\n  -secretscope    Explore the secret universe. Your next target awaits.\n  -p, --provider  Specify your provider. Unleash your validation arsenal.\n  -s, --service   Specify your target service. Validate your secrets with precision.\n  -sec, --secret  Unveil your secrets to verify their authenticity.\n  -r, --response  Monitor the status. View if your secret is Active or InActive.\n  -R, --report    Get detailed reports. Receive validated secrets via email.\n  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: \"delete\", \"list\")\n  -v, --version   Expose the version.\n  --update        Hack the tool to the latest version.\n\nEnsuring the authenticity of your secrets.",
+        "## Example Command\n\n### Validate a secret",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"",
+        "### Validate with response status",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction",
+    "title": "Introduction",
+    "description": "This section provides an overview of how to get started with the Documents, How2Validate Starter Kit.",
+    "content": "![Banner](/images/banner.png \"Documents\")\n\n## Overview\n\n**How2Validate** is a versatile security tool designed to streamline the process of validating sensitive secrets across various platforms and services.\n\nWhether you're a developer, security professional, or DevOps engineer, How2Validate empowers you to ensure the authenticity and security of your API keys, tokens, and other critical information.\n\nBy leveraging the power of Python, JavaScript, and Docker, How2Validate offers a flexible and efficient solution for validating secrets against official provider endpoints. Its user-friendly command-line interface (CLI) makes it easy validating secrets, allowing you to quickly and accurately verify the integrity of your sensitive data.\n\n## Why How2Validate ?\n\nIn today's digital landscape, the exposure of sensitive information such as API keys, passwords, and tokens can lead to significant security breaches.\n\nThese vulnerabilities often arise from\n\n* **Leaked API Keys** – Unintentional exposure through public repositories or logs\n* **Invalid Credentials** – Using outdated or incorrect credentials that can compromise systems\n* **Misconfigured Secrets** –  Improperly managed secrets leading to unauthorized access\n\nHow2Validate addresses these concerns by providing a robust solution to verify the authenticity and validity of your secrets directly with official providers.\n\nThis proactive approach helps in\n\n* **Mitigating Risks** - Prevent unauthorized access by ensuring only active secrets are used\n* **Enhancing Security Posture** – Strengthen your application's security by regularly validating secrets\n* **Misconfigured Secrets** –  Improperly managed secrets leading to unauthorized access\n\n## Features\n\nHow2Validate offers a range of features designed to enhance the security and efficiency of secret management\n\nStart with the [Installation Guide](/docs/introduction/installation).\n\n## Community Support\n\nGot questions? Reach out via:\n\n* [GitHub](https://github.com/Blackplums/how2validate)\n* [GitHub Discussions](https://github.com/Blackplums/how2validate/discussions/categories/release-announcements)\n* [GitHub Issues](https://github.com/Blackplums/how2validate/issues)\n",
+    "_searchMeta": {
+      "cleanContent": "banner overview how2validate is a versatile security tool designed to streamline the process of validating sensitive secrets across various platforms and services whether you re a developer security professional or devops engineer how2validate empowers you to ensure the authenticity and security of your api keys tokens and other critical information by leveraging the power of python javascript and docker how2validate offers a flexible and efficient solution for validating secrets against official provider endpoints its user-friendly command-line interface cli makes it easy validating secrets allowing you to quickly and accurately verify the integrity of your sensitive data why how2validate in today s digital landscape the exposure of sensitive information such as api keys passwords and tokens can lead to significant security breaches these vulnerabilities often arise from leaked api keys unintentional exposure through public repositories or logs invalid credentials using outdated or incorrect credentials that can compromise systems misconfigured secrets improperly managed secrets leading to unauthorized access how2validate addresses these concerns by providing a robust solution to verify the authenticity and validity of your secrets directly with official providers this proactive approach helps in mitigating risks - prevent unauthorized access by ensuring only active secrets are used enhancing security posture strengthen your application s security by regularly validating secrets misconfigured secrets improperly managed secrets leading to unauthorized access features how2validate offers a range of features designed to enhance the security and efficiency of secret management start with the installation guide community support got questions reach out via: github github discussions github issues",
+      "headings": [
+        "Overview",
+        "Why How2Validate ?",
+        "Features",
+        "Community Support"
+      ],
+      "keywords": [
+        "introduction",
+        "guide",
+        "documents",
+        "get-started",
+        "package-manager",
+        "Overview",
+        "Why How2Validate ?",
+        "Features",
+        "Community Support",
+        "How2Validate",
+        "Leaked API Keys",
+        "Invalid Credentials",
+        "Misconfigured Secrets",
+        "Mitigating Risks",
+        "Enhancing Security Posture"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/installation/container",
+    "title": "Container installation",
+    "description": "This guide covers the installation and usage of container package.",
+    "content": "## Package\n\nGet the latest version from [GitHub Package Registry](https://github.com/Blackplums/how2validate/pkgs/container/how2validate)\n\n### Using GitHub Container registry\n\n```bash\ndocker pull ghcr.io/blackplums/how2validate:main\n```\n",
+    "_searchMeta": {
+      "cleanContent": "package get the latest version from github package registry using github container registry",
+      "headings": [
+        "Package"
+      ],
+      "keywords": [
+        "installation",
+        "github",
+        "guide",
+        "documents",
+        "packages",
+        "docker",
+        "commandlineinterface",
+        "cli",
+        "container",
+        "Package",
+        "bash\ndocker pull ghcr.io/blackplums/how2validate:main"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/installation",
+    "title": "Installation",
+    "description": "This guide covers the installation of How2Validate and use it.",
+    "content": "## Prerequisites\n\nHow2Validate is available for multiple platforms, ensuring seamless secret validation process. Choose the package manager that best fits your project needs:\n\n### Select Package Manager\n\nIn today's digital landscape, the exposure of sensitive information such as API keys, passwords, and tokens can lead to significant security breaches.\n",
+    "_searchMeta": {
+      "cleanContent": "prerequisites how2validate is available for multiple platforms ensuring seamless secret validation process choose the package manager that best fits your project needs: select package manager in today s digital landscape the exposure of sensitive information such as api keys passwords and tokens can lead to significant security breaches",
+      "headings": [
+        "Prerequisites"
+      ],
+      "keywords": [
+        "installation",
+        "github",
+        "node",
+        "guide",
+        "documents",
+        "Prerequisites"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/installation/js",
+    "title": "JavaScript installation",
+    "description": "This guide covers the installation and usage of package in JavaScript.",
+    "content": "## Package\n\nGet the latest version from [How2Validate JavaScript Package Registry](https://jsr.io/@how2validate/how2validate)\n\n### Using NPM\n\n```bash\nnpx jsr add @how2validate/how2validate\n```\n\n### Using pnpm\n\n```bash\npnpm dlx jsr add @how2validate/how2validate\n```\n\n### Using Bun\n\n```bash\nbunx jsr add @how2validate/how2validate\n```\n\n### Using Yarn\n\n```bash\nyarn dlx jsr add @how2validate/how2validate\n```\n\n### Using Deno\n\n```bash\ndeno add jsr:@how2validate/how2validate\n```\n\n## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for JavaScript usage.\n\n### Importing and Using the Validate Function\n\n```jsx\nimport { validate } from '@how2validate/how2validate';\n \n# Validate secrets programmatically\nvar validation_result = await validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=True/False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)\n```\n",
+    "_searchMeta": {
+      "cleanContent": "package get the latest version from how2validate javascript package registry using npm using pnpm using bun using yarn using deno usage how2validate can be used both programmatically and via the command-line interface cli below are detailed instructions for javascript usage importing and using the validate function",
+      "headings": [
+        "Package",
+        "Usage"
+      ],
+      "keywords": [
+        "installation",
+        "node",
+        "javascript",
+        "documents",
+        "packages",
+        "commandlineinterface",
+        "cli",
+        "Package",
+        "Usage",
+        "bash\nnpx jsr add @how2validate/how2validate",
+        "### Using pnpm",
+        "bash\npnpm dlx jsr add @how2validate/how2validate",
+        "### Using Bun",
+        "bash\nbunx jsr add @how2validate/how2validate",
+        "### Using Yarn",
+        "bash\nyarn dlx jsr add @how2validate/how2validate",
+        "### Using Deno",
+        "bash\ndeno add jsr:@how2validate/how2validate",
+        "## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for JavaScript usage.\n\n### Importing and Using the Validate Function",
+        "jsx\nimport { validate } from '@how2validate/how2validate';\n \n# Validate secrets programmatically\nvar validation_result = await validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=True/False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/installation/python",
+    "title": "Python installation",
+    "description": "This guide covers the installation and usage of package in Python.",
+    "content": "## Package\n\nGet the latest version from [How2Validate Python Package Registry](https://pypi.org/project/how2validate/)\n\n### Using pip\n\n```bash\npip install how2validate\n```\n\n## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Validate a secret\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"\n```\n\n### Validate with response status\n\n```bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r\n```\n\n### Importing and Using the Validate Function\n\n```jsx\nfrom how2validate import validate\n \n# Validate secrets programmatically\nvalidation_result = validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)\n```\n",
+    "_searchMeta": {
+      "cleanContent": "package get the latest version from how2validate python package registry using pip usage how2validate can be used both programmatically and via the command-line interface cli below are detailed instructions for python usage validate a secret validate with response status importing and using the validate function",
+      "headings": [
+        "Package",
+        "Usage"
+      ],
+      "keywords": [
+        "installation",
+        "pypi",
+        "packages",
+        "documents",
+        "python package",
+        "commandlineinterface",
+        "cli",
+        "Package",
+        "Usage",
+        "bash\npip install how2validate",
+        "## Usage\n\nHow2Validate can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python usage.\n\n### Validate a secret",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\"\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\"",
+        "### Validate with response status",
+        "bash\nhow2validate --provider NPM --service \"NPM Access Token\" --secret \"<<SECRET_HERE>>\" --response\n-- OR --\nhow2validate -p NPM -s \"NPM Access Token\" -sec \"<<SECRET_HERE>>\" -r",
+        "### Importing and Using the Validate Function",
+        "jsx\nfrom how2validate import validate\n \n# Validate secrets programmatically\nvalidation_result = validate(\n    provider=\"NPM\",\n    service=\"NPM Access Token\",\n    secret=\"<<SECRET_HERE>>\",\n    response=False,\n    report=\"useremail@domain.com\"\n)\nprint(validation_result)"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/package_registry",
+    "title": "Package Registry",
+    "description": "This section provides an overview on list of supported package registry.",
+    "content": "## Overview\n\nHow2Validate is available for multiple platforms, ensuring seamless secret validation process. Choose the package manager that best fits your project needs:\n\n## Package\n\nIn today's digital landscape, the exposure of sensitive information such as API keys, passwords, and tokens can lead to significant security breaches.\n",
+    "_searchMeta": {
+      "cleanContent": "overview how2validate is available for multiple platforms ensuring seamless secret validation process choose the package manager that best fits your project needs: package in today s digital landscape the exposure of sensitive information such as api keys passwords and tokens can lead to significant security breaches",
+      "headings": [
+        "Overview",
+        "Package"
+      ],
+      "keywords": [
+        "packages",
+        "guide",
+        "how2validate",
+        "documents",
+        "python",
+        "docker",
+        "pypi",
+        "ghcr.io",
+        "Overview",
+        "Package"
+      ]
+    }
+  },
+  {
+    "slug": "/introduction/supported-secret",
+    "title": "Supported secret",
+    "description": "Lists of supported secrets and the partners providers.",
+    "content": "## Supported secrets\n\nThis table lists the secrets supported by How2Validate CLI.\n\n| Partner                           | Service                      |\n| :-------------------------------- | :--------------------------  |\n| Adafruit                         | Adafruit Io Key            |\n| Aiven                            | Aiven Auth Token           |\n| Anthropic                        | Anthropic Api Key          |\n| GitHub                           | Github Personal Access Token |\n| Hugging Face                     | Hf Org Api Key             |\n| Hugging Face                     | Hf User Access Token       |\n| NPM                              | NPM Access Token           |\n| OpenAI                           | Openai Api Key             |\n| PagerDuty                        | Pagerduty Api Key          |\n| Sentry                           | Sentry Auth Token          |\n| Slack                            | Slack Api Token            |\n| Snyk                             | Snyk Auth Key              |\n| SonarCloud                       | Sonarcloud Token           |\n",
+    "_searchMeta": {
+      "cleanContent": "supported secrets this table lists the secrets supported by how2validate cli partner service:-------------------------------- :--------------------------adafruit adafruit io keyaiven aiven auth tokenanthropic anthropic api keygithub github personal access tokenhugging face hf org api keyhugging face hf user access tokennpm npm access tokenopenai openai api keypagerduty pagerduty api keysentry sentry auth tokenslack slack api tokensnyk snyk auth keysonarcloud sonarcloud token",
+      "headings": [
+        "Supported secrets"
+      ],
+      "keywords": [
+        "how2validate",
+        "secret scope",
+        "supported secret",
+        "secret",
+        "Supported secrets"
+      ]
+    }
+  }
+]

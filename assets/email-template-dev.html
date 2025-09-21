@@ -1,0 +1,203 @@
+<div class="how2validate-root">
+  <style>
+    :root {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --divider-color: #BBBBBB;
+      --link-color: #ffffff;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #000000;
+        --divider-color: #333333;
+        --link-color: #0000EE;
+      }
+    }
+
+    .how2validate-root {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Federo', sans-serif;
+      -webkit-text-size-adjust: 100%;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .how2validate-root .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .how2validate-root h1 {
+      font-size: 40px;
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+
+    .how2validate-root h2 {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      margin: 20px 0 10px;
+    }
+
+    .how2validate-root .subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 10px 0 5px;
+    }
+
+    .how2validate-root .response {
+      font-size: 14px;
+      font-weight: 400;
+      color: #fff;
+      background-color: #333;
+      padding: 5px 10px;
+      display: inline-block;
+      margin: 10px 0;
+      white-space: pre-wrap;
+    }
+
+    .how2validate-root .description {
+      font-size: 12px;
+      text-align: center;
+      margin: 0 0 20px;
+    }
+
+    .how2validate-root .divider {
+      border-top: 1px solid var(--divider-color);
+      margin: 20px 0;
+    }
+
+    .how2validate-root .report {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .how2validate-root .report-column {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .how2validate-root .report-column.left {
+      padding-right: 10px;
+    }
+
+    .how2validate-root .report-column.right {
+      padding-left: 10px;
+    }
+
+    .how2validate-root .footer-text {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin: 20px 0 10px;
+    }
+
+    .how2validate-root .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .how2validate-root .footer h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .how2validate-root .github-icon svg {
+      color: var(--text-color);
+    }
+
+    @media (max-width: 480px) {
+      .how2validate-root h1 {
+        font-size: 32px;
+      }
+      .how2validate-root h2 {
+        font-size: 21px;
+      }
+      .how2validate-root .subtitle,
+      .how2validate-root .value,
+      .how2validate-root .response {
+        font-size: 12px;
+      }
+      .how2validate-root .footer-text {
+        font-size: 12px;
+      }
+      .how2validate-root .description {
+        font-size: 9px;
+      }
+      .how2validate-root .footer h1 {
+        font-size: 20px;
+      }
+      .how2validate-root .report {
+        flex-direction: column;
+      }
+      .how2validate-root .report-column {
+        padding: 0;
+      }
+    }
+  </style>
+
+  <!-- Fonts and Code Highlighter -->
+  <link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+
+  <div class="container">
+    <h1>How2Validate</h1>
+    <p class="description">A CLI tool to validate secrets for different services.</p>
+    <div class="divider"></div>
+
+    <h2>Validation Report</h2>
+    <div class="report">
+      <div class="report-column left">
+        <p class="subtitle">Secret Provider</p>
+        <p class="subtitle">Secret Service</p>
+        <p class="subtitle">Secret State</p>
+        <p class="subtitle">Secret Report</p>
+      </div>
+      <div class="report-column right">
+        <p class="subtitle">{{secret_provider}}</p>
+        <p class="subtitle">{{secret_service}}</p>
+        <p class="subtitle">{{secret_state}}</p>
+      </div>
+    </div>
+    <p id="jsonCode" class="response language-json">{{secret_report}}</p>
+
+    <p class="footer-text">With lots of love, How2Validate Team.</p>
+    <div class="divider"></div>
+
+    <div class="footer">
+      <h1>How2Validate</h1>
+      <div class="github-icon">
+        <a href="https://github.com/Blackplums/how2validate" target="_blank" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512" width="27" height="27" fill="currentColor">
+            <path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const codeElement = document.getElementById("jsonCode");
+        const rawJsonString = codeElement.textContent.trim();
+        const jsonData = JSON.parse(rawJsonString);
+        codeElement.textContent = JSON.stringify(jsonData, null, 2);
+        Prism.highlightElement(codeElement);
+      } catch (e) {
+        document.getElementById("jsonCode").textContent = "Error: Invalid JSON data";
+      }
+    });
+  </script>
+</div>

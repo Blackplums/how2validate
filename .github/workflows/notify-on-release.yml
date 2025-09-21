@@ -1,0 +1,35 @@
+name: 'Notify on New Release'
+
+# This workflow runs when a new release is 'published'.
+# It will not run on drafts or pre-releases unless they are marked as 'latest'.
+on:
+  release:
+    types: [published]
+
+# Sets the permissions for the GITHUB_TOKEN to allow creating discussions.
+permissions:
+  discussions: write
+
+jobs:
+  create_discussion_post:
+    name: 'Create Discussion Post'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Create Discussion Post for Release'
+        env:
+          # The GITHUB_TOKEN is automatically provided by GitHub Actions.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh discussion create \
+            --repo ${{ github.repository }} \
+            --category "release-announcements" \
+            --title "New Release: ${{ github.event.release.name }}" \
+            --body "A new version, **${{ github.event.release.tag_name }}**, has just been released!
+
+            ### Release Notes
+            ${{ github.event.release.body }}
+
+            ---
+
+            You can view the full release details and download assets here:
+            **${{ github.event.release.html_url }}**"

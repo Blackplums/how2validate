@@ -1,0 +1,57 @@
+---
+title: Installation and Usage FAQ's
+description: The frequently asked installation and usage queries and their solution.
+keywords: ["installation", "github", "node", "guide", "documents", "packages", "python", "docker", "commandlineinterface", "cli" ]
+---
+
+#### 1. How can I install How2Validate in a Python environment?
+Install How2Validate in Python using pip. Refer [***Python Installation***](../../docs/introduction/installation/python).
+
+#### 2. How can I use How2Validate in a Python project?
+Import the validate function from the package and use it as shown. Refer [***Python Usage***](../../docs/introduction/installation/python#usage).
+       
+```python
+from how2validate import validate
+# Validate a secret programmatically
+validation_result = validate(
+    provider="GitHub",
+    service="GitHub Token",
+    secret="ghp_16digitGitHubToken",
+    response=False,
+    report=False
+)
+print(validation_result)
+```
+
+#### 3. How do I install How2Validate using Docker?
+You can use container from [**GitHub Package Registry**](https://github.com/Blackplums/how2validate/pkgs/container/how2validate). Refer [Container Installation](../../docs/introduction/installation/container).
+
+```tsx
+docker pull ghcr.io/blackplums/how2validate:latest
+```
+
+#### 4. How do I use the How2Validate CLI to validate a secret?
+You can validate a secret using the CLI with the following command. Refer [***Example CLI commands***](../../docs/introduction/cli#example-command).
+- Validate a secret
+
+```bash
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>"
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>"
+```
+
+- Validate with response status
+
+```bash
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --response
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
+```
+
+#### 5. How do I generate a detailed report using the CLI?
+Use the `-R` or `--report` option to receive a detailed report via email (Alpha Feature). Refer [***Reporting Documentation***](../../docs/email).
+```bash
+how2validate --provider NPM --service "NPM Access Token" --secret "<<SECRET_HERE>>" --report username@mail.com
+-- OR --
+how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -R username@mail.com
+```

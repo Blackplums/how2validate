@@ -1,0 +1,64 @@
+---
+title: API Token FAQ's
+description: This guide covers the api token related understanding, usages and limitations.
+keywords: ["installation", "guide", "javascript", "documents", "packages", "python", "docker", "commandlineinterface", "cli" ]
+---
+
+
+#### 1. What is an API token in how2validate?
+An API token is a secure, unique key issued after logging in with GitHub. It allows you to use the CLI for secret validation and to receive reports without exposing your GitHub credentials.
+
+#### 2. Why do I need an email when generating a token?
+The email is used only for sending validation reports linked to that token. Each token can have its own email for personalized reporting.    
+
+#### 3. Can I generate multiple tokens?
+Yes. You can generate multiple tokens with different emails and names. Each token is independent. Currently, we’ve restricted the limit to 5 tokens per user and 10 reporting per token.
+
+#### 4. How do I securely store my token?
+Use the CLI’s built-in storage command:
+```tsx
+how2validate -token YOUR_GENERATED_TOKEN
+```
+This securely stores the token in your system’s keyring (e.g., macOS Keychain, Windows Vault, Linux SecretService).
+
+#### 5. Can I view my stored token again?
+No. Tokens are one-time viewable only during creation. If you lose it, re-generate a new one from [APIToken Dashboard](https://how2validate.vercel.app/apitoken)
+
+#### 6. How can I update or delete my stored token in CLI?
+- Update Stored Token
+    ```tsx
+    how2validate -token YOUR_NEWLY_GENERATED_TOKEN
+    ```
+- Delete Stored Token
+    ```tsx
+    how2validate -token YOUR_NEWLY_GENERATED_TOKEN
+    ```
+
+#### 7. What happens if my token expires or becomes invalid?
+If a token is expired, revoked, or invalid, CLI will show:
+    ```tsx
+    Invalid/Expired API Token. See https://how2validate.vercel.app/apitoken for details.
+    ```
+You’ll need to create a new token or re-generate a new one.
+
+#### 8. Is my token shared with any third-party services?
+No. Tokens are used only between your CLI and how2validate API for validation and reporting. They are not shared with external services.
+
+#### 9. Can I use the same token on multiple devices?
+Yes. You can use the same token on different devices.
+
+#### 10. What’s the daily usage/report threshold?
+Each token comes with a rate limit and reporting threshold. If exceeded, the CLI will warn:
+    ```tsx
+    Token has exceeded daily usage limits.
+    ```
+You’ll need to wait until the next day or use a different token.
+
+#### 11. Can I revoke a token I no longer need?
+Yes. Go to [APIToken](https://how2validate.vercel.app/apitoken), log in, and revoke/delete the token to immediately block its use.
+
+#### 12. What happens if I lose my token?
+Since tokens are not retrievable, you must create a new one. Update your CLI with the new token.
+
+#### 13. Can someone misuse my token if they get it?
+Yes. Treat your token like a password. Anyone with access to it can make API requests on your behalf. Always store it securely.

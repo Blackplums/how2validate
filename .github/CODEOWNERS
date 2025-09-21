@@ -1,0 +1,31 @@
+# CODEOWNERS file for how2validate project
+# This file assigns ownership for different parts of the repository
+# Each line matches a file pattern to one or more code owners
+
+# Default owners (fallback for all files not explicitly mentioned)
+*                     @blackplums/admin
+
+# Owners for specific areas of the project
+
+# Workflow
+/.github              @blackplums/admin @vigneshkna
+/.gitignore           @blackplums/admin @vigneshkna
+
+# Source Packages
+/src/docker/          @blackplums/admin @vigneshkna
+/src/js/              @blackplums/admin @vigneshkna
+/src/python/          @blackplums/admin @vigneshkna
+/src/scripts/         @blackplums/admin @vigneshkna
+
+
+# Documentation
+/docs/                @blackplums/admin @vigneshkna @manimarans
+/README.md            @blackplums/admin @vigneshkna
+
+# Root files
+/CODE_OF_CONDUCT.md   @blackplums/admin @vigneshkna
+/CODEOWNERS           @blackplums/admin @vigneshkna
+/CONTRIBUTING.md      @blackplums/admin @vigneshkna
+/LICENSE              @blackplums/admin @vigneshkna
+/SECURITY.md          @blackplums/admin @vigneshkna
+

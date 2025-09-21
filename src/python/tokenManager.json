@@ -1,0 +1,1799 @@
+{
+    "Adafruit": [
+        {
+            "secret_type": "adafruit_io_key",
+            "display_name": "Adafruit Io Key",
+            "is_enabled": true
+        }
+    ],
+    "Adobe": [
+        {
+            "secret_type": "adobe_client_secret",
+            "display_name": "Adobe Client Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "adobe_device_token",
+            "display_name": "Adobe Device Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "adobe_pac_token",
+            "display_name": "Adobe Pac Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "adobe_refresh_token",
+            "display_name": "Adobe Refresh Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "adobe_service_token",
+            "display_name": "Adobe Service Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "adobe_short_lived_access_token",
+            "display_name": "Adobe Short Lived Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Aiven": [
+        {
+            "secret_type": "aiven_auth_token",
+            "display_name": "Aiven Auth Token",
+            "is_enabled": true
+        },
+        {
+            "secret_type": "aiven_service_password",
+            "display_name": "Aiven Service Password",
+            "is_enabled": false
+        }
+    ],
+    "Alibaba": [
+        {
+            "secret_type": "alibaba_cloud_access_key",
+            "display_name": "Alibaba Cloud Access Key",
+            "is_enabled": false
+        }
+    ],
+    "Amazon": [
+        {
+            "secret_type": "amazon_oauth_client",
+            "display_name": "Amazon Oauth Client",
+            "is_enabled": false
+        }
+    ],
+    "Amazon AWS": [
+        {
+            "secret_type": "aws_access_key_id",
+            "display_name": "Aws Access Key Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "aws_secret_access_key",
+            "display_name": "Aws Secret Access Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "aws_session_token",
+            "display_name": "Aws Session Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "aws_temporary_access_key_id",
+            "display_name": "Aws Temporary Access Key Id",
+            "is_enabled": false
+        }
+    ],
+    "Anthropic": [
+        {
+            "secret_type": "anthropic_api_key",
+            "display_name": "Anthropic Api Key",
+            "is_enabled": true
+        },
+        {
+            "secret_type": "anthropic_session_id",
+            "display_name": "Anthropic Session Id",
+            "is_enabled": false
+        }
+    ],
+    "Asana": [
+        {
+            "secret_type": "asana_legacy_format_personal_access_token",
+            "display_name": "Asana Legacy Format Personal Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "asana_personal_access_token",
+            "display_name": "Asana Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Atlassian": [
+        {
+            "secret_type": "atlassian_api_token",
+            "display_name": "Atlassian Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "atlassian_jwt",
+            "display_name": "Atlassian Jwt",
+            "is_enabled": false
+        }
+    ],
+    "Authress": [
+        {
+            "secret_type": "authress_service_client_access_key",
+            "display_name": "Authress Service Client Access Key",
+            "is_enabled": false
+        }
+    ],
+    "Azure": [
+        {
+            "secret_type": "azure_active_directory_application_secret",
+            "display_name": "Azure Active Directory Application Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_active_directory_user_credential",
+            "display_name": "Azure Active Directory User Credential",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_apim_direct_management_key",
+            "display_name": "Azure Apim Direct Management Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_apim_gateway_key",
+            "display_name": "Azure Apim Gateway Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_apim_repository_key",
+            "display_name": "Azure Apim Repository Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_apim_subscription_key",
+            "display_name": "Azure Apim Subscription Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_app_configuration_connection_string",
+            "display_name": "Azure App Configuration Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_batch_key_identifiable",
+            "display_name": "Azure Batch Key Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_cache_for_redis_access_key",
+            "display_name": "Azure Cache For Redis Access Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_common_annotated_security_key",
+            "display_name": "Azure Common Annotated Security Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_communication_services_connection_string",
+            "display_name": "Azure Communication Services Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_container_registry_key_identifiable",
+            "display_name": "Azure Container Registry Key Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_cosmosdb_key_identifiable",
+            "display_name": "Azure Cosmosdb Key Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_devops_personal_access_token",
+            "display_name": "Azure Devops Personal Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_event_hub_key_identifiable",
+            "display_name": "Azure Event Hub Key Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_function_key",
+            "display_name": "Azure Function Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_device_connection_string",
+            "display_name": "Azure Iot Device Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_device_key",
+            "display_name": "Azure Iot Device Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_device_provisioning_key",
+            "display_name": "Azure Iot Device Provisioning Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_hub_connection_string",
+            "display_name": "Azure Iot Hub Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_hub_key",
+            "display_name": "Azure Iot Hub Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_iot_provisioning_connection_string",
+            "display_name": "Azure Iot Provisioning Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_management_certificate",
+            "display_name": "Azure Management Certificate",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_ml_web_service_classic_identifiable_key",
+            "display_name": "Azure Ml Web Service Classic Identifiable Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_relay_key_identifiable",
+            "display_name": "Azure Relay Key Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_sas_token",
+            "display_name": "Azure Sas Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_search_admin_key",
+            "display_name": "Azure Search Admin Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_search_query_key",
+            "display_name": "Azure Search Query Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_service_bus_identifiable",
+            "display_name": "Azure Service Bus Identifiable",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_signalr_connection_string",
+            "display_name": "Azure Signalr Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_sql_connection_string",
+            "display_name": "Azure Sql Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_sql_password",
+            "display_name": "Azure Sql Password",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_storage_account_key",
+            "display_name": "Azure Storage Account Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "azure_web_pub_sub_connection_string",
+            "display_name": "Azure Web Pub Sub Connection String",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "microsoft_corporate_network_user_credential",
+            "display_name": "Microsoft Corporate Network User Credential",
+            "is_enabled": false
+        }
+    ],
+    "Baidu": [
+        {
+            "secret_type": "baiducloud_api_accesskey",
+            "display_name": "Baiducloud Api Accesskey",
+            "is_enabled": false
+        }
+    ],
+    "Beamer": [
+        {
+            "secret_type": "beamer_api_key",
+            "display_name": "Beamer Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Bitbucket": [
+        {
+            "secret_type": "bitbucket_server_personal_access_token",
+            "display_name": "Bitbucket Server Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Canadian Digital Service": [
+        {
+            "secret_type": "cds_canada_notify_api_key",
+            "display_name": "Cds Canada Notify Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Canva": [
+        {
+            "secret_type": "canva_app_secret",
+            "display_name": "Canva App Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "canva_connect_api_secret",
+            "display_name": "Canva Connect Api Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "canva_secret",
+            "display_name": "Canva Secret",
+            "is_enabled": false
+        }
+    ],
+    "Cashfree": [
+        {
+            "secret_type": "cashfree_api_key",
+            "display_name": "Cashfree Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Checkout.com": [
+        {
+            "secret_type": "checkout_production_secret_key",
+            "display_name": "Checkout Production Secret Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "checkout_test_secret_key",
+            "display_name": "Checkout Test Secret Key",
+            "is_enabled": false
+        }
+    ],
+    "Chief Tools": [
+        {
+            "secret_type": "chief_tools_token",
+            "display_name": "Chief Tools Token",
+            "is_enabled": false
+        }
+    ],
+    "CircleCI": [
+        {
+            "secret_type": "circleci_bot_access_token",
+            "display_name": "Circleci Bot Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "circleci_personal_access_token",
+            "display_name": "Circleci Personal Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "circleci_project_access_token",
+            "display_name": "Circleci Project Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "circleci_release_integration_token",
+            "display_name": "Circleci Release Integration Token",
+            "is_enabled": false
+        }
+    ],
+    "Clojars": [
+        {
+            "secret_type": "clojars_deploy_token",
+            "display_name": "Clojars Deploy Token",
+            "is_enabled": false
+        }
+    ],
+    "CloudBees": [
+        {
+            "secret_type": "codeship_credential",
+            "display_name": "Codeship Credential",
+            "is_enabled": false
+        }
+    ],
+    "Contentful": [
+        {
+            "secret_type": "contentful_personal_access_token",
+            "display_name": "Contentful Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Contributed Systems": [
+        {
+            "secret_type": "contributed_systems_credentials",
+            "display_name": "Contributed Systems Credentials",
+            "is_enabled": false
+        }
+    ],
+    "Coveo": [
+        {
+            "secret_type": "coveoaccesstoken",
+            "display_name": "Coveoaccesstoken",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "coveoapikey",
+            "display_name": "Coveoapikey",
+            "is_enabled": false
+        }
+    ],
+    "crates.io": [
+        {
+            "secret_type": "cratesio_api_token",
+            "display_name": "Cratesio Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Databricks": [
+        {
+            "secret_type": "databricks_access_token",
+            "display_name": "Databricks Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Datadog": [
+        {
+            "secret_type": "datadog_api_key",
+            "display_name": "Datadog Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "datadog_app_key",
+            "display_name": "Datadog App Key",
+            "is_enabled": false
+        }
+    ],
+    "Defined Networking": [
+        {
+            "secret_type": "defined_networking_nebula_api_key",
+            "display_name": "Defined Networking Nebula Api Key",
+            "is_enabled": false
+        }
+    ],
+    "DevCycle": [
+        {
+            "secret_type": "devcycle_client_api_key",
+            "display_name": "Devcycle Client Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "devcycle_mobile_api_key",
+            "display_name": "Devcycle Mobile Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "devcycle_server_api_key",
+            "display_name": "Devcycle Server Api Key",
+            "is_enabled": false
+        }
+    ],
+    "DigitalOcean": [
+        {
+            "secret_type": "digitalocean_oauth_token",
+            "display_name": "Digitalocean Oauth Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "digitalocean_personal_access_token",
+            "display_name": "Digitalocean Personal Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "digitalocean_refresh_token",
+            "display_name": "Digitalocean Refresh Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "digitalocean_system_token",
+            "display_name": "Digitalocean System Token",
+            "is_enabled": false
+        }
+    ],
+    "Discord": [
+        {
+            "secret_type": "discord_bot_token",
+            "display_name": "Discord Bot Token",
+            "is_enabled": true
+        }
+    ],
+    "Docker": [
+        {
+            "secret_type": "docker_personal_access_token",
+            "display_name": "Docker Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Doppler": [
+        {
+            "secret_type": "doppler_audit_token",
+            "display_name": "Doppler Audit Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "doppler_cli_token",
+            "display_name": "Doppler Cli Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "doppler_personal_token",
+            "display_name": "Doppler Personal Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "doppler_scim_token",
+            "display_name": "Doppler Scim Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "doppler_service_account_token",
+            "display_name": "Doppler Service Account Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "doppler_service_token",
+            "display_name": "Doppler Service Token",
+            "is_enabled": false
+        }
+    ],
+    "Dropbox": [
+        {
+            "secret_type": "dropbox_access_token",
+            "display_name": "Dropbox Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "dropbox_short_lived_access_token",
+            "display_name": "Dropbox Short Lived Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Duffel": [
+        {
+            "secret_type": "duffel_live_access_token",
+            "display_name": "Duffel Live Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "duffel_test_access_token",
+            "display_name": "Duffel Test Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Dynatrace": [
+        {
+            "secret_type": "dynatrace_api_token",
+            "display_name": "Dynatrace Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "dynatrace_internal_token",
+            "display_name": "Dynatrace Internal Token",
+            "is_enabled": false
+        }
+    ],
+    "EasyPost": [
+        {
+            "secret_type": "easypost_production_api_key",
+            "display_name": "Easypost Production Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "easypost_test_api_key",
+            "display_name": "Easypost Test Api Key",
+            "is_enabled": false
+        }
+    ],
+    "eBay": [
+        {
+            "secret_type": "ebay_production_client",
+            "display_name": "Ebay Production Client",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "ebay_sandbox_client",
+            "display_name": "Ebay Sandbox Client",
+            "is_enabled": false
+        }
+    ],
+    "Facebook": [
+        {
+            "secret_type": "facebook_access_token",
+            "display_name": "Facebook Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Fastly": [
+        {
+            "secret_type": "fastly_api_token",
+            "display_name": "Fastly Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Figma": [
+        {
+            "secret_type": "figma_pat",
+            "display_name": "Figma Pat",
+            "is_enabled": false
+        }
+    ],
+    "Finicity": [
+        {
+            "secret_type": "finicity_app_key",
+            "display_name": "Finicity App Key",
+            "is_enabled": false
+        }
+    ],
+    "Firebase": [
+        {
+            "secret_type": "firebase_cloud_messaging_server_key",
+            "display_name": "Firebase Cloud Messaging Server Key",
+            "is_enabled": false
+        }
+    ],
+    "Flickr": [
+        {
+            "secret_type": "flickr_api_key",
+            "display_name": "Flickr Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Flutterwave": [
+        {
+            "secret_type": "flutterwave_live_api_secret_key",
+            "display_name": "Flutterwave Live Api Secret Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "flutterwave_test_api_secret_key",
+            "display_name": "Flutterwave Test Api Secret Key",
+            "is_enabled": false
+        }
+    ],
+    "Frame.io": [
+        {
+            "secret_type": "frameio_developer_token",
+            "display_name": "Frameio Developer Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "frameio_jwt",
+            "display_name": "Frameio Jwt",
+            "is_enabled": false
+        }
+    ],
+    "FullStory": [
+        {
+            "secret_type": "fullstory_api_key",
+            "display_name": "Fullstory Api Key",
+            "is_enabled": false
+        }
+    ],
+    "GitHub": [
+        {
+            "secret_type": "github_app_installation_access_token",
+            "display_name": "Github App Installation Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "github_oauth_access_token",
+            "display_name": "Github Oauth Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "github_personal_access_token",
+            "display_name": "Github Personal Access Token",
+            "is_enabled": true
+        },
+        {
+            "secret_type": "github_refresh_token",
+            "display_name": "Github Refresh Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "github_ssh_private_key",
+            "display_name": "Github Ssh Private Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "github_test_token",
+            "display_name": "Github Test Token",
+            "is_enabled": false
+        }
+    ],
+    "GitHub Secret Scanning": [
+        {
+            "secret_type": "secret_scanning_sample_token",
+            "display_name": "Secret Scanning Sample Token",
+            "is_enabled": false
+        }
+    ],
+    "GitLab": [
+        {
+            "secret_type": "gitlab_access_token",
+            "display_name": "Gitlab Access Token",
+            "is_enabled": false
+        }
+    ],
+    "GoCardless": [
+        {
+            "secret_type": "gocardless_live_access_token",
+            "display_name": "Gocardless Live Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "gocardless_sandbox_access_token",
+            "display_name": "Gocardless Sandbox Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Google": [
+        {
+            "secret_type": "google_api_key",
+            "display_name": "Google Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_private_key_id",
+            "display_name": "Google Cloud Private Key Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_service_account_credentials",
+            "display_name": "Google Cloud Service Account Credentials",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_storage_access_key_secret",
+            "display_name": "Google Cloud Storage Access Key Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_storage_service_account_access_key_id",
+            "display_name": "Google Cloud Storage Service Account Access Key Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_storage_access_key_secret",
+            "display_name": "Google Cloud Storage Access Key Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_cloud_storage_user_access_key_id",
+            "display_name": "Google Cloud Storage User Access Key Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_oauth_access_token",
+            "display_name": "Google Oauth Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_oauth_client_id",
+            "display_name": "Google Oauth Client Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_oauth_client_secret",
+            "display_name": "Google Oauth Client Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "google_oauth_refresh_token",
+            "display_name": "Google Oauth Refresh Token",
+            "is_enabled": false
+        }
+    ],
+    "Grafana": [
+        {
+            "secret_type": "grafana_cloud_api_key",
+            "display_name": "Grafana Cloud Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "grafana_cloud_api_token",
+            "display_name": "Grafana Cloud Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "grafana_project_api_key",
+            "display_name": "Grafana Project Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "grafana_project_service_account_token",
+            "display_name": "Grafana Project Service Account Token",
+            "is_enabled": false
+        }
+    ],
+    "HashiCorp": [
+        {
+            "secret_type": "hashicorp_vault_batch_token",
+            "display_name": "Hashicorp Vault Batch Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hashicorp_vault_root_service_token",
+            "display_name": "Hashicorp Vault Root Service Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hashicorp_vault_service_token",
+            "display_name": "Hashicorp Vault Service Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "terraform_api_token",
+            "display_name": "Terraform Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Highnote": [
+        {
+            "secret_type": "highnote_rk_live_key",
+            "display_name": "Highnote Rk Live Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "highnote_rk_test_key",
+            "display_name": "Highnote Rk Test Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "highnote_sk_live_key",
+            "display_name": "Highnote Sk Live Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "highnote_sk_test_key",
+            "display_name": "Highnote Sk Test Key",
+            "is_enabled": false
+        }
+    ],
+    "HOP": [
+        {
+            "secret_type": "hop_bearer",
+            "display_name": "Hop Bearer",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hop_pat",
+            "display_name": "Hop Pat",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hop_ptk",
+            "display_name": "Hop Ptk",
+            "is_enabled": false
+        }
+    ],
+    "Hubspot": [
+        {
+            "secret_type": "hubspot_api_key",
+            "display_name": "Hubspot Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hubspot_personal_access_key",
+            "display_name": "Hubspot Personal Access Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "hubspot_smtp_credential",
+            "display_name": "Hubspot Smtp Credential",
+            "is_enabled": false
+        }
+    ],
+    "Hugging Face": [
+        {
+            "secret_type": "hf_org_api_key",
+            "display_name": "Hf Org Api Key",
+            "is_enabled": true
+        },
+        {
+            "secret_type": "hf_user_access_token",
+            "display_name": "Hf User Access Token",
+            "is_enabled": true
+        }
+    ],
+    "IBM": [
+        {
+            "secret_type": "ibm_cloud_iam_key",
+            "display_name": "Ibm Cloud Iam Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "ibm_softlayer_api_key",
+            "display_name": "Ibm Softlayer Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Intercom": [
+        {
+            "secret_type": "intercom_access_token",
+            "display_name": "Intercom Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Ionic": [
+        {
+            "secret_type": "ionic_personal_access_token",
+            "display_name": "Ionic Personal Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "ionic_refresh_token",
+            "display_name": "Ionic Refresh Token",
+            "is_enabled": false
+        }
+    ],
+    "JFrog": [
+        {
+            "secret_type": "jfrog_platform_access_token",
+            "display_name": "Jfrog Platform Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "jfrog_platform_api_key",
+            "display_name": "Jfrog Platform Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "jfrog_platform_reference_token",
+            "display_name": "Jfrog Platform Reference Token",
+            "is_enabled": false
+        }
+    ],
+    "LaunchDarkly": [
+        {
+            "secret_type": "launchdarkly_access_token",
+            "display_name": "Launchdarkly Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Lightspeed": [
+        {
+            "secret_type": "lightspeed_xs_pat",
+            "display_name": "Lightspeed Xs Pat",
+            "is_enabled": false
+        }
+    ],
+    "Linear": [
+        {
+            "secret_type": "linear_api_key",
+            "display_name": "Linear Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "linear_oauth_access_token",
+            "display_name": "Linear Oauth Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Lob": [
+        {
+            "secret_type": "lob_live_api_key",
+            "display_name": "Lob Live Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "lob_test_api_key",
+            "display_name": "Lob Test Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Localstack": [
+        {
+            "secret_type": "localstack_api_key",
+            "display_name": "Localstack Api Key",
+            "is_enabled": false
+        }
+    ],
+    "LogicMonitor": [
+        {
+            "secret_type": "logicmonitor_bearer_token",
+            "display_name": "Logicmonitor Bearer Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "logicmonitor_lmv1_access_key",
+            "display_name": "Logicmonitor Lmv1 Access Key",
+            "is_enabled": false
+        }
+    ],
+    "Mailchimp": [
+        {
+            "secret_type": "mailchimp_api_key",
+            "display_name": "Mailchimp Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "mandrill_api_key",
+            "display_name": "Mandrill Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Mailgun": [
+        {
+            "secret_type": "mailgun_api_key",
+            "display_name": "Mailgun Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "mailgun_smtp_credential",
+            "display_name": "Mailgun Smtp Credential",
+            "is_enabled": false
+        }
+    ],
+    "Mapbox": [
+        {
+            "secret_type": "mapbox_secret_access_token",
+            "display_name": "Mapbox Secret Access Token",
+            "is_enabled": false
+        }
+    ],
+    "MaxMind": [
+        {
+            "secret_type": "maxmind_license_key",
+            "display_name": "Maxmind License Key",
+            "is_enabled": false
+        }
+    ],
+    "Mercury": [
+        {
+            "secret_type": "mercury_non_production_api_token",
+            "display_name": "Mercury Non Production Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "mercury_production_api_token",
+            "display_name": "Mercury Production Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Mergify": [
+        {
+            "secret_type": "mergify_application_key",
+            "display_name": "Mergify Application Key",
+            "is_enabled": false
+        }
+    ],
+    "MessageBird": [
+        {
+            "secret_type": "messagebird_api_key",
+            "display_name": "Messagebird Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Microsoft Teams": [
+        {
+            "secret_type": "microsoft_teams_incoming_webhook_url",
+            "display_name": "Microsoft Teams Incoming Webhook Url",
+            "is_enabled": false
+        }
+    ],
+    "Midtrans": [
+        {
+            "secret_type": "midtrans_production_server_key",
+            "display_name": "Midtrans Production Server Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "midtrans_sandbox_server_key",
+            "display_name": "Midtrans Sandbox Server Key",
+            "is_enabled": false
+        }
+    ],
+    "MongoDB": [
+        {
+            "secret_type": "mongodb_connectionstring",
+            "display_name": "Mongodb Connectionstring",
+            "is_enabled": false
+        }
+    ],
+    "New Relic": [
+        {
+            "secret_type": "new_relic_insights_query_key",
+            "display_name": "New Relic Insights Query Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "new_relic_license_key",
+            "display_name": "New Relic License Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "new_relic_personal_api_key",
+            "display_name": "New Relic Personal Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "new_relic_rest_api_key",
+            "display_name": "New Relic Rest Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Notion": [
+        {
+            "secret_type": "notion_integration_token",
+            "display_name": "Notion Integration Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "notion_oauth_client_secret",
+            "display_name": "Notion Oauth Client Secret",
+            "is_enabled": false
+        }
+    ],
+    "NPM": [
+        {
+            "secret_type": "npm_access_token",
+            "display_name": "NPM Access Token",
+            "is_enabled": true
+        }
+    ],
+    "NuGet": [
+        {
+            "secret_type": "nuget_api_key",
+            "display_name": "Nuget Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Octopus Deploy": [
+        {
+            "secret_type": "octopus_deploy_api_key",
+            "display_name": "Octopus Deploy Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Oculus": [
+        {
+            "secret_type": "oculus_access_token",
+            "display_name": "Oculus Access Token",
+            "is_enabled": false
+        }
+    ],
+    "OneChronos": [
+        {
+            "secret_type": "onechronos_api_key",
+            "display_name": "Onechronos Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "onechronos_eb_api_key",
+            "display_name": "Onechronos Eb Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "onechronos_eb_encryption_key",
+            "display_name": "Onechronos Eb Encryption Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "onechronos_oauth_token",
+            "display_name": "Onechronos Oauth Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "onechronos_refresh_token",
+            "display_name": "Onechronos Refresh Token",
+            "is_enabled": false
+        }
+    ],
+    "Onfido": [
+        {
+            "secret_type": "onfido_live_api_token",
+            "display_name": "Onfido Live Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "onfido_sandbox_api_token",
+            "display_name": "Onfido Sandbox Api Token",
+            "is_enabled": false
+        }
+    ],
+    "OpenAI": [
+        {
+            "secret_type": "openai_api_key",
+            "display_name": "Openai Api Key",
+            "is_enabled": true
+        }
+    ],
+    "Orbit": [
+        {
+            "secret_type": "orbit_api_token",
+            "display_name": "Orbit Api Token",
+            "is_enabled": false
+        }
+    ],
+    "PagerDuty": [
+        {
+            "secret_type": "pagerduty_oauth_secret",
+            "display_name": "Pagerduty Oauth Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "pagerduty_oauth_token",
+            "display_name": "Pagerduty Oauth Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "pagerduty_api_key",
+            "display_name": "Pagerduty Api Key",
+            "is_enabled": true
+        }
+    ],
+    "Palantir": [
+        {
+            "secret_type": "palantir_jwt",
+            "display_name": "Palantir Jwt",
+            "is_enabled": false
+        }
+    ],
+    "Persona Identities": [
+        {
+            "secret_type": "persona_production_api_key",
+            "display_name": "Persona Production Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "persona_sandbox_api_key",
+            "display_name": "Persona Sandbox Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Pinterest": [
+        {
+            "secret_type": "pinterest_access_token",
+            "display_name": "Pinterest Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "pinterest_refresh_token",
+            "display_name": "Pinterest Refresh Token",
+            "is_enabled": false
+        }
+    ],
+    "PlanetScale": [
+        {
+            "secret_type": "planetscale_database_password",
+            "display_name": "Planetscale Database Password",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "planetscale_oauth_token",
+            "display_name": "Planetscale Oauth Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "planetscale_service_token",
+            "display_name": "Planetscale Service Token",
+            "is_enabled": false
+        }
+    ],
+    "Plivo": [
+        {
+            "secret_type": "plivo_auth_id",
+            "display_name": "Plivo Auth Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "plivo_auth_token",
+            "display_name": "Plivo Auth Token",
+            "is_enabled": false
+        }
+    ],
+    "Postman": [
+        {
+            "secret_type": "postman_api_key",
+            "display_name": "Postman Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "postman_collection_key",
+            "display_name": "Postman Collection Key",
+            "is_enabled": false
+        }
+    ],
+    "Prefect": [
+        {
+            "secret_type": "prefect_server_api_key",
+            "display_name": "Prefect Server Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "prefect_user_api_key",
+            "display_name": "Prefect User Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Proctorio": [
+        {
+            "secret_type": "proctorio_consumer_key",
+            "display_name": "Proctorio Consumer Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "proctorio_linkage_key",
+            "display_name": "Proctorio Linkage Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "proctorio_registration_key",
+            "display_name": "Proctorio Registration Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "proctorio_secret_key",
+            "display_name": "Proctorio Secret Key",
+            "is_enabled": false
+        }
+    ],
+    "Pulumi": [
+        {
+            "secret_type": "pulumi_access_token",
+            "display_name": "Pulumi Access Token",
+            "is_enabled": false
+        }
+    ],
+    "PyPI": [
+        {
+            "secret_type": "pypi_api_token",
+            "display_name": "Pypi Api Token",
+            "is_enabled": false
+        }
+    ],
+    "ReadMe": [
+        {
+            "secret_type": "readmeio_api_access_token",
+            "display_name": "Readmeio Api Access Token",
+            "is_enabled": false
+        }
+    ],
+    "redirect.pizza": [
+        {
+            "secret_type": "redirect_pizza_api_token",
+            "display_name": "Redirect Pizza Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Replicate": [
+        {
+            "secret_type": "replicate_api_token",
+            "display_name": "Replicate Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Rootly": [
+        {
+            "secret_type": "rootly_api_key",
+            "display_name": "Rootly Api Key",
+            "is_enabled": false
+        }
+    ],
+    "RubyGems": [
+        {
+            "secret_type": "rubygems_api_key",
+            "display_name": "Rubygems Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Samsara": [
+        {
+            "secret_type": "samsara_api_token",
+            "display_name": "Samsara Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "samsara_oauth_access_token",
+            "display_name": "Samsara Oauth Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Segment": [
+        {
+            "secret_type": "segment_public_api_token",
+            "display_name": "Segment Public Api Token",
+            "is_enabled": false
+        }
+    ],
+    "SendGrid": [
+        {
+            "secret_type": "sendgrid_api_key",
+            "display_name": "Sendgrid Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Sendinblue": [
+        {
+            "secret_type": "sendinblue_api_key",
+            "display_name": "Sendinblue Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "sendinblue_smtp_key",
+            "display_name": "Sendinblue Smtp Key",
+            "is_enabled": false
+        }
+    ],
+    "Sentry": [
+        {
+            "secret_type": "sentry_auth_token",
+            "display_name": "Sentry Auth Token",
+            "is_enabled": true
+        }
+    ],
+    "Shippo": [
+        {
+            "secret_type": "shippo_live_api_token",
+            "display_name": "Shippo Live Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shippo_test_api_token",
+            "display_name": "Shippo Test Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Shopee": [
+        {
+            "secret_type": "shopee_open_platform_partner_key",
+            "display_name": "Shopee Open Platform Partner Key",
+            "is_enabled": false
+        }
+    ],
+    "Shopify": [
+        {
+            "secret_type": "shopify_access_token",
+            "display_name": "Shopify Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_app_client_credentials",
+            "display_name": "Shopify App Client Credentials",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_app_client_secret",
+            "display_name": "Shopify App Client Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_app_shared_secret",
+            "display_name": "Shopify App Shared Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_custom_app_access_token",
+            "display_name": "Shopify Custom App Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_marketplace_token",
+            "display_name": "Shopify Marketplace Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_merchant_token",
+            "display_name": "Shopify Merchant Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_partner_api_token",
+            "display_name": "Shopify Partner Api Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "shopify_private_app_password",
+            "display_name": "Shopify Private App Password",
+            "is_enabled": false
+        }
+    ],
+    "Siemens": [
+        {
+            "secret_type": "siemens_api_token",
+            "display_name": "Siemens Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Slack": [
+        {
+            "secret_type": "slack_api_token",
+            "display_name": "Slack Api Token",
+            "is_enabled": true
+        },
+        {
+            "secret_type": "slack_incoming_webhook_url",
+            "display_name": "Slack Incoming Webhook Url",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "slack_workflow_webhook_url",
+            "display_name": "Slack Workflow Webhook Url",
+            "is_enabled": false
+        }
+    ],
+    "Snyk": [
+        {
+            "secret_type": "snyk_auth_key",
+            "display_name": "Snyk Auth Key",
+            "is_enabled": true
+        }
+    ],
+    "SonarCloud": [
+        {
+            "secret_type": "sonarcloud_token",
+            "display_name": "Sonarcloud Token",
+            "is_enabled": true
+        }
+    ],
+    "Square": [
+        {
+            "secret_type": "square_access_token",
+            "display_name": "Square Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "square_production_application_secret",
+            "display_name": "Square Production Application Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "square_sandbox_application_secret",
+            "display_name": "Square Sandbox Application Secret",
+            "is_enabled": false
+        }
+    ],
+    "SSLMate": [
+        {
+            "secret_type": "sslmate_api_key",
+            "display_name": "Sslmate Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "sslmate_cluster_secret",
+            "display_name": "Sslmate Cluster Secret",
+            "is_enabled": false
+        }
+    ],
+    "Stripe": [
+        {
+            "secret_type": "stripe_api_key",
+            "display_name": "Stripe Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "stripe_legacy_api_key",
+            "display_name": "Stripe Legacy Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "stripe_live_restricted_key",
+            "display_name": "Stripe Live Restricted Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "stripe_test_restricted_key",
+            "display_name": "Stripe Test Restricted Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "stripe_test_secret_key",
+            "display_name": "Stripe Test Secret Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "stripe_webhook_signing_secret",
+            "display_name": "Stripe Webhook Signing Secret",
+            "is_enabled": false
+        }
+    ],
+    "Supabase": [
+        {
+            "secret_type": "supabase_service_key",
+            "display_name": "Supabase Service Key",
+            "is_enabled": false
+        }
+    ],
+    "Tableau": [
+        {
+            "secret_type": "tableau_personal_access_token",
+            "display_name": "Tableau Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Telegram": [
+        {
+            "secret_type": "telegram_bot_token",
+            "display_name": "Telegram Bot Token",
+            "is_enabled": false
+        }
+    ],
+    "Telnyx": [
+        {
+            "secret_type": "telnyx_api_v2_key",
+            "display_name": "Telnyx Api V2 Key",
+            "is_enabled": false
+        }
+    ],
+    "Tencent": [
+        {
+            "secret_type": "tencent_cloud_secret_id",
+            "display_name": "Tencent Cloud Secret Id",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "tencent_wechat_api_app_id",
+            "display_name": "Tencent Wechat Api App Id",
+            "is_enabled": false
+        }
+    ],
+    "Thunderstore": [
+        {
+            "secret_type": "thunderstore_io_api_token",
+            "display_name": "Thunderstore Io Api Token",
+            "is_enabled": false
+        }
+    ],
+    "Twilio": [
+        {
+            "secret_type": "twilio_access_token",
+            "display_name": "Twilio Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "twilio_account_sid",
+            "display_name": "Twilio Account Sid",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "twilio_api_key",
+            "display_name": "Twilio Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Typeform": [
+        {
+            "secret_type": "typeform_personal_access_token",
+            "display_name": "Typeform Personal Access Token",
+            "is_enabled": false
+        }
+    ],
+    "Uniwise": [
+        {
+            "secret_type": "wiseflow_api_key",
+            "display_name": "Wiseflow Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Unkey": [
+        {
+            "secret_type": "unkey_root_key",
+            "display_name": "Unkey Root Key",
+            "is_enabled": false
+        }
+    ],
+    "VolcEngine": [
+        {
+            "secret_type": "volcengine_access_key_id",
+            "display_name": "Volcengine Access Key Id",
+            "is_enabled": false
+        }
+    ],
+    "Wakatime": [
+        {
+            "secret_type": "wakatime_api_key",
+            "display_name": "Wakatime Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "wakatime_app_secret",
+            "display_name": "Wakatime App Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "wakatime_oauth_access_token",
+            "display_name": "Wakatime Oauth Access Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "wakatime_oauth_refresh_token",
+            "display_name": "Wakatime Oauth Refresh Token",
+            "is_enabled": false
+        }
+    ],
+    "Workato": [
+        {
+            "secret_type": "workato_developer_api_token",
+            "display_name": "Workato Developer Api Token",
+            "is_enabled": false
+        }
+    ],
+    "WorkOS": [
+        {
+            "secret_type": "workos_production_api_key",
+            "display_name": "Workos Production Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "workos_staging_api_key",
+            "display_name": "Workos Staging Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Yandex": [
+        {
+            "secret_type": "yandex_cloud_api_key",
+            "display_name": "Yandex Cloud Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_cloud_iam_access_secret",
+            "display_name": "Yandex Cloud Iam Access Secret",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_cloud_iam_cookie",
+            "display_name": "Yandex Cloud Iam Cookie",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_cloud_iam_token",
+            "display_name": "Yandex Cloud Iam Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_cloud_smartcaptcha_server_key",
+            "display_name": "Yandex Cloud Smartcaptcha Server Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_dictionary_api_key",
+            "display_name": "Yandex Dictionary Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_passport_oauth_token",
+            "display_name": "Yandex Passport Oauth Token",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_predictor_api_key",
+            "display_name": "Yandex Predictor Api Key",
+            "is_enabled": false
+        },
+        {
+            "secret_type": "yandex_translate_api_key",
+            "display_name": "Yandex Translate Api Key",
+            "is_enabled": false
+        }
+    ],
+    "Zuplo": [
+        {
+            "secret_type": "zuplo_consumer_api_key",
+            "display_name": "Zuplo Consumer Api Key",
+            "is_enabled": false
+        }
+    ]
+}

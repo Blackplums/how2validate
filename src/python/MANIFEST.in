@@ -1,0 +1,24 @@
+# Include all Python files in the project
+recursive-include how2validate *.py
+
+# Include non-Python files from 'how2validate' if necessary
+recursive-include src/python/how2validate *
+
+# Exclude runtime-generated files and directories
+prune build
+prune dist
+
+# Exclude __pycache__ directories anywhere in the project
+recursive-exclude * __pycache__
+
+# Exclude compiled Python files and other binaries
+global-exclude *.py[cod]
+global-exclude *.so
+global-exclude *.pyd
+global-exclude *.dll
+global-exclude *.exe
+global-exclude *.log
+
+# Optionally, exclude other unwanted directories or files
+prune tests/build
+prune tests/dist
