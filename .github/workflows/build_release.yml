@@ -90,7 +90,8 @@ jobs:
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: false
+          push-to-registry: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     needs: [publish-pypi, publish-docker, bump]
