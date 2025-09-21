@@ -31,7 +31,8 @@ on:
         required: true
         type: string
         default: 'true'
-
+    
+    secrets:
       github_token:
         description: 'GitHub token to authenticate to registry'
         required: true

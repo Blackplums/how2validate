@@ -52,13 +52,14 @@ jobs:
   publish-docker:
     needs: bump
     uses: ./.github/templates/publish-docker.yml
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       registry: ghcr.io
-      image_name: ${{ github.repository}}
+      image_name: ${{ github.repository }}
       context: ./src/docker
       dockerfile: ./src/docker/Dockerfile
       push: true
-      github_token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     needs: [publish-pypi, publish-docker, bump]
