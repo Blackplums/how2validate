@@ -79,4 +79,4 @@ jobs:
         with:
           subject-name: ${{ inputs.registry }}/${{ inputs.image_name }}
           subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+          push-to-registry: false
