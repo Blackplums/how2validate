@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       bump-type:
-        description: "Semver bump type [patch|minor|major|beta]"
+        description: "Bump type [patch|minor|major|beta]"
         required: true
         default: "patch"
         type: choice
@@ -107,5 +107,5 @@ jobs:
     with:
       version: ${{ needs.Release-Tag.outputs.version }}
       release_name: ${{ needs.Release-Tag.outputs.version }}
-      release_body: "Automated release for version ${{ needs.Release-Tag.outputs.version }}"
+      release_body: ${{ needs.Release-Tag.outputs.body }}
       release_url: https://github.com/${{ github.repository }}/releases/tag/${{ needs.Release-Tag.outputs.version }}
