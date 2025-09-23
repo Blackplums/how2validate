@@ -47,7 +47,7 @@ jobs:
           echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
           # Optional log for clarity
-          echo "::notice::Bumped version: $NEW_VERSION"
+          echo "Bumped version: $NEW_VERSION"
 
       - name: Build package distributions
         working-directory: ./src/python
