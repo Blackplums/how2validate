@@ -17,7 +17,7 @@ on:
 jobs:
   Publish:
     runs-on: ubuntu-latest
-    environment: Pypi-Release
+    environment: Package-Release
     steps:
       - name: Checkout
         uses: actions/checkout@v5

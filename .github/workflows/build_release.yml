@@ -55,6 +55,7 @@ jobs:
   Publish-Docker:
     needs: Bump-Version
     runs-on: ubuntu-latest
+    environment: Package-Release
     outputs:
       digest: ${{ steps.push.outputs.digest }}
       tags: ${{ steps.meta.outputs.tags }}
