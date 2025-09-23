@@ -8,7 +8,7 @@ How2Validate is a versatile security tool designed to streamline the process of 
 
 Whether you're a developer, security professional, or DevOps engineer, How2Validate empowers you to ensure the authenticity and security of your API keys, tokens, and other critical information.
 
-By leveraging the power of Python, JavaScript, and Docker, How2Validate offers a flexible and efficient solution for validating secrets against official provider endpoints. Its user-friendly command-line interface (CLI) makes it easy validating secrets, allowing you to quickly and accurately verify the integrity of your sensitive data.
+By leveraging the power of Python and Docker, How2Validate offers a flexible and efficient solution for validating secrets against official provider endpoints. Its user-friendly command-line interface (CLI) makes it easy validating secrets, allowing you to quickly and accurately verify the integrity of your sensitive data.
 
 
 ### Why How2Validate?
@@ -30,10 +30,10 @@ In today's digital landscape, the exposure of sensitive information such as API 
 **How2Validate** offers a range of features designed to enhance the security and efficiency of secret management:
 
 - **Validate API Keys, Passwords, and Sensitive Information**: Interacts with official provider authentication endpoints to ensure the authenticity of secrets.
-- **Cross-Platform Support**: Available for JavaScript, Python, and Docker environments.
+- **Cross-Platform Support**: Available for Python, and Docker environments.
 - **Easy to Use**: Simplifies secret validation with straightforward commands and functions.
 - **Real-Time Feedback**: Instantly know the status of your secrets — whether they are active or not.
-- **Detailed Reporting**: Receive comprehensive reports on secret validation (Alpha Feature).
+- **Detailed Reporting**: Receive comprehensive reports on secret validation.
 - **Updating Providers**: Keep the tool up-to-date with the latest secret providers and their secret types.
 
 ## Join Our Community discussions
@@ -51,9 +51,6 @@ Join our [GitHub Community Discussion](https://github.com/Blackplums/how2validat
 Stay updated with the latest versions and downloads:
 
 <div align="center">
-   <a href="https://jsr.io/@how2validate/how2validate" target="_blank">
-    <img src="https://github.com/jsr-io/jsr/blob/main/frontend/static/logo.png" height="56" alt="jsr.io"  />
-  </a>
   <a href="https://pypi.org/project/how2validate/" target="_blank">
    <img src="https://pypi.org/static/images/logo-small.8998e9d1.svg" height="50" alt="pypi.org"  />
   </a>
@@ -66,35 +63,7 @@ Stay updated with the latest versions and downloads:
 
 ## Installation
 
-Installing **How2Validate** is straightforward, whether you're working with JavaScript, Python, or Docker. Follow the instructions below to set up the package in your environment.
-
-### JavaScript
-
-#### Using NPM
-```bash
-npx jsr add @how2validate/how2validate
-```
-
-#### Using pnpm
-```bash
-pnpm dlx jsr add @how2validate/how2validate
-```
-
-#### Using Bun
-```bash
-bunx jsr add @how2validate/how2validate
-```
-
-#### Using Yarn
-```bash
-yarn dlx jsr add @how2validate/how2validate
-```
-
-#### Using Deno
-```bash
-deno add jsr:@how2validate/how2validate
-```
-
+Installing **How2Validate** is straightforward, whether you're working with Python, or Docker. Follow the instructions below to set up the package in your environment.
 
 ### Python
 
@@ -114,26 +83,7 @@ docker pull ghcr.io/blackplums/how2validate:main
 
 ## Usage
 
-**How2Validate** can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for JavaScript, Python, and CLI usage.
-
-### JavaScript
-
-#### Importing and Using the Validate Function
-
-```javascript
-import { validate } from '@how2validate/how2validate';
-
-# Validate secrets programmatically
-var validation_result = await validate(
-    provider="NPM",
-    service="NPM Access Token",
-    secret="<<SECRET_HERE>>",
-    response=False,
-    report="useremail@domain.com"
-)
-print(validation_result)
-```
-
+**How2Validate** can be used both programmatically and via the command-line interface (CLI). Below are detailed instructions for Python, and CLI usage.
 
 ### Python
 
@@ -175,7 +125,8 @@ options:
   -s, --service   Specify your target service. Validate your secrets with precision.
   -sec, --secret  Unveil your secrets to verify their authenticity.
   -r, --response  Monitor the status. View if your secret is Active or InActive.
-  -R, --report    Get detailed reports. Receive validated secrets via email [Alpha Feature].
+  -R, --report    Get detailed reports. Receive validated secrets via email.
+  -token          Secure your token in the vault, fetch it on demand, or shred it when done. (SubCommands: "delete", "list")
   -v, --version   Expose the version.
   --update        Hack the tool to the latest version.
 
@@ -207,32 +158,7 @@ how2validate -p NPM -s "NPM Access Token" -sec "<<SECRET_HERE>>" -r
 
 ## API Reference
 
-Detailed documentation of the **How2Validate API** for both JavaScript and Python.
-
-### JavaScript API
-
-`validate(provider, service, secret, response, report)`
-
-Validates a secret against the specified provider and service.
-
-- **Parameters:**
-  - `provider` (string): The name of the provider (e.g., "NPM", "GitHub").
-  - `service` (string): The specific service or token type.
-  - `secret` (string): The secret to validate.
-  - `response` (boolean): If `true`, returns the full response.
-  - `report` (string): Email Id to send a detailed report (Alpha Feature).
-
-- **Returns:**
-  - `validationResult` (object): An object containing the validation status and details.
-
-### Example
-
-```javascript
-import { validate } from '@how2validate/how2validate';
-
-const result = validate("NPM", "NPM Access Token", "<<SECRET>>", true/false, "useremail@domain.com");
-console.log(result);
-```
+Detailed documentation of the **How2Validate API** for both Python.
 
 ### Python API
 
