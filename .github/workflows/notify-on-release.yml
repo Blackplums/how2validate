@@ -4,7 +4,6 @@ name: 'Notify on New Release'
 # It will not run on drafts or pre-releases unless they are marked as 'latest'.
 on:
   release:
-    types: [published, released]
 
 # Sets the permissions for the GITHUB_TOKEN to allow creating discussions.
 permissions:
