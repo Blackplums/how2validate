@@ -7,9 +7,12 @@ on:
         description: "Release version"
         required: true
         type: string
-
+    
+    outputs:
+      version: ${{ steps.release.outputs.name }}
+      body: ${{ steps.release.outputs.body }}
 permissions:
-  contents: write   # needed to push tags or publish release
+  contents: write
 
 jobs:
   Release-Tag:
@@ -49,6 +52,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release via API
+        id: release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -58,3 +62,6 @@ jobs:
             -f body="${{ steps.notes.outputs.body }}" \
             -F draft=false \
             -F prerelease=false
+
+          echo "name=v${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "body=${{ steps.notes.outputs.body }}" >> "$GITHUB_OUTPUT"

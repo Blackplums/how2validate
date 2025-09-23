@@ -100,3 +100,12 @@ jobs:
     uses: ./.github/workflows/release-tag.yml
     with:
       version: ${{ needs.Bump-Version.outputs.new-version }}
+  
+  Create-Discussion:
+    needs: Release-Tag
+    uses: ./.github/workflows/notify-on-release.yml
+    with:
+      version: ${{ needs.Release-Tag.outputs.version }}
+      release_name: ${{ needs.Release-Tag.outputs.version }}
+      release_body: "Automated release for version ${{ needs.Release-Tag.outputs.version }}"
+      release_url: https://github.com/${{ github.repository }}/releases/tag/${{ needs.Release-Tag.outputs.version }}
