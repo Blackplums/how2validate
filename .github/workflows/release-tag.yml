@@ -9,15 +9,21 @@ on:
         type: string
     
     outputs:
-      version: ${{ steps.release.outputs.name }}
-      body: ${{ steps.release.outputs.body }}
+      version: 
+        description: 'The version of the release'
+        value: ${{ jobs.Release-Tag.outputs.version }}
+      body: 
+        description: 'The body of the release'
+        value: ${{ jobs.Release-Tag.outputs.body }}
 permissions:
   contents: write
 
 jobs:
   Release-Tag:
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      body: ${{ steps.release.outputs.body }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -63,5 +69,5 @@ jobs:
             -F draft=false \
             -F prerelease=false
 
-          echo "name=v${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          echo "version=v${{ inputs.version }}" >> "$GITHUB_OUTPUT"
           echo "body=${{ steps.notes.outputs.body }}" >> "$GITHUB_OUTPUT"
