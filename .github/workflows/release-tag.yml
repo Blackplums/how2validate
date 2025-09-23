@@ -8,6 +8,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write   # needed to push tags or publish release
+
 jobs:
   Release-Tag:
     runs-on: ubuntu-latest
@@ -28,9 +31,30 @@ jobs:
           git tag v${{ inputs.version }}
           git push origin v${{ inputs.version }}
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ inputs.version }}
-          name: v${{ inputs.version }}
-          body: "Automated release for version ${{ inputs.version }}"
+      - name: Generate release notes
+        id: notes
+        run: |
+          # Get last tag
+          last_tag=$(git describe --tags --abbrev=0 $(git rev-list --tags --skip=1 --max-count=1) 2>/dev/null || echo "")
+          echo "Last tag: $last_tag"
+
+          if [ -n "$last_tag" ]; then
+            body=$(git log $last_tag..HEAD --pretty=format:"- %s (%h)")
+          else
+            body=$(git log --pretty=format:"- %s (%h)")
+          fi
+
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$body" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release via API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api repos/${{ github.repository }}/releases \
+            -f tag_name="v${{ inputs.version }}" \
+            -f name="v${{ inputs.version }}" \
+            -f body="${{ steps.notes.outputs.body }}" \
+            -f draft=false \
+            -f prerelease=false
