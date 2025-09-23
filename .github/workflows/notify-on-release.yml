@@ -1,17 +1,22 @@
 name: 'Notify on New Release'
 
+# This workflow runs when a new release is 'published'.
+# It will not run on drafts or pre-releases unless they are marked as 'latest'.
 on:
   release:
+    types: [published]
 
 # Sets the permissions for the GITHUB_TOKEN to allow creating discussions.
 permissions:
   discussions: write
+  contents: read
 
 jobs:
   create_discussion_post:
     name: 'Create Discussion Post'
     runs-on: ubuntu-latest
     steps:
+      - run: echo "Release event fired for ${{ github.event.release.tag_name }}"
       - name: Install GitHub CLI manually
         run: |
           # Download the latest version of the gh CLI for Linux
